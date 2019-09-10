@@ -27,6 +27,17 @@ goog.require('Blockly.Colours');
 goog.require('Blockly.constants');
 goog.require('Blockly.ScratchBlocks.VerticalExtensions');
 
+// add by liuming
+Blockly.Blocks['mabot_test_set_mc_next_color'] = {
+  init: function() {
+    this.jsonInit({
+      "message0": 'mabot_test_set_mc_next_color',
+      "category": Blockly.Categories.looks,
+      "extensions": ["colours_looks", "shape_statement"]
+    });
+  }
+};
+
 
 Blockly.Blocks['looks_sayforsecs'] = {
   /**
