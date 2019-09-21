@@ -28,6 +28,46 @@ goog.require('Blockly.constants');
 goog.require('Blockly.ScratchBlocks.VerticalExtensions');
 
 
+// add by liuming example
+// Blockly.Blocks['mabot_read_sensor_touch_ball'] = {
+//   init: function() {
+//     this.jsonInit({
+//       "message0": 'touch ball index %1 pressed ?',
+//       "args0": [
+//         {
+//           "type": "input_value",
+//           "name": "mabot_sensor_index"
+//         },
+//         {
+//           "type": "input_value",
+//           "name": "mabot_sensor_param"
+//         }
+//       ],
+//       "category": Blockly.Categories.motion,
+//       "extensions": ["colours_sensing", "output_number"]
+//     });
+//   }
+// };
+
+Blockly.Blocks['mabot_read_sensor_touch_ball'] = {
+  init: function() {
+    this.jsonInit({
+      "message0": 'touch ball index %1 pressed ?',
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "mabot_sensor_index"
+        }
+      ],
+      "category": Blockly.Categories.motion,
+      "extensions": ["colours_sensing", "output_boolean"]
+    });
+  }
+};
+
+
+
+
 Blockly.Blocks['sensing_touchingobject'] = {
   /**
    * Block to Report if its touching a Object.
