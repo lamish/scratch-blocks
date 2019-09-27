@@ -582,3 +582,63 @@ Blockly.Blocks['motion_yscroll'] = {
     });
   }
 };
+
+Blockly.Blocks['motion_motorBall_rotate_on_power_for_seconds'] = {
+  init: function() {
+    this.jsonInit({
+      "message0":'motor ball %1,rotate %2 on %3 power,for %4 seconds',
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "mabot_motor_ball_index",
+        },
+        {
+          "type": "field_dropdown",
+          "name": "rotate_direction",
+          "options": [
+            ["clockwise", '_clockwise_'],
+            ["counterclockwise", '_counterclockwise_']
+          ]
+        },
+        {
+          "type": "input_value",
+          "name": "power",
+        },
+        {
+          "type": "input_value",
+          "name": "rotate_for_seconds",
+        },
+      ],
+      "category":Blockly.Categories.motion,
+      "extensions":["colours_motion","shape_statement"]
+    });
+  }
+};
+
+Blockly.Blocks['motion_motorBall_rotate_on_power'] = {
+  init: function(){
+    this.jsonInit({
+      "message0":'motor ball %1,rotate %2 on %3 power',
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "mabot_motor_ball_index",
+        },
+        {
+          "type": "field_dropdown",
+          "name": "rotate_direction",
+          "options": [
+            ["clockwise", '_clockwise_'],
+            ["counterclockwise", '_counterclockwise_']
+          ]
+        },
+        {
+          "type": "input_value",
+          "name": "power",
+        },
+      ],
+      "category":Blockly.Categories.motion,
+      "extensions":["colours_motion","shape_statement"]
+    });
+  }
+};

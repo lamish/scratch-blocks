@@ -27,6 +27,50 @@ goog.require('Blockly.Colours');
 goog.require('Blockly.constants');
 goog.require('Blockly.ScratchBlocks.VerticalExtensions');
 
+Blockly.Blocks['sound_mabot_set_all_lights_to_one_mode'] = {
+  init: function() {
+    this.jsonInit({
+      "message0": "set light color of %1 to %2, mode %3",
+      "args0": [
+        {
+          "type": "field_dropdown",
+          "name": "target_light",
+          "options": [
+            ['主控', '_main_control_'],
+            ['驱动球', '_motor_ball_'],
+            ['主控和驱动球','_both_'],
+          ]
+        },
+        {
+          "type": "field_dropdown",
+          "name": "light_color",
+          "options": [
+            ['红色', '1'],
+            ['绿色', '2'],
+            ['黄色', '3'],
+            ['蓝色', '4'],
+            ['紫色', '5'],
+            ['青色', '6'],
+            ['橙色', '7'],
+            ['白色', '8'],
+          ]
+        },
+        {
+          "type": "field_dropdown",
+          "name": "light_mode",
+          "options": [
+            ['熄灭', '1'],
+            ['常亮', '2'],
+            ['闪烁', '3'],
+            ['呼吸', '4'],
+          ]
+        }
+      ],
+      "extensions": ["colours_sounds","shape_statement"]
+    });
+  }
+};
+
 Blockly.Blocks['sound_sounds_menu'] = {
   /**
    * Sound effects drop-down menu.
