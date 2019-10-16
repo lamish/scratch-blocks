@@ -5,7 +5,7 @@
 goog.provide('Blockly.ScratchMsgs.allLocales');
 
 goog.require('Blockly.ScratchMsgs');
-
+goog.require('Blockly.Msg.zh_hans');
 
 Blockly.ScratchMsgs.locales["ab"] =
 {

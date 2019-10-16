@@ -66,8 +66,6 @@ Blockly.Blocks['mabot_read_sensor_touch_ball'] = {
 };
 
 
-
-
 Blockly.Blocks['sensing_touchingobject'] = {
   /**
    * Block to Report if its touching a Object.
@@ -574,6 +572,194 @@ Blockly.Blocks['sensing_userid'] = {
       "message0": Blockly.Msg.SENSING_USERID,
       "category": Blockly.Categories.sensing,
       "extensions": ["colours_sensing", "output_number"]
+    });
+  }
+};
+
+
+// 触控球（1）的状态为 [按下,没按下]
+Blockly.Blocks['bell_detect_touch_press_state'] = {
+  init: function () {
+    this.jsonInit({
+      "message0": "触碰球 %1 的状态为 %2",
+      "args0": [{
+        "type": "input_value",
+        "name": "MOTOR",
+        "defaultValue": "1",
+        "module": "touch",
+      },
+        {
+          "type": "field_dropdown",
+          "name": "TOUCHPRESS",
+          "options": [
+            ['按下', 'LOUDNESS'],
+            ['没按下', 'TIMER']
+          ]
+        }
+      ],
+      "category": Blockly.Categories.sensing,
+      "extensions": ["colours_sensing", "output_boolean"]
+    });
+  }
+};
+
+// 颜色传感器（1）[=] (color)
+Blockly.Blocks['bell_detect_color_equal_value'] = {
+  init: function () {
+    this.jsonInit({
+      "message0": "颜色传感器 %1 %2 %3",
+      "args0": [{
+        "type": "input_value",
+        "name": "MOTOR",
+        "defaultValue": "1",
+        "module": "color",
+      },
+        {
+          "type": "field_dropdown",
+          "name": "TOUCHPRESS",
+          "options": [
+            ['=', 'EQUALS'],
+            ['≠', 'UNEQUALS']
+          ]
+        },
+        {
+          "type": "field_dropdown",
+          "name": "COLOR",
+          "options": [
+            ['黑色', '1'],
+            ['蓝色', '2'],
+            ['绿色', '3'],
+            ['黄色', '4'],
+            ['红色', '5'],
+            ['白色', '6'],
+            ['紫色', '7'],
+            ['橘黄色', '8'],
+          ]
+        },
+      ],
+      "category": Blockly.Categories.sensing,
+      "extensions": ["colours_sensing", "output_boolean"]
+    });
+  }
+};
+
+// 红外传感器（1）[=] (cm)
+Blockly.Blocks['bell_detect_infrared_equal_cm'] = {
+  init: function () {
+    this.jsonInit({
+      "message0": "红外传感器 %1 %2 %3 cm",
+      "args0": [{
+        "type": "input_value",
+        "name": "MOTOR",
+        "defaultValue": "1",
+        //"module": "infrared",
+      },
+        {
+          "type": "field_dropdown",
+          "name": "TOUCHPRESS",
+          "options": [
+            ['≤', 'LESS'],
+            ['≥', 'GREATER']
+          ]
+        },
+        {
+          "type": "input_value",
+          "name": "DISTANCE",
+          "defaultValue": "1",
+        },
+      ],
+      "category": Blockly.Categories.sensing,
+      "extensions": ["colours_sensing", "output_boolean"]
+    });
+  }
+};
+
+// 陀螺仪的[俯仰角度,翻滚角度,旋转角度] [=>,=,<=][0,0,20]
+Blockly.Blocks['bell_detect_gyro_angle_value'] = {
+  init: function () {
+    this.jsonInit({
+      "message0": "陀螺仪的 %1 %2 %3",
+      "args0": [{
+        "type": "field_dropdown",
+        "name": "DIRECTION",
+        "options": [
+          ['俯仰角度', 'gyro_x'],
+          ['旋转角度', 'gyro_y'],
+          ['翻滚角度', 'gyro_z'],
+        ]
+      },
+        {
+          "type": "field_dropdown",
+          "name": "COMPUTE",
+          "options": [
+            ['≤', 'LESS'],
+            ['≥', 'GREATER']
+          ]
+        },
+        {
+          "type": "input_value",
+          "name": "ANGLE",
+          "defaultValue": "0",
+          "min": '0',
+          "max": '255'
+        },
+      ],
+      "category": Blockly.Categories.sensing,
+      "extensions": ["colours_sensing", "output_boolean"]
+    });
+  }
+};
+
+// 获取颜色传感器（1）的值
+Blockly.Blocks['bell_detect_get_color_value'] = {
+  shouldCreateMultiRow: true,
+  init: function () {
+    this.jsonInit({
+      "message0": "获取颜色传感器 %1 的值",
+      "args0": [{
+        "type": "input_value",
+        "name": "MOTOR",
+        "defaultValue": "1",
+        "module": "color",
+      }],
+      "category": Blockly.Categories.sensing,
+      "extensions": ["colours_sensing", "output_number"],
+    });
+  }
+};
+
+// 获取红外传感器（1）的值
+Blockly.Blocks['bell_detect_get_infrared_value'] = {
+  shouldCreateMultiRow: true,
+  init: function () {
+    this.jsonInit({
+      "message0": "获取红外传感器 %1 的值",
+      "args0": [{
+        "type": "input_value",
+        "name": "MOTOR",
+        "defaultValue": "1",
+        "module": "infrared",
+      }],
+      "category": Blockly.Categories.sensing,
+      "extensions": ["colours_sensing", "output_number"],
+    });
+  }
+};
+
+// 获取陀螺仪（1） 的值
+Blockly.Blocks['bell_detect_get_gyro_value'] = {
+  shouldCreateMultiRow: true,
+  init: function () {
+    this.jsonInit({
+      "message0": "获取陀螺仪 %1 的值",
+      "args0": [{
+        "type": "input_value",
+        "name": "MOTOR",
+        "defaultValue": "1",
+        "module": "motor",
+      }],
+      "category": Blockly.Categories.sensing,
+      "extensions": ["colours_sensing", "output_number"],
     });
   }
 };
