@@ -63,9 +63,7 @@ Blockly.Blocks['bell_light_play_buzzer_concurrence'] = {
                         ['4', '4'],
                         ['5', '5'],
                         ['6', '6'],
-                        ['7', '7'],
-                        ['8', '8'],
-                        ['9', '9'],
+                        ['7', '7']
                     ]
                 },
                 {
@@ -73,11 +71,17 @@ Blockly.Blocks['bell_light_play_buzzer_concurrence'] = {
                     "name": "SECONDS",
                 },
                 {
-                    "type": "field_image",
+                    // "type": "field_image",
+                    // "name": "BLOCK",
+                    // "src": Blockly.mainWorkspace.options.pathToMedia + "green-flag.svg",
+                    // "width": 24,
+                    // "height": 24,
+                    "type": "field_dropdown",
                     "name": "BLOCK",
-                    "src": Blockly.mainWorkspace.options.pathToMedia + "green-flag.svg",
-                    "width": 24,
-                    "height": 24,
+                    "options": [
+                        ['阻塞', '0'],
+                        ['非阻塞', '1'],
+                    ]
                 }
             ],
             "category": Blockly.Categories.sound,
@@ -111,9 +115,7 @@ Blockly.Blocks['bell_light_play_buzzer'] = {
                         ['4', '4'],
                         ['5', '5'],
                         ['6', '6'],
-                        ['7', '7'],
-                        ['8', '8'],
-                        ['9', '9'],
+                        ['7', '7']
                     ]
                 }
             ],
@@ -133,8 +135,8 @@ Blockly.Blocks['bell_light_closed'] = {
                     "type": "field_dropdown",
                     "name": "CENTER",
                     "options": [
-                        ['主控', '_main_control_'],
-                        ['驱动球', '_motor_ball_']
+                        ['主控', '1'],
+                        ['驱动球', '2']
                     ]
                 }
             ],
@@ -144,109 +146,116 @@ Blockly.Blocks['bell_light_closed'] = {
     }
 }
 
+// 目前不做rgb模式，代码保留
 // 设置 主控驱动球(1) 灯光颜色为 [R][G][B],  模式为[呼吸,渐变,变化], 持续（2）秒, 是否阻断
-Blockly.Blocks['bell_light_color_rgb_concurrence'] = {
-    shouldCreateMultiRow: true,
-    init: function () {
-        this.jsonInit({
-            "message0": "设置 %1 灯光颜色为 %2 , 模式为 %3 , 持续 %4 秒, %5",
-            "args0": [
-                {
-                    "type": "field_dropdown",
-                    "name": "CENTER",
-                    "options": [
-                        ['主控', '_main_control_'],
-                        ['驱动球', '_motor_ball_'],
-                        ['主控和驱动球', '_both_'],
-                    ]
-                },
-                {
-                    "type": "field_dropdown",
-                    "name": "COLOR",
-                    "options": [
-                        ['红色', '1'],
-                        ['绿色', '2'],
-                        ['黄色', '3'],
-                        ['蓝色', '4'],
-                        ['紫色', '5'],
-                        ['青色', '6'],
-                        ['橙色', '7'],
-                        ['白色', '8'],
-                    ]
-                },
-                {
-                    "type": "field_dropdown",
-                    "name": "MODE",
-                    "options": [
-                        ['熄灭', '1'],
-                        ['常亮', '2'],
-                        ['闪烁', '3'],
-                        ['呼吸', '4'],
-                    ]
-                },
-                {
-                    "type": "input_value",
-                    "name": "SECONDS",
-                },
-                {
-                    "type": "field_image",
-                    "name": "BLOCK",
-                    "src": Blockly.mainWorkspace.options.pathToMedia + "green-flag.svg",
-                    "width": 24,
-                    "height": 24,
-                }
-            ],
-            "category": Blockly.Categories.sound,
-            "extensions": ["colours_sounds", "shape_statement"],
-        });
-    }
-}
+// Blockly.Blocks['bell_light_color_rgb_concurrence'] = {
+//     shouldCreateMultiRow: true,
+//     init: function () {
+//         this.jsonInit({
+//             "message0": "设置 %1 灯光颜色为 %2 , 模式为 %3 , 持续 %4 秒, %5",
+//             "args0": [
+//                 {
+//                     "type": "field_dropdown",
+//                     "name": "CENTER",
+//                     "options": [
+//                         ['主控', "1"],
+//                         ['驱动球', '2'],
+//                         ['主控和驱动球', '3'],
+//                     ]
+//                 },
+//                 {
+//                     "type": "field_dropdown",
+//                     "name": "COLOR",
+//                     "options": [
+//                         ['红色', '1'],
+//                         ['绿色', '2'],
+//                         ['黄色', '3'],
+//                         ['蓝色', '4'],
+//                         ['紫色', '5'],
+//                         ['青色', '6'],
+//                         ['橙色', '7'],
+//                         ['白色', '8'],
+//                     ]
+//                 },
+//                 {
+//                     "type": "field_dropdown",
+//                     "name": "MODE",
+//                     "options": [
+//                         ['熄灭', '1'],
+//                         ['常亮', '2'],
+//                         ['闪烁', '3'],
+//                         ['呼吸', '4'],
+//                     ]
+//                 },
+//                 {
+//                     "type": "input_value",
+//                     "name": "SECONDS",
+//                 },
+//                 {
+//                     // "type": "field_image",
+//                     // "name": "BLOCK",
+//                     // "src": Blockly.mainWorkspace.options.pathToMedia + "green-flag.svg",
+//                     // "width": 24,
+//                     // "height": 24,
+//                     "type": "field_dropdown",
+//                     "name": "BLOCK",
+//                     "options": [
+//                         ['阻塞', "0"],
+//                         ['非阻塞', '1'],
+//                     ]
+//                 }
+//             ],
+//             "category": Blockly.Categories.sound,
+//             "extensions": ["colours_sounds", "shape_statement"],
+//         });
+//     }
+// }
 
 // 设置 主控驱动球(1) 灯光颜色为 [R][G][B],  模式为[呼吸,渐变,变化]
-Blockly.Blocks['bell_light_color_rgb'] = {
-    init: function () {
-        this.jsonInit({
-            "message0": "设置 %1 灯光颜色为 %2, 模式为 %3",
-            "args0": [
-                {
-                    "type": "field_dropdown",
-                    "name": "CENTER",
-                    "options": [
-                        ['主控', '_main_control_'],
-                        ['驱动球', '_motor_ball_'],
-                        ['主控和驱动球', '_both_'],
-                    ]
-                },
-                {
-                    "type": "field_dropdown",
-                    "name": "COLOR",
-                    "options": [
-                        ['红色', '1'],
-                        ['绿色', '2'],
-                        ['黄色', '3'],
-                        ['蓝色', '4'],
-                        ['紫色', '5'],
-                        ['青色', '6'],
-                        ['橙色', '7'],
-                        ['白色', '8'],
-                    ]
-                },
-                {
-                    "type": "field_dropdown",
-                    "name": "MODE",
-                    "options": [
-                        ['熄灭', '1'],
-                        ['常亮', '2'],
-                        ['闪烁', '3'],
-                        ['呼吸', '4'],
-                    ]
-                }
-            ],
-            "category": Blockly.Categories.sound,
-            "extensions": ["colours_sounds", "shape_statement"],
-        });
-    }
-}
+// Blockly.Blocks['bell_light_color_rgb'] = {
+//     init: function () {
+//         this.jsonInit({
+//             "message0": "设置 %1 灯光颜色为 %2, 模式为 %3",
+//             "args0": [
+//                 {
+//                     "type": "field_dropdown",
+//                     "name": "CENTER",
+//                     "options": [
+//                         ['主控', '1'],
+//                         ['驱动球', '2'],
+//                         ['主控和驱动球', '3'],
+//                     ]
+//                 },
+//                 {
+//                     "type": "field_dropdown",
+//                     "name": "COLOR",
+//                     "options": [
+//                         ['红色', '1'],
+//                         ['绿色', '2'],
+//                         ['黄色', '3'],
+//                         ['蓝色', '4'],
+//                         ['紫色', '5'],
+//                         ['青色', '6'],
+//                         ['橙色', '7'],
+//                         ['白色', '8'],
+//                     ]
+//                 },
+//                 {
+//                     "type": "field_dropdown",
+//                     "name": "MODE",
+//                     "options": [
+//                         ['熄灭', '1'],
+//                         ['常亮', '2'],
+//                         ['闪烁', '3'],
+//                         ['呼吸', '4'],
+//                     ]
+//                 }
+//             ],
+//             "category": Blockly.Categories.sound,
+//             "extensions": ["colours_sounds", "shape_statement"],
+//         });
+//     }
+// }
 
 // 设置 主控 or 驱动球(1)灯光颜色为 [颜色],  模式为[呼吸,渐变,变化], 持续（2）秒, 是否阻断
 Blockly.Blocks['bell_light_color_mode_concurrence'] = {
@@ -258,9 +267,9 @@ Blockly.Blocks['bell_light_color_mode_concurrence'] = {
                     "type": "field_dropdown",
                     "name": "CENTER",
                     "options": [
-                        ['主控', '_main_control_'],
-                        ['驱动球', '_motor_ball_'],
-                        ['主控和驱动球', '_both_'],
+                        ['主控', '1'],
+                        ['驱动球', '2'],
+                        ['主控和驱动球', '3'],
                     ]
                 },
                 {
@@ -292,11 +301,17 @@ Blockly.Blocks['bell_light_color_mode_concurrence'] = {
                     "name": "SECONDS",
                 },
                 {
-                    "type": "field_image",
+                    // "type": "field_image",
+                    // "name": "BLOCK",
+                    // "src": Blockly.mainWorkspace.options.pathToMedia + "green-flag.svg",
+                    // "width": 24,
+                    // "height": 24,
+                    "type": "field_dropdown",
                     "name": "BLOCK",
-                    "src": Blockly.mainWorkspace.options.pathToMedia + "green-flag.svg",
-                    "width": 24,
-                    "height": 24,
+                    "options": [
+                        ['阻塞', '0'],
+                        ['非阻塞', '1'],
+                    ]
                 }
             ],
             "category": Blockly.Categories.sound,
@@ -309,20 +324,20 @@ Blockly.Blocks['bell_light_color_mode_concurrence'] = {
 Blockly.Blocks['sound_mabot_set_all_lights_to_one_mode'] = {
     init: function () {
         this.jsonInit({
-            "message0": "set light color of %1 to %2, mode %3",
+            "message0": "设置 %1 灯光颜色为 %2 , 模式为 %3",
             "args0": [
                 {
                     "type": "field_dropdown",
-                    "name": "target_light",
+                    "name": "CENTER",
                     "options": [
-                        ['主控', '_main_control_'],
-                        ['驱动球', '_motor_ball_'],
-                        ['主控和驱动球', '_both_'],
+                        ['主控', '1'],
+                        ['驱动球', '2'],
+                        ['主控和驱动球', '3'],
                     ]
                 },
                 {
                     "type": "field_dropdown",
-                    "name": "light_color",
+                    "name": "COLOR",
                     "options": [
                         ['红色', '1'],
                         ['绿色', '2'],
@@ -336,7 +351,7 @@ Blockly.Blocks['sound_mabot_set_all_lights_to_one_mode'] = {
                 },
                 {
                     "type": "field_dropdown",
-                    "name": "light_mode",
+                    "name": "MODE",
                     "options": [
                         ['熄灭', '1'],
                         ['常亮', '2'],

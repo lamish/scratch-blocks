@@ -31,19 +31,19 @@ goog.require('Blockly.ScratchBlocks.VerticalExtensions');
 Blockly.Blocks['bell_event_color_type'] = {
     init: function(){
         this.jsonInit({
-            "message0": "当颜色传感器 %1 %2 %3",
+            "message0": "当颜色传感器 %1 = %2",
             "args0": [
                 {
                     "type": "input_value",
                     "name": "COLOR_NUM"
                 },
-                {
-                    "type": "field_dropdown",
-                    "name": "DISTANCE",
-                    "options": [
-                        ['=', 'TIMER'],
-                    ]
-                },
+                // {
+                //     "type": "field_dropdown",
+                //     "name": "DISTANCE",
+                //     "options": [
+                //         ['=', 'TIMER'],
+                //     ]
+                // },
                 {
                     "type": "field_dropdown",
                     "name": "COLOR",
@@ -82,7 +82,7 @@ Blockly.Blocks['bell_event_gyro_cm'] = {
                 },
                 {
                     "type": "field_dropdown",
-                    "name": "TOUCHPRESS",
+                    "name": "JUDGE",
                     "options": [
                         ['=>', '1'],
                         ['=', '2'],
