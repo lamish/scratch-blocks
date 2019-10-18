@@ -33,7 +33,7 @@ Blockly.Blocks['motion_movesteps'] = {
    * Block to move steps.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.MOTION_MOVESTEPS,
       "args0": [
@@ -53,7 +53,7 @@ Blockly.Blocks['motion_turnright'] = {
    * Block to turn right.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.MOTION_TURNRIGHT,
       "args0": [
@@ -79,7 +79,7 @@ Blockly.Blocks['motion_turnleft'] = {
    * Block to turn left.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.MOTION_TURNLEFT,
       "args0": [
@@ -105,7 +105,7 @@ Blockly.Blocks['motion_pointindirection'] = {
    * Block to point in direction.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.MOTION_POINTINDIRECTION,
       "args0": [
@@ -125,7 +125,7 @@ Blockly.Blocks['motion_pointtowards_menu'] = {
    * Point towards drop-down menu.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": "%1",
       "args0": [
@@ -151,7 +151,7 @@ Blockly.Blocks['motion_pointtowards'] = {
    * Block to point in direction.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.MOTION_POINTTOWARDS,
       "args0": [
@@ -171,7 +171,7 @@ Blockly.Blocks['motion_goto_menu'] = {
    * Go to drop-down menu.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": "%1",
       "args0": [
@@ -197,7 +197,7 @@ Blockly.Blocks['motion_gotoxy'] = {
    * Block to go to X, Y.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.MOTION_GOTOXY,
       "args0": [
@@ -221,7 +221,7 @@ Blockly.Blocks['motion_goto'] = {
    * Block to go to a menu item.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.MOTION_GOTO,
       "args0": [
@@ -241,7 +241,7 @@ Blockly.Blocks['motion_glidesecstoxy'] = {
    * Block to glide for a specified time.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.MOTION_GLIDESECSTOXY,
       "args0": [
@@ -269,7 +269,7 @@ Blockly.Blocks['motion_glideto_menu'] = {
    * Glide to drop-down menu
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": "%1",
       "args0": [
@@ -295,7 +295,7 @@ Blockly.Blocks['motion_glideto'] = {
    * Block to glide to a menu item
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.MOTION_GLIDETO,
       "args0": [
@@ -319,7 +319,7 @@ Blockly.Blocks['motion_changexby'] = {
    * Block to change X.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.MOTION_CHANGEXBY,
       "args0": [
@@ -339,7 +339,7 @@ Blockly.Blocks['motion_setx'] = {
    * Block to set X.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.MOTION_SETX,
       "args0": [
@@ -359,7 +359,7 @@ Blockly.Blocks['motion_changeyby'] = {
    * Block to change Y.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.MOTION_CHANGEYBY,
       "args0": [
@@ -379,7 +379,7 @@ Blockly.Blocks['motion_sety'] = {
    * Block to set Y.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.MOTION_SETY,
       "args0": [
@@ -399,7 +399,7 @@ Blockly.Blocks['motion_ifonedgebounce'] = {
    * Block to bounce on edge.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.MOTION_IFONEDGEBOUNCE,
       "category": Blockly.Categories.motion,
@@ -413,7 +413,7 @@ Blockly.Blocks['motion_setrotationstyle'] = {
    * Block to set rotation style.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.MOTION_SETROTATIONSTYLE,
       "args0": [
@@ -438,7 +438,7 @@ Blockly.Blocks['motion_xposition'] = {
    * Block to report X.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.MOTION_XPOSITION,
       "category": Blockly.Categories.motion,
@@ -453,7 +453,7 @@ Blockly.Blocks['motion_yposition'] = {
    * Block to report Y.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.MOTION_YPOSITION,
       "category": Blockly.Categories.motion,
@@ -468,7 +468,7 @@ Blockly.Blocks['motion_direction'] = {
    * Block to report direction.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.MOTION_DIRECTION,
       "category": Blockly.Categories.motion,
@@ -485,7 +485,7 @@ Blockly.Blocks['motion_scroll_right'] = {
    * projects.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.MOTION_SCROLLRIGHT,
       "args0": [
@@ -507,7 +507,7 @@ Blockly.Blocks['motion_scroll_up'] = {
    * projects.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.MOTION_SCROLLUP,
       "args0": [
@@ -529,7 +529,7 @@ Blockly.Blocks['motion_align_scene'] = {
    * with Scratch 2.0 projects.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.MOTION_ALIGNSCENE,
       "args0": [
@@ -558,7 +558,7 @@ Blockly.Blocks['motion_xscroll'] = {
    * compatibility with Scratch 2.0 projects.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.MOTION_XSCROLL,
       "category": Blockly.Categories.motion,
@@ -574,7 +574,7 @@ Blockly.Blocks['motion_yscroll'] = {
    * compatibility with Scratch 2.0 projects.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.MOTION_YSCROLL,
       "category": Blockly.Categories.motion,
@@ -583,10 +583,14 @@ Blockly.Blocks['motion_yscroll'] = {
   }
 };
 
+
+
 Blockly.Blocks['motion_motorBall_rotate_on_power_for_seconds'] = {
-  init: function() {
+  init: function () {
+
     this.jsonInit({
-      "message0":'motor ball %1,rotate %2 on %3 power,for %4 seconds',
+      //"message0":'motor ball %1,rotate %2 on %3 power,for %4 seconds',
+      "message0": '驱动球 %1,%2 旋转，功率 %3,持续 %4 秒',
       "args0": [
         {
           "type": "input_value",
@@ -596,8 +600,10 @@ Blockly.Blocks['motion_motorBall_rotate_on_power_for_seconds'] = {
           "type": "field_dropdown",
           "name": "rotate_direction",
           "options": [
-            ["clockwise", '_clockwise_'],
-            ["counterclockwise", '_counterclockwise_']
+            // ["clockwise", '_clockwise_'],
+            // ["counterclockwise", '_counterclockwise_']
+            ["顺时针", '_clockwise_'],
+            ["逆时针", '_counterclockwise_']
           ]
         },
         {
@@ -609,16 +615,17 @@ Blockly.Blocks['motion_motorBall_rotate_on_power_for_seconds'] = {
           "name": "rotate_for_seconds",
         },
       ],
-      "category":Blockly.Categories.motion,
-      "extensions":["colours_motion","shape_statement"]
+      "category": Blockly.Categories.motion,
+      "extensions": ["colours_motion", "shape_statement"]
     });
   }
 };
 
 Blockly.Blocks['motion_motorBall_rotate_on_power'] = {
-  init: function(){
+  init: function () {
     this.jsonInit({
-      "message0":'motor ball %1,rotate %2 on %3 power',
+      //"message0":'motor ball %1,rotate %2 on %3 power',
+      "message0": '驱动球 %1，%2 旋转，功率 %3',
       "args0": [
         {
           "type": "input_value",
@@ -628,8 +635,8 @@ Blockly.Blocks['motion_motorBall_rotate_on_power'] = {
           "type": "field_dropdown",
           "name": "rotate_direction",
           "options": [
-            ["clockwise", '_clockwise_'],
-            ["counterclockwise", '_counterclockwise_']
+            ["顺时针", '_clockwise_'],
+            ["逆时针", '_counterclockwise_']
           ]
         },
         {
@@ -637,8 +644,218 @@ Blockly.Blocks['motion_motorBall_rotate_on_power'] = {
           "name": "power",
         },
       ],
-      "category":Blockly.Categories.motion,
-      "extensions":["colours_motion","shape_statement"]
+      "category": Blockly.Categories.motion,
+      "extensions": ["colours_motion", "shape_statement"]
     });
   }
 };
+
+Blockly.Blocks['motion_motorBall_rotate_on_speed_for_seconds'] = {
+  init: function () {
+    this.jsonInit({
+      //"message0":'motor ball %1,rotate %2 on %3 power',
+      "message0": '驱动球 %1，%2 旋转，速度 %3 转/分，持续 %4 秒',
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "mabot_motor_ball_index",
+        },
+        {
+          "type": "field_dropdown",
+          "name": "rotate_direction",
+          "options": [
+            ["顺时针", '_clockwise_'],
+            ["逆时针", '_counterclockwise_']
+          ]
+        },
+        {
+          "type": "input_value",
+          "name": "speed",
+        },
+        {
+          "type": "input_value",
+          "name": "rotate_for_seconds",
+        }
+      ],
+      "category": Blockly.Categories.motion,
+      "extensions": ["colours_motion", "shape_statement"]
+    });
+  }
+};
+
+Blockly.Blocks['motion_motorBall_rotate_on_speed'] = {
+  init: function () {
+    this.jsonInit({
+      //"message0":'motor ball %1,rotate %2 on %3 power',
+      "message0": '驱动球 %1，%2 旋转，速度 %3 转/分',
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "mabot_motor_ball_index",
+        },
+        {
+          "type": "field_dropdown",
+          "name": "rotate_direction",
+          "options": [
+            ["顺时针", '_clockwise_'],
+            ["逆时针", '_counterclockwise_']
+          ]
+        },
+        {
+          "type": "input_value",
+          "name": "speed",
+        }
+      ],
+      "category": Blockly.Categories.motion,
+      "extensions": ["colours_motion", "shape_statement"]
+    });
+  }
+};
+
+Blockly.Blocks['motion_motorBall_stop'] = {
+  init: function () {
+    this.jsonInit({
+      "message0": "驱动球 %1 %2 停止旋转",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "mabot_motor_ball_index",
+        },
+        {
+          "type": "field_dropdown",
+          "name": "immediatelyOrNot",
+          "options": [
+            ["缓慢", "slowly"],
+            ["立即", "immediately"],
+          ]
+        }
+      ],
+      "category": Blockly.Categories.motion,
+      "extensions": ["colours_motion", "shape_statement"]
+    });
+  }
+};
+
+Blockly.Blocks['motion_motorBall_reset'] = {
+  init: function () {
+    this.jsonInit({
+      "message0": "重置驱动球 %1 的度数",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "mabot_motor_ball_index",
+        },
+      ],
+      "category": Blockly.Categories.motion,
+      "extensions": ["colours_motion", "shape_statement"]
+    });
+  }
+};
+
+
+Blockly.Blocks['motion_motorBall_get_angle'] = {
+  init: function () {
+    this.jsonInit({
+      "message0": "获取驱动球 %1 的旋转度数",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "mabot_motor_ball_index",
+        },
+      ],
+      "category": Blockly.Categories.motion,
+      "extensions": ["colours_motion", "output_number"]
+    });
+  }
+};
+
+Blockly.Blocks['motion_motorBall_get_speed'] = {
+  init: function () {
+    this.jsonInit({
+      "message0": "获取驱动球 %1 的旋转速度",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "mabot_motor_ball_index",
+        },
+      ],
+      "category": Blockly.Categories.motion,
+      "extensions": ["colours_motion", "output_number"]
+    });
+  }
+};
+
+
+Blockly.Blocks['motion_horizontalJoint_set_angle'] = {
+  init: function () {
+    this.jsonInit({
+      "message0": "旋转关节球 %1 摆到 %2 °",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "mabot_horizontalJoint_index",
+        },
+        {
+          "type": "input_value",
+          "name": "mabot_horizontalJoint_angle",
+        }
+      ],
+      "category": Blockly.Categories.motion,
+      "extensions": ["colours_motion", "shape_statement"]
+    });
+  }
+};
+
+Blockly.Blocks['motion_swingJoint_set_angle'] = {
+  init: function () {
+    this.jsonInit({
+      "message0": "摇摆关节球 %1 摆到 %2 °",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "mabot_swingJoint_index",
+        },
+        {
+          "type": "input_value",
+          "name": "mabot_swingJoint_angle",
+        }
+      ],
+      "category": Blockly.Categories.motion,
+      "extensions": ["colours_motion", "shape_statement"]
+    });
+  }
+};
+
+
+Blockly.Blocks['motion_horizontalJoint_get_angle'] = {
+  init: function () {
+    this.jsonInit({
+      "message0": "获取旋转关节球 %1 的角度",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "mabot_horizontalJoint_index",
+        },
+      ],
+      "category": Blockly.Categories.motion,
+      "extensions": ["colours_motion", "output_number"]
+    });
+  }
+};
+
+Blockly.Blocks['motion_swingJoint_get_angle'] = {
+  init: function () {
+    this.jsonInit({
+      "message0": "获取摇摆关节球 %1 的角度",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "mabot_swingJoint_index",
+        },
+      ],
+      "category": Blockly.Categories.motion,
+      "extensions": ["colours_motion", "output_number"]
+    });
+  }
+};
+

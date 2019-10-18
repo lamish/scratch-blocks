@@ -50,7 +50,7 @@ goog.require('Blockly.ScratchBlocks.VerticalExtensions');
 // };
 
 Blockly.Blocks['mabot_read_sensor_touch_ball'] = {
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": 'touch ball index %1 pressed ?',
       "args0": [
@@ -71,7 +71,7 @@ Blockly.Blocks['sensing_touchingobject'] = {
    * Block to Report if its touching a Object.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.SENSING_TOUCHINGOBJECT,
       "args0": [
@@ -91,7 +91,7 @@ Blockly.Blocks['sensing_touchingobjectmenu'] = {
    * "Touching [Object]" Block Menu.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": "%1",
       "args0": [
@@ -114,7 +114,7 @@ Blockly.Blocks['sensing_touchingcolor'] = {
    * Block to Report if its touching a certain Color.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.SENSING_TOUCHINGCOLOR,
       "args0": [
@@ -134,7 +134,7 @@ Blockly.Blocks['sensing_coloristouchingcolor'] = {
    * Block to Report if a color is touching a certain Color.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.SENSING_COLORISTOUCHINGCOLOR,
       "args0": [
@@ -158,7 +158,7 @@ Blockly.Blocks['sensing_distanceto'] = {
    * Block to Report distance to another Object.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.SENSING_DISTANCETO,
       "args0": [
@@ -178,7 +178,7 @@ Blockly.Blocks['sensing_distancetomenu'] = {
    * "Distance to [Object]" Block Menu.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": "%1",
       "args0": [
@@ -200,7 +200,7 @@ Blockly.Blocks['sensing_askandwait'] = {
    * Block to ask a question and wait
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.SENSING_ASKANDWAIT,
       "args0": [
@@ -220,7 +220,7 @@ Blockly.Blocks['sensing_answer'] = {
    * Block to report answer
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.SENSING_ANSWER,
       "category": Blockly.Categories.sensing,
@@ -235,7 +235,7 @@ Blockly.Blocks['sensing_keypressed'] = {
    * Block to Report if a key is pressed.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.SENSING_KEYPRESSED,
       "args0": [
@@ -255,7 +255,7 @@ Blockly.Blocks['sensing_keyoptions'] = {
    * Options for Keys
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": "%1",
       "args0": [
@@ -318,7 +318,7 @@ Blockly.Blocks['sensing_mousedown'] = {
    * Block to Report if the mouse is down.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.SENSING_MOUSEDOWN,
       "category": Blockly.Categories.sensing,
@@ -332,7 +332,7 @@ Blockly.Blocks['sensing_mousex'] = {
    * Block to report mouse's x position
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.SENSING_MOUSEX,
       "category": Blockly.Categories.sensing,
@@ -346,7 +346,7 @@ Blockly.Blocks['sensing_mousey'] = {
    * Block to report mouse's y position
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.SENSING_MOUSEY,
       "category": Blockly.Categories.sensing,
@@ -360,7 +360,7 @@ Blockly.Blocks['sensing_setdragmode'] = {
    * Block to set drag mode.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.SENSING_SETDRAGMODE,
       "args0": [
@@ -384,7 +384,7 @@ Blockly.Blocks['sensing_loudness'] = {
    * Block to report loudness
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.SENSING_LOUDNESS,
       "category": Blockly.Categories.sensing,
@@ -401,7 +401,7 @@ Blockly.Blocks['sensing_loud'] = {
    * 1.4 projects.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.SENSING_LOUD,
       "category": Blockly.Categories.sensing,
@@ -415,7 +415,7 @@ Blockly.Blocks['sensing_timer'] = {
    * Block to report timer
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.SENSING_TIMER,
       "category": Blockly.Categories.sensing,
@@ -430,7 +430,7 @@ Blockly.Blocks['sensing_resettimer'] = {
    * Block to reset timer
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.SENSING_RESETTIMER,
       "category": Blockly.Categories.sensing,
@@ -444,7 +444,7 @@ Blockly.Blocks['sensing_of_object_menu'] = {
    * "* of _" object menu.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": "%1",
       "args0": [
@@ -469,7 +469,7 @@ Blockly.Blocks['sensing_of'] = {
    * Block to report properties of sprites.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.SENSING_OF,
       "args0": [
@@ -506,7 +506,7 @@ Blockly.Blocks['sensing_current'] = {
    * Block to Report the current option.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.SENSING_CURRENT,
       "args0": [
@@ -536,7 +536,7 @@ Blockly.Blocks['sensing_dayssince2000'] = {
    * Block to report days since 2000
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.SENSING_DAYSSINCE2000,
       "category": Blockly.Categories.sensing,
@@ -550,7 +550,7 @@ Blockly.Blocks['sensing_username'] = {
    * Block to report user's username
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.SENSING_USERNAME,
       "category": Blockly.Categories.sensing,
@@ -567,7 +567,7 @@ Blockly.Blocks['sensing_userid'] = {
    * projects.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.SENSING_USERID,
       "category": Blockly.Categories.sensing,
@@ -576,32 +576,6 @@ Blockly.Blocks['sensing_userid'] = {
   }
 };
 
-
-// 触控球（1）的状态为 [按下,没按下]
-Blockly.Blocks['bell_detect_touch_press_state'] = {
-  init: function () {
-    this.jsonInit({
-      "message0": "触碰球 %1 的状态为 %2",
-      "args0": [{
-        "type": "input_value",
-        "name": "MOTOR",
-        "defaultValue": "1",
-        "module": "touch",
-      },
-        {
-          "type": "field_dropdown",
-          "name": "TOUCHPRESS",
-          "options": [
-            ['按下', 'LOUDNESS'],
-            ['没按下', 'TIMER']
-          ]
-        }
-      ],
-      "category": Blockly.Categories.sensing,
-      "extensions": ["colours_sensing", "output_boolean"]
-    });
-  }
-};
 
 // 颜色传感器（1）[=] (color)
 Blockly.Blocks['bell_detect_color_equal_value'] = {
@@ -674,6 +648,32 @@ Blockly.Blocks['bell_detect_infrared_equal_cm'] = {
   }
 };
 
+// 触控球（1）的状态为 [按下,没按下]
+Blockly.Blocks['bell_detect_touch_press_state'] = {
+  init: function () {
+    this.jsonInit({
+      "message0": "触碰球 %1 的状态为 %2",
+      "args0": [{
+        "type": "input_value",
+        "name": "MOTOR",
+        "defaultValue": "1",
+        "module": "touch",
+      },
+        {
+          "type": "field_dropdown",
+          "name": "TOUCHPRESS",
+          "options": [
+            ['按下', 'LOUDNESS'],
+            ['没按下', 'TIMER']
+          ]
+        }
+      ],
+      "category": Blockly.Categories.sensing,
+      "extensions": ["colours_sensing", "output_boolean"]
+    });
+  }
+};
+
 // 陀螺仪的[俯仰角度,翻滚角度,旋转角度] [=>,=,<=][0,0,20]
 Blockly.Blocks['bell_detect_gyro_angle_value'] = {
   init: function () {
@@ -709,6 +709,7 @@ Blockly.Blocks['bell_detect_gyro_angle_value'] = {
     });
   }
 };
+
 
 // 获取颜色传感器（1）的值
 Blockly.Blocks['bell_detect_get_color_value'] = {
@@ -751,15 +752,58 @@ Blockly.Blocks['bell_detect_get_gyro_value'] = {
   shouldCreateMultiRow: true,
   init: function () {
     this.jsonInit({
-      "message0": "获取陀螺仪 %1 的值",
+      "message0": "获取陀螺仪 %1",
       "args0": [{
-        "type": "input_value",
-        "name": "MOTOR",
-        "defaultValue": "1",
-        "module": "motor",
+        "type": "field_dropdown",
+        "name": "DIRECTION",
+        "options": [
+          ['俯仰角度', 'gyro_x'],
+          ['旋转角度', 'gyro_y'],
+          ['翻滚角度', 'gyro_z'],
+        ]
       }],
       "category": Blockly.Categories.sensing,
       "extensions": ["colours_sensing", "output_number"],
+    });
+  }
+};
+
+
+// 重置陀螺仪角度
+Blockly.Blocks['bell_detect_reset_gyro'] = {
+  init: function () {
+    this.jsonInit({
+      "message0": "重置陀螺仪角度",
+      "args0": [],
+      "category": Blockly.Categories.sensing,
+      "extensions": ["colours_sensing", "shape_statement"],
+    });
+  }
+};
+
+// 设置颜色传感器的检测模式
+Blockly.Blocks['bell_detect_set_color_mode'] = {
+  shouldCreateMultiRow: true,
+  init: function () {
+    this.jsonInit({
+      "message0": "颜色传感器 %1 模式为 %2",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "indexOfColorSensor"
+        },
+        {
+          "type": "field_dropdown",
+          "name": "colorMode",
+          "options": [
+            ["环境光", '1'],
+            ["反射光", '2'],
+            ["颜色识别", '3'],
+          ]
+        }
+      ],
+      "category": Blockly.Categories.sensing,
+      "extensions": ["colours_sensing", "shape_statement"],
     });
   }
 };
