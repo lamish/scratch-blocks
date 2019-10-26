@@ -49,6 +49,26 @@ goog.require('Blockly.ScratchBlocks.VerticalExtensions');
 //   }
 // };
 
+window.BellMsg = window.BellMsg || {};
+// 判断是否为移动端
+if(/Android|iPhone|iPad/i.test(navigator.userAgent)) {
+  BellMsg.SENSING_TOUCHINGOBJECT_POINTER = "触摸位置";
+  BellMsg.SENSING_DISTANCETO_POINTER = "触摸位置";
+  BellMsg.SENSING_MOUSEDOWN = "手指按下";
+  BellMsg.SENSING_MOUSEX = "触摸位置的x坐标";
+  BellMsg.SENSING_MOUSEY = "触摸位置的y坐标";
+}else{
+  BellMsg.SENSING_TOUCHINGOBJECT_POINTER = "鼠标指针";
+  BellMsg.SENSING_DISTANCETO_POINTER = "鼠标指针";
+  BellMsg.SENSING_MOUSEDOWN = "鼠标按下";
+  BellMsg.SENSING_MOUSEX = "鼠标位置的x坐标";
+  BellMsg.SENSING_MOUSEY = "鼠标位置的y坐标";
+}
+
+BellMsg.SENSING_TOUCHINGOBJECT_EDGE = "边缘";
+BellMsg.SENSING_DISTANCETO = "到 %1 的距离";
+BellMsg.SENSING_TOUCHINGOBJECT = "碰到 %1";
+
 Blockly.Blocks['mabot_read_sensor_touch_ball'] = {
   init: function () {
     this.jsonInit({
@@ -73,7 +93,7 @@ Blockly.Blocks['sensing_touchingobject'] = {
    */
   init: function () {
     this.jsonInit({
-      "message0": Blockly.Msg.SENSING_TOUCHINGOBJECT,
+      "message0": BellMsg.SENSING_TOUCHINGOBJECT,
       "args0": [
         {
           "type": "input_value",
@@ -99,8 +119,10 @@ Blockly.Blocks['sensing_touchingobjectmenu'] = {
           "type": "field_dropdown",
           "name": "TOUCHINGOBJECTMENU",
           "options": [
-            [Blockly.Msg.SENSING_TOUCHINGOBJECT_POINTER, '_mouse_'],
-            [Blockly.Msg.SENSING_TOUCHINGOBJECT_EDGE, '_edge_']
+            // [Blockly.Msg.SENSING_TOUCHINGOBJECT_POINTER, '_mouse_'],
+            // [Blockly.Msg.SENSING_TOUCHINGOBJECT_EDGE, '_edge_']
+            [BellMsg.SENSING_TOUCHINGOBJECT_POINTER, '_mouse_'],
+            [BellMsg.SENSING_TOUCHINGOBJECT_EDGE, '_edge_']
           ]
         }
       ],
@@ -160,7 +182,7 @@ Blockly.Blocks['sensing_distanceto'] = {
    */
   init: function () {
     this.jsonInit({
-      "message0": Blockly.Msg.SENSING_DISTANCETO,
+      "message0": BellMsg.SENSING_DISTANCETO,
       "args0": [
         {
           "type": "input_value",
@@ -186,7 +208,8 @@ Blockly.Blocks['sensing_distancetomenu'] = {
           "type": "field_dropdown",
           "name": "DISTANCETOMENU",
           "options": [
-            [Blockly.Msg.SENSING_DISTANCETO_POINTER, '_mouse_']
+            // [Blockly.Msg.SENSING_DISTANCETO_POINTER, '_mouse_']
+            [BellMsg.SENSING_DISTANCETO_POINTER, '_mouse_']
           ]
         }
       ],
@@ -320,7 +343,8 @@ Blockly.Blocks['sensing_mousedown'] = {
    */
   init: function () {
     this.jsonInit({
-      "message0": Blockly.Msg.SENSING_MOUSEDOWN,
+      // "message0": Blockly.Msg.SENSING_MOUSEDOWN,
+      "message0": BellMsg.SENSING_MOUSEDOWN,
       "category": Blockly.Categories.sensing,
       "extensions": ["colours_sensing", "output_boolean"]
     });
@@ -334,7 +358,8 @@ Blockly.Blocks['sensing_mousex'] = {
    */
   init: function () {
     this.jsonInit({
-      "message0": Blockly.Msg.SENSING_MOUSEX,
+      // "message0": Blockly.Msg.SENSING_MOUSEX,
+      "message0": BellMsg.SENSING_MOUSEX,
       "category": Blockly.Categories.sensing,
       "extensions": ["colours_sensing", "output_number"]
     });
@@ -348,7 +373,8 @@ Blockly.Blocks['sensing_mousey'] = {
    */
   init: function () {
     this.jsonInit({
-      "message0": Blockly.Msg.SENSING_MOUSEY,
+      // "message0": Blockly.Msg.SENSING_MOUSEY,
+      "message0": BellMsg.SENSING_MOUSEY,
       "category": Blockly.Categories.sensing,
       "extensions": ["colours_sensing", "output_number"]
     });
@@ -807,3 +833,10 @@ Blockly.Blocks['bell_detect_set_color_mode'] = {
     });
   }
 };
+
+/* ************************* */
+
+
+
+
+

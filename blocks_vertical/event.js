@@ -456,3 +456,73 @@ Blockly.Blocks['event_whenkeypressed'] = {
         });
     }
 };
+
+
+/* ***********bell-blocks************* */
+Blockly.Blocks['event_bell_mobile_shake'] = {
+    // 当手机被摇晃
+    init: function () {
+        this.jsonInit({
+            "message0": '当手机被摇晃',
+            "category": Blockly.Categories.event,
+            "extensions": ["colours_event", "shape_hat"]
+        });
+    }
+};
+
+Blockly.Blocks['event_bell_mobile_hear_sound'] = {
+    //当手机听到声响
+    init: function () {
+        this.jsonInit({
+            "message0": '当手机听到声响',
+            "category": Blockly.Categories.event,
+            "extensions": ["colours_event", "shape_hat"]
+        });
+    }
+};
+
+Blockly.Blocks['event_bell_mobile_tilt'] = {
+    //当手机向 [上下左右] 倾斜
+    init: function () {
+        this.jsonInit({
+            "message0": '当手机向 %1 倾斜',
+            "args0": [
+                {
+                    "type": "field_dropdown",
+                    "name": "DIRECTION",
+                    "options": [
+                        ['上', 'up'],
+                        ['下', 'down'],
+                        ['左', 'left'],
+                        ['右', 'right'],
+                    ]
+                }
+            ],
+            "category": Blockly.Categories.event,
+            "extensions": ["colours_event", "shape_hat"]
+        });
+    }
+};
+
+Blockly.Blocks['event_bell_finger_slide'] = {
+    //当手机听到声响
+    init: function () {
+        this.jsonInit({
+            "message0": '当手指向 %1 滑动',
+            "args0": [
+                {
+                    "type": "field_dropdown",
+                    "name": "DIRECTION",
+                    "options": [
+                        ['上', 'up'],
+                        ['下', 'down'],
+                        ['左', 'left'],
+                        ['右', 'right'],
+                    ]
+                }
+            ],
+            "category": Blockly.Categories.event,
+            "extensions": ["colours_event", "shape_hat"]
+        });
+    }
+};

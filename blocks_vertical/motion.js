@@ -28,6 +28,23 @@ goog.require('Blockly.constants');
 goog.require('Blockly.ScratchBlocks.VerticalExtensions');
 
 
+
+window.BellMsg = window.BellMsg || {};
+
+if(/Android|iPhone|iPad/i.test(navigator.userAgent)) {
+  BellMsg.MOTION_POINTTOWARDS_POINTER = "触摸位置";
+  BellMsg.MOTION_GOTO_POINTER = "触摸位置";
+  BellMsg.MOTION_GLIDETO_POINTER = "触摸位置";
+} else {
+  BellMsg.MOTION_POINTTOWARDS_POINTER = "鼠标指针";
+  BellMsg.MOTION_GOTO_POINTER = "鼠标指针";
+  BellMsg.MOTION_GLIDETO_POINTER = "鼠标指针";
+}
+
+BellMsg.MOTION_POINTTOWARDS_RANDOM = "随机位置";
+BellMsg.MOTION_GOTO_RANDOM = "随机位置";
+BellMsg.MOTION_GLIDETO_RANDOM = "随机位置";
+
 Blockly.Blocks['motion_movesteps'] = {
   /**
    * Block to move steps.
@@ -133,8 +150,8 @@ Blockly.Blocks['motion_pointtowards_menu'] = {
           "type": "field_dropdown",
           "name": "TOWARDS",
           "options": [
-            [Blockly.Msg.MOTION_POINTTOWARDS_POINTER, '_mouse_'],
-            [Blockly.Msg.MOTION_POINTTOWARDS_RANDOM, '_random_']
+            [BellMsg.MOTION_POINTTOWARDS_POINTER, '_mouse_'],
+            [BellMsg.MOTION_POINTTOWARDS_RANDOM, '_random_']
           ]
         }
       ],
@@ -179,8 +196,8 @@ Blockly.Blocks['motion_goto_menu'] = {
           "type": "field_dropdown",
           "name": "TO",
           "options": [
-            [Blockly.Msg.MOTION_GOTO_POINTER, '_mouse_'],
-            [Blockly.Msg.MOTION_GOTO_RANDOM, '_random_']
+            [BellMsg.MOTION_GOTO_POINTER, '_mouse_'],
+            [BellMsg.MOTION_GOTO_RANDOM, '_random_']
           ]
         }
       ],
@@ -277,8 +294,8 @@ Blockly.Blocks['motion_glideto_menu'] = {
           "type": "field_dropdown",
           "name": "TO",
           "options": [
-            [Blockly.Msg.MOTION_GLIDETO_POINTER, '_mouse_'],
-            [Blockly.Msg.MOTION_GLIDETO_RANDOM, '_random_']
+            [BellMsg.MOTION_GLIDETO_POINTER, '_mouse_'],
+            [BellMsg.MOTION_GLIDETO_RANDOM, '_random_']
           ]
         }
       ],
