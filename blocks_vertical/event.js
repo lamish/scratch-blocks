@@ -37,29 +37,22 @@ Blockly.Blocks['bell_event_color_type'] = {
                     "type": "input_value",
                     "name": "COLOR_NUM"
                 },
-                // {
-                //     "type": "field_dropdown",
-                //     "name": "DISTANCE",
-                //     "options": [
-                //         ['=', 'TIMER'],
-                //     ]
-                // },
                 {
                     "type": "field_dropdown",
                     "name": "COLOR",
                     "options": [
-                        ['红色', '1'],
-                        ['绿色', '2'],
-                        ['黄色', '3'],
-                        ['蓝色', '4'],
-                        ['紫色', '5'],
-                        ['青色', '6'],
-                        ['橙色', '7'],
-                        ['白色', '8'],
+                        ['黑色', '1'],
+                        ['蓝色', '2'],
+                        ['绿色', '3'],
+                        ['黄色', '4'],
+                        ['红色', '5'],
+                        ['白色', '6'],
+                        ['紫色', '7'],
+                        ['橘黄色', '8'],
                     ]
                 },
             ],
-            "category": Blockly.Categories.event,
+            "category": Blockly.Categories.control,
             "extensions": ["colours_event", "shape_hat"]
         });
     }
