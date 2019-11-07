@@ -850,6 +850,7 @@ Blockly.Css.CONTENT = [
   '.blocklyToolboxDiv {',
     'background-color: $colour_toolbox;',
     'color: $colour_toolboxText;',
+    'width: 6%;',
     'overflow-x: visible;',
     'overflow-y: auto;',
     'position: absolute;',
@@ -1284,7 +1285,7 @@ Blockly.Css.CONTENT = [
   '}',
 
   '.scratchCategoryMenu {',
-    'width: 60px;',
+    'width: 100%;',
     'background: $colour_toolbox;',
     'color: $colour_toolboxText;',
     'font-size: .7rem;',
