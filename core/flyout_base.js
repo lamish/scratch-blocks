@@ -368,7 +368,8 @@ Blockly.Flyout.prototype.setParentToolbox = function(toolbox) {
  * @return {number} The width of the flyout.
  */
 Blockly.Flyout.prototype.getWidth = function() {
-  return this.DEFAULT_WIDTH;
+  return Math.max(document.body.scrollWidth,document.documentElement.clientWidth) * 0.245;
+  // return this.DEFAULT_WIDTH;
 };
 
 /**
