@@ -58,6 +58,13 @@ Blockly.Blocks['motion_movesteps'] = {
           "type": "input_value",
           "name": "STEPS"
         }
+        // {
+        //   "type": "field_speedBellDialog",
+        //   "name": "STEPS",
+        //   "value": "0",
+        //   "min": "0",
+        //   "max": "255"
+        // }
       ],
       "category": Blockly.Categories.motion,
       "extensions": ["colours_motion", "shape_statement"]
@@ -686,8 +693,13 @@ Blockly.Blocks['motion_motorBall_rotate_on_speed_for_seconds'] = {
           ]
         },
         {
-          "type": "input_value",
+          // "type": "input_value",
+          // "name": "speed",
+          "type": "field_speedBellDialog",
           "name": "speed",
+          "value": "0",
+          "min": "0",
+          "max": "255"
         },
         {
           "type": "input_value",
@@ -719,8 +731,13 @@ Blockly.Blocks['motion_motorBall_rotate_on_speed'] = {
           ]
         },
         {
-          "type": "input_value",
+          // "type": "input_value",
+          // "name": "speed",
+          "type": "field_speedBellDialog",
           "name": "speed",
+          "value": "0",
+          "min": "0",
+          "max": "255"
         }
       ],
       "category": Blockly.Categories.motion,

@@ -37,13 +37,6 @@ Blockly.Blocks['bell_event_color_type'] = {
                     "type": "input_value",
                     "name": "COLOR_NUM"
                 },
-                // {
-                //     "type": "field_dropdown",
-                //     "name": "DISTANCE",
-                //     "options": [
-                //         ['=', 'TIMER'],
-                //     ]
-                // },
                 {
                     "type": "field_dropdown",
                     "name": "COLOR",
@@ -59,7 +52,7 @@ Blockly.Blocks['bell_event_color_type'] = {
                     ]
                 },
             ],
-            "category": Blockly.Categories.event,
+            "category": Blockly.Categories.control,
             "extensions": ["colours_event", "shape_hat"]
         });
     }
