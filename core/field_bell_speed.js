@@ -21,8 +21,6 @@ Blockly.FieldBellSpeedDialog = function(value, min, max){
     this.setValue(value);
     //设置
     this.innerData_ = value;
-
-    this.addArgType('number');
 }
 //继承FieldTextInput
 goog.inherits(Blockly.FieldBellSpeedDialog, Blockly.FieldTextInput);
