@@ -2,6 +2,11 @@
  * 每次prepublish后都要手动copy资源文件到gui
  * 这样的行为不够自动化
  * 说明一下: 
+ * 此脚本需要该项目处于同一目录
+ * parent  
+ *  -   scratch-blocks  
+ *  -   scratch-vm 
+ *  -   bell-scratch3.0 (如复制不成功，请查看此目录下是否还有一层)
  * 单个文件复制需要指定具体位置和名称，如：
  * src ./blockly_compressed_horizontal.js   targer ./windowsIssueFix/blockly_compressed_horizontal.js
  * 不可 src ./blockly_compressed_horizontal.js    targer ./windowsIssueFix/
