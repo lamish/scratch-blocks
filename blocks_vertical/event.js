@@ -80,11 +80,12 @@ Blockly.Blocks['event_whenflagclicked'] = {
   init: function () {
     this.jsonInit({
       "id": "event_whenflagclicked",
-      "message0": Blockly.Msg.EVENT_WHENFLAGCLICKED,
+      //"message0": Blockly.Msg.EVENT_WHENFLAGCLICKED,
+      "message0": "当 %1 被点击",
       "args0": [
         {
           "type": "field_image",
-          "src": Blockly.mainWorkspace.options.pathToMedia + "green-flag.svg",
+          "src": Blockly.mainWorkspace.options.pathToMedia + "play.png",
           "width": 24,
           "height": 24,
           "alt": "flag"
