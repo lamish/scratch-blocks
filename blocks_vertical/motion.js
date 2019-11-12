@@ -693,13 +693,14 @@ Blockly.Blocks['motion_motorBall_rotate_on_speed_for_seconds'] = {
           ]
         },
         {
-          // "type": "input_value",
-          // "name": "speed",
-          "type": "field_speedBellDialog",
+          "type": "input_value",
           "name": "speed",
-          "value": "0",
-          "min": "0",
-          "max": "255"
+
+          // "type": "field_speedBellDialog",
+          // "name": "speed",
+          // "value": "0",
+          // "min": "0",
+          // "max": "255"
         },
         {
           "type": "input_value",
@@ -731,13 +732,14 @@ Blockly.Blocks['motion_motorBall_rotate_on_speed'] = {
           ]
         },
         {
-          // "type": "input_value",
-          // "name": "speed",
-          "type": "field_speedBellDialog",
+          "type": "input_value",
           "name": "speed",
-          "value": "0",
-          "min": "0",
-          "max": "255"
+
+          // "type": "field_speedBellDialog",
+          // "name": "speed",
+          // "value": "0",
+          // "min": "0",
+          // "max": "255"
         }
       ],
       "category": Blockly.Categories.motion,
