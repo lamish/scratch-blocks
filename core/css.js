@@ -1502,8 +1502,7 @@ Blockly.Css.CONTENT = [
     width: 20%;
     height: 150px;
     border-radius: 20px;
-    background: blue;
-    margin: 10px;
+    margin: 2.5%;
     display: flex;
     justify-content: center;
     align-items: center;
