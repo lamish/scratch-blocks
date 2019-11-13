@@ -36,3 +36,23 @@ blockly_compressed_horizontal.js，blockly_compressed_vertical.js 这两个文�
 build.py 修改了：
 331 行改为：proc = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE, shell=True)
 574 行改为：test_proc = subprocess.Popen(test_args, stdin=subprocess.PIPE, stdout=subprocess.PIPE, shell=True)
+
+
+Mac下如果npm run prepublish 报错误：
+
+----------------------
+Exception in thread Thread-3:
+Traceback (most recent call last):
+in __bootstrap_inner
+self.run()
+File "build.py", line 179, in run
+self.gen_core(True)
+File "build.py", line 215, in gen_core
+self.do_compile(params, target_filename, filenames, "")
+File "build.py", line 284, in do_compile
+.....
+--------------
+
+把build.py 修改为：
+331 行改为：proc = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+574 行改为：test_proc = subprocess.Popen(test_args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
