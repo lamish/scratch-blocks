@@ -1351,10 +1351,10 @@ Blockly.Css.CONTENT = [
    * 自定义弹框
   */
   '.bell-field-dialog-btn {',
-    'width: 74px;',
+    'width: 76px;',
     'height: 76px;',
     'background-size: cover;',
-    'background-image: url("../media/bell/dialogs/ok.png");',
+    'background-image: url("../media/bell/dialogs/determine.png");',
     'position: absolute;',
     'bottom: -37px;',
     'left: 50%;',
@@ -1368,9 +1368,8 @@ Blockly.Css.CONTENT = [
   '.bell-speed-dialog {',
     'width: 450px;',
     'height: 180px;',
-    'background-color: white;',
+    'background-color: #32374b;',
     'color: black;',
-    'border: 1px solid #e4e4e4;',
     'z-index: 1000;',
     'border-radius: 20px;',
     'position: absolute;',
@@ -1409,7 +1408,7 @@ Blockly.Css.CONTENT = [
   '.bell-speed-label-start, .bell-speed-label-center, .bell-speed-label-end {',
     'position: absolute;',
     'bottom: -20px;',
-    'color: rgb(39, 184, 239);',
+    'color: #8890b6;',
     'font-weight: normal;',
     'font-size: 14px;',
   '}',
@@ -1435,4 +1434,90 @@ Blockly.Css.CONTENT = [
     'left: 50%;',
     'z-index: 999;',
   '}',
+  `
+  .bell_clock_wise_dialog_wrapper {
+    box-sizing: border-box;
+    width: 80%;
+    height: 380px;
+    background: #32374b;
+    display: flex;
+    justify-content: space-around;
+    border-radius: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    align-items: center;
+    padding: 0 20px;
+  }
+
+  .bell_clock_wise_dialog_wrapper * {
+     box-sizing: border-box;
+  }
+  .bell_clock_wise_dialog_wrapper .item { 
+      display: flex;
+      height: 74.6%;
+      width: 42.8%;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      background: #576390;
+      border-radius: 8px;
+      color: #fff;
+  }
+  .bell_clock_wise_dialog_wrapper .item > img {
+    width: 25%;
+  }
+  .bell_clock_wise_dialog_wrapper div.active {
+    box-shadow: 0 0 5px yellow;
+  }
+  `,
+  `
+  .bell_color_picker_wrapper {
+    list-style: none;
+    width: 50%;
+    background: #32374b;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    align-items: center;
+    padding: 0 20px;
+    flex-wrap: wrap;
+    padding: 30px;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  .bell_color_picker_wrapper *{
+    box-sizing: border-box;
+  }
+  
+  .bell_color_picker_wrapper .bell_color_picker_item {
+    position: relative;
+    width: 20%;
+    height: 150px;
+    border-radius: 20px;
+    background: blue;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .bell_color_picker_wrapper .bell_color_picker_item.active::after {
+    content: "√";
+    font-size: 50px;
+    font-weight: bold;
+  }
+
+  .select-color {
+    color: white;
+  }
+  `
+
 ];

@@ -1,0 +1,87 @@
+'use strict';
+
+goog.provide('Blockly.FieldBellColorPickerDialog');
+goog.require('Blockly.FieldDropdown');
+
+const colorsMap = {
+    '黑色': "#000",
+    "蓝色": "#4d9edc",
+    "绿色": "#0eef53",
+    "黄色": "#f6f550",
+    "红色": "#f45d5d",
+    "白色": "#fff",
+    "紫色": "#d451f8",
+    "橘黄色": "#f29450",
+    "青色": "#07edfb"
+}
+
+const defaultColorsList = [
+    ['黑色', '1'],
+    ['蓝色', '2'],
+    ['绿色', '3'],
+    ['黄色', '4'],
+    ['红色', '5'],
+    ['白色', '6'],
+    ['紫色', '7'],
+    ['橘黄色', '8'],
+]
+
+Blockly.FieldColorPickerDialog = function(value, options = defaultColorsList){
+    // FieldDropdown 的 <menuGenerator> 是要传的 option （数组和函数） 
+    Blockly.FieldColorPickerDialog.superClass_.constructor.call(this, options);
+    this.setValue(value);
+    this.colorsList = options;
+}
+
+goog.inherits(Blockly.FieldColorPickerDialog, Blockly.FieldDropdown);
+
+Blockly.FieldColorPickerDialog.fromJson = function(element) {
+    return new Blockly.FieldColorPickerDialog(element.value);
+};
+
+Blockly.FieldColorPickerDialog.prototype.showEditor_ = function() {
+    const value = this.getValue();
+  
+    const container = document.createElement('ul');
+
+    container.className = "bell_color_picker_wrapper";
+
+    const str = `
+       <li class="bell_color_picker_item select-color"></li>
+       <li class="bell_color_picker_item"></li>
+       <li class="bell_color_picker_item"></li>
+       <li class="bell_color_picker_item"></li>
+       <li class="bell_color_picker_item"></li>
+       <li class="bell_color_picker_item"></li>
+       <li class="bell_color_picker_item"></li>
+       <li class="bell_color_picker_item"></li>
+    `;
+
+    container.innerHTML = str;
+
+    const childs = container.getElementsByTagName('li');
+    const childLi = Array.prototype.slice.call(childs, 0);
+    
+    childLi.forEach((li, index) => {
+        const v = index+1
+        if( v === +value) {
+            li.classList.add('active');
+        }
+        li.style.background = colorsMap[this.colorsList[index][0]];
+        li.dataset.value = v;
+    });
+
+    
+    Blockly.bindEvent_(container, 'click', null, e => {
+        const target = e.target;
+        this.setValue(target.dataset.value);
+        Blockly.DialogDiv.hide();
+    });
+
+
+    Blockly.DialogDiv.show(container, () => {
+        Blockly.unbindEvent_(container)
+    });
+};
+
+Blockly.Field.register('field_colorpicker', Blockly.FieldColorPickerDialog);

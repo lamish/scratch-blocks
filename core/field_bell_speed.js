@@ -72,7 +72,7 @@ Blockly.FieldBellSpeedDialog.prototype.showEditor_ = function () {
     var labelCenter = document.createElement('label');
     labelCenter.className = 'bell-speed-label-center';
     label = labelCenter;
-    label.innerHTML = String(parseInt((this.max - this.min) / 2));
+    label.innerHTML = String(parseInt((this.max - Math.abs(this.min)) / 2));
     speedContainer.appendChild(label);
 
     var labelEnd = document.createElement('label');
@@ -91,21 +91,21 @@ Blockly.FieldBellSpeedDialog.prototype.showEditor_ = function () {
     speedContainer.appendChild(svg);
 
     var roundedRect = Blockly.utils.createSvgElement('path', {
-        fill: 'none',
-        stroke: 'rgb(39, 184, 239)',
+        fill: '#242836',
+        stroke: '#242836',
         'stroke-width': '1',
         d: 'm 25,0 h260 a 25, 25 0 0 1 25 25 a 25, 25 0 0 1 -25, 25 h-260 a25,25 0 0 1 -25,-25 a 25, 25 0 0 1 25, -25z'
     });
     svg.appendChild(roundedRect);
 
     var roundedRectProgress = Blockly.utils.createSvgElement('path', {
-        fill: 'rgb(39, 184, 239)',
+        fill: '#01cf95',
         d: 'm 25,0 h260 a 25, 25 0 0 1 25 25 a 25, 25 0 0 1 -25, 25 h-260 a25,25 0 0 1 -25,-25 a 25, 25 0 0 1 25, -25z'
     });
     svg.appendChild(roundedRectProgress);
 
     var circleOutter = Blockly.utils.createSvgElement('circle', {
-        stroke: 'rgb(39, 184, 239)',
+        stroke: '#576390',
         'stroke-width': '3',
         fill: 'white',
         cx: '80',
@@ -127,7 +127,7 @@ Blockly.FieldBellSpeedDialog.prototype.showEditor_ = function () {
     label = Blockly.utils.createSvgElement('text', {
         x: '80',
         y: '30',
-        fill: 'rgb(39, 184, 239)',
+        fill: '#1f2231',
         'text-anchor': 'middle'
     });
     label.innerHTML = '40';
@@ -136,7 +136,7 @@ Blockly.FieldBellSpeedDialog.prototype.showEditor_ = function () {
 
     // 具体刻度值
     var innerLabel = Blockly.utils.createSvgElement('rect', {
-        fill: '#78dd99',
+        fill: '#444f6f',
         rx: '5',
         ry: '5',
         x: '0',
@@ -146,7 +146,7 @@ Blockly.FieldBellSpeedDialog.prototype.showEditor_ = function () {
     });
     svg.appendChild(innerLabel);
     var innerLabel2 = Blockly.utils.createSvgElement('rect', {
-        fill: '#78dd99',
+        fill: '#444f6f',
         x: '0',
         y: '-30',
         width: '15',
@@ -289,7 +289,7 @@ Blockly.FieldBellSpeedDialog.prototype._bindListeners = function (minus, plus) {
                 percentage = that.max;
             }
         } else {
-            percentage = Math.floor(localPos.x / origin.clientWidth * (that.max - that.min));
+            percentage = Math.floor(localPos.x / origin.clientWidth * (that.max - Math.abs(that.min)));
         }
 
         that.innerData_ = parseInt(percentage);

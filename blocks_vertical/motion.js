@@ -54,17 +54,27 @@ Blockly.Blocks['motion_movesteps'] = {
     this.jsonInit({
       "message0": Blockly.Msg.MOTION_MOVESTEPS,
       "args0": [
-        {
-          "type": "input_value",
-          "name": "STEPS"
-        }
+        // {
+        //   "type": "input_value",
+        //   "name": "STEPS"
+        // }
+        // {
+        //   "type": "field_clockwise",
+        //   "name": "STEPS",
+        //   "value": "0"
+        // }
         // {
         //   "type": "field_speedBellDialog",
         //   "name": "STEPS",
         //   "value": "0",
-        //   "min": "0",
-        //   "max": "255"
+        //   "min": "-75",
+        //   "max": "75"
         // }
+        {
+          type: 'field_colorpicker',
+          "name": "STEPS",
+          "value": "1"
+        }
       ],
       "category": Blockly.Categories.motion,
       "extensions": ["colours_motion", "shape_statement"]
