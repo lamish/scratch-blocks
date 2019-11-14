@@ -63,18 +63,17 @@ Blockly.Blocks['motion_movesteps'] = {
         //   "name": "STEPS",
         //   "value": "0"
         // }
-        // {
-        //   "type": "field_speedBellDialog",
-        //   "name": "STEPS",
-        //   "value": "0",
-        //   "min": "-75",
-        //   "max": "75"
-        // }
         {
-          type: 'field_colorpicker',
+          "type": "field_speedBellDialog",
           "name": "STEPS",
-          "value": "1"
+          "value": "0",
+          "min": "-75",
+          "max": "75"
         }
+        // {
+        //   "type": 'field_colorpicker',
+        //   "name": "STEPS"
+        // }
       ],
       "category": Blockly.Categories.motion,
       "extensions": ["colours_motion", "shape_statement"]

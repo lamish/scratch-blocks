@@ -167,12 +167,14 @@ Blockly.FieldBellSpeedDialog.prototype.showEditor_ = function () {
     var saveBtn = document.createElement('div');
     saveBtn.className = 'bell-field-dialog-btn';
     div.appendChild(saveBtn);
-    // 绑定
-    Blockly.bindEvent_(saveBtn, 'mousedown', null, (e) => {
+    const handleMouseDown = (e) => {
         // 删除语句块时， 如果结果是int 会提示不是node类型， 需要将结果转换为string
         this.setText(this.getText());
         Blockly.DialogDiv.hide(); // hide
-    });
+    }
+    // 绑定
+    Blockly.bindEvent_(saveBtn, 'mousedown', null, handleMouseDown);
+    Blockly.bindEvent_(saveBtn, 'touchstart', null, handleMouseDown);
     // 保存实例
     this._roundedRectProgress = roundedRectProgress;
     this._circleOutter = circleOutter;
@@ -215,15 +217,17 @@ Blockly.FieldBellSpeedDialog.prototype._bindListeners = function (minus, plus) {
     };
 
     var that = this;
-    this.container_.onmousedown = function (e) {
-        if (e.type.indexOf('touch') >= 0) {
-            return;
-        }
+    this.container_.onmousedown = this.container_.ontouchstart = function (e) {
+        // if (e.type.indexOf('touch') >= 0) {
+        //     return;
+        // }
         // that.dialogDiv = that.dialog_.getBackgroundElement(); //年久失修的代码, 不知道有啥用 干掉
         // let svg = e.target;
         let isMouseDown = true;
         that.container_.addEventListener('mousemove', drag);
+        that.container_.addEventListener('touchmove', drag);
         that.container_.addEventListener('mouseup', endDrag);
+        that.container_.addEventListener('touchend', endDrag);
         // that.container_.addEventListener('mouseleave', endDrag);
         // that.dialogDiv.addEventListener('mousemove', drag);
 
@@ -237,18 +241,18 @@ Blockly.FieldBellSpeedDialog.prototype._bindListeners = function (minus, plus) {
                 e.preventDefault();
                 var origin = that._svg;
                 var localPos = getTouchPosition(e);
-                var percentage = that.innerData_;
+                var percentage = that.innerData_ - that.min;
                 if (localPos.x < 0 || localPos.x > origin.clientWidth || localPos.y < 0 || localPos.y > origin.clientHeight) {
                     if (localPos.x < 0) {
-                        percentage = that.min;
+                        percentage = 0;
                     } else if (localPos.x > origin.clientWidth) {
-                        percentage = that.max;
+                        percentage = that.max - that.min;
                     }
                 } else {
                     percentage = Math.floor(localPos.x / origin.clientWidth * (that.max - that.min));
                 }
 
-                that.innerData_ = parseInt(percentage);
+                that.innerData_ = parseInt(+that.min + percentage);
                 that.reloadUI();
                 // 移动的时候显示
                 that._innerLabel.style.display = 'block';
@@ -262,15 +266,20 @@ Blockly.FieldBellSpeedDialog.prototype._bindListeners = function (minus, plus) {
             isMouseDown = false;
             that.container_.removeEventListener('mousemove', drag);
             that.container_.removeEventListener('mouseup', endDrag);
+            that.container_.removeEventListener('touchmove', drag);
+            that.container_.removeEventListener('touchend', endDrag);
             // that.container_.removeEventListener('mouseleave', endDrag);
         }
         var body = document.getElementsByTagName('body')[0];
-        body.onmouseup = that.container_.onmouseup = that._svg.onmouseup = that._div.onmouseup 
+        body.onmouseup = that.container_.onmouseup = that._svg.onmouseup = that._div.onmouseup
+        = body.ontouchstart = that.container_.ontouchstart = that._svg.ontouchstart = that._div.ontouchstart
             // = that.dialogDiv.onmouseup = that.dialogDiv.onmouseleave 
             = function (e) {
             if (selectedElement && isMouseDown) {
                 that.container_.removeEventListener('mousemove', drag);
                 that.container_.removeEventListener('mouseup', endDrag);
+                that.container_.removeEventListener('touchmove', drag);
+                that.container_.removeEventListener('touchend', endDrag);
                 // that.container_.removeEventListener('mouseleave', endDrag);
                 // that.dialogDiv.removeEventListener('mouse', drag);
             }
@@ -280,19 +289,17 @@ Blockly.FieldBellSpeedDialog.prototype._bindListeners = function (minus, plus) {
     this._circleOutter.ontouchstart = this._circleOutter.ontouchmove = function (e) {
         var origin = e.target.parentNode;
         var localPos = getTouchPosition(e);
-
-        var percentage = that.innerData_;
+        var percentage = that.innerData_ - that.min;
         if (localPos.x < 0 || localPos.x > origin.clientWidth || localPos.y < 0 || localPos.y > origin.clientHeight) {
             if (localPos.x < 0) {
-                percentage = that.min;
+                percentage = 0;
             } else if (localPos.x > origin.clientWidth) {
-                percentage = that.max;
+                percentage = that.max - that.min;
             }
         } else {
-            percentage = Math.floor(localPos.x / origin.clientWidth * (that.max - Math.abs(that.min)));
+            percentage = Math.floor(localPos.x / origin.clientWidth * (that.max - that.min));
         }
-
-        that.innerData_ = parseInt(percentage);
+        that.innerData_ = parseInt(+that.min + percentage);
         that.reloadUI();
         // 移动的时候显示
         that._innerLabel.style.display = 'block';
@@ -314,6 +321,8 @@ Blockly.FieldBellSpeedDialog.prototype._bindListeners = function (minus, plus) {
         that.innerData_ = val;
         that.reloadUI();
     };
+    this.bindTap(minus, minus.onclick);
+
     plus.onclick = function (e) {
         var val = !isNaN(that.innerData_) ? parseInt(that.innerData_) : 0;
         val++;
@@ -321,20 +330,22 @@ Blockly.FieldBellSpeedDialog.prototype._bindListeners = function (minus, plus) {
         that.innerData_ = val;
         that.reloadUI();
     };
+    this.bindTap(plus, plus.onclick);
 }
 // 更新UI
 Blockly.FieldBellSpeedDialog.prototype.reloadUI = function () {
     var val = !isNaN(this.innerData_) ? parseInt(this.innerData_) : 0;
     // 更新label上文字
+    var percentage = val - this.min;
     this._label.innerHTML = val;
     this._label2.innerHTML = val;
     // rounded 进度 0~160
     this._roundedRectProgress.setAttribute('d',
         // `m 25,0 h${val / (this.max - this.min) * 160} a 25, 25 0 0 1 25 25 a 25, 25 0 0 1 -25, 25 h-${val / (this.max - this.min) * 160} a25,25 0 0 1 -25,-25 a 25, 25 0 0 1 25, -25z`);
-        `m 25,0 h${val / (this.max - this.min) * 260} a 25, 25 0 0 1 25 25 a 25, 25 0 0 1 -25, 25 h-${val / (this.max - this.min) * 260} a25,25 0 0 1 -25,-25 a 25, 25 0 0 1 25, -25z`);
+        `m 25,0 h${percentage / (this.max - this.min) * 260} a 25, 25 0 0 1 25 25 a 25, 25 0 0 1 -25, 25 h-${percentage / (this.max - this.min) * 260} a25,25 0 0 1 -25,-25 a 25, 25 0 0 1 25, -25z`);
     // circles outter/inner: 25~185
     // var cx = val / (this.max - this.min) * (185 - 25) + 25;
-    var cx = val / (this.max - this.min) * (285 - 25) + 25;
+    var cx = percentage / (this.max - this.min) * (285 - 25) + 25;
     this._circleOutter.setAttribute('cx', cx);
     this._circleInner.setAttribute('cx', cx);
     this._label.setAttribute('x', cx);
@@ -363,6 +374,7 @@ Blockly.FieldBellSpeedDialog.prototype.dispose = function () {
 };
 // 注册成field_speedBellDialog
 Blockly.Field.register('field_speedBellDialog', Blockly.FieldBellSpeedDialog);
+
 //优化手势
 (function () {
     "use strict";
@@ -419,3 +431,34 @@ Blockly.Field.register('field_speedBellDialog', Blockly.FieldBellSpeedDialog);
         return new Point(offsetX, offsetY, 0).transformBy(getTransformationMatrix(element));
     };
 }());
+
+// 封装tap事件
+Blockly.FieldBellSpeedDialog.prototype.bindTap = function (ele,callBack){
+    //触摸开始的时间
+    var startTime=0;
+    //定义touchmove是否触发
+    var ismove=false;
+    var maxTime=250;
+    ele.addEventListener('touchstart',function(e){
+        startTime=Date.now();
+        ismove=false;
+    }) 
+    ele.addEventListener('touchmove',function(e){
+        //触发就赋值为true
+        ismove=true;
+    }) 
+    ele.addEventListener('touchend',function(e){
+        //判断是否是touchmove是否触发
+        if (ismove) {
+            return;
+        }
+        // 判断是否为长按
+        if ((Date.now()-startTime)>maxTime) {
+            return;
+        }
+
+        // 如果能够到这里
+        callBack(e);
+    }) 
+
+}

@@ -58,6 +58,16 @@ Blockly.FieldClockwiseDialog.prototype.showEditor_ = function() {
         this.setValue(1);
         Blockly.DialogDiv.hide();
     });
+    
+
+    Blockly.bindEvent_(childDivs[0], 'touchstart', null, (e) => {
+        this.setValue(0);
+        Blockly.DialogDiv.hide();
+    });
+    Blockly.bindEvent_(childDivs[1], 'touchstart', null, (e) => {
+        this.setValue(1);
+        Blockly.DialogDiv.hide();
+    });
 
     Blockly.DialogDiv.show(container, () => {
         Blockly.unbindEvent_(childDivs[0]);

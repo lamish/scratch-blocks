@@ -1437,7 +1437,7 @@ Blockly.Css.CONTENT = [
   `
   .bell_clock_wise_dialog_wrapper {
     box-sizing: border-box;
-    width: 80%;
+    width: 60%;
     height: 380px;
     background: #32374b;
     display: flex;
@@ -1461,7 +1461,7 @@ Blockly.Css.CONTENT = [
       justify-content: center;
       flex-direction: column;
       align-items: center;
-      padding: 20px;
+      padding: 2.5%;
       background: #576390;
       border-radius: 8px;
       color: #fff;
@@ -1471,6 +1471,10 @@ Blockly.Css.CONTENT = [
   }
   .bell_clock_wise_dialog_wrapper div.active {
     box-shadow: 0 0 5px yellow;
+  }
+  .bell_clock_wise_dialog_wrapper p {
+    font-size: 1.2rem;
+    margin-top: 1rem;
   }
   `,
   `
@@ -1500,8 +1504,8 @@ Blockly.Css.CONTENT = [
   .bell_color_picker_wrapper .bell_color_picker_item {
     position: relative;
     width: 20%;
-    height: 150px;
-    border-radius: 20px;
+    height: 40%;
+    border-radius: 10%;
     margin: 2.5%;
     display: flex;
     justify-content: center;
