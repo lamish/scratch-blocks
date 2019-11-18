@@ -145,9 +145,13 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
     for (var i = 1, item; item = data[i]; i++) {
       var seqField = new Blockly.FieldModuleDialog(item.seq, Blockly.FieldModuleDialog.MODULE_MOTOR, true);
       // var clockwiseField = new Blockly.FieldClockwiseDialog(item.clockwise);
-      var clockwiseField = new Blockly.FieldClockwiseDialog(0); // 默认0 顺时针
-      var powerField = new Blockly.FieldBellSpeedDialog(item.power, 0, 180);
-      var secondsField = new Blockly.FieldClockwiseDialog(0);
+      var clockwiseField = new Blockly.FieldDropdown([
+          ["顺时针", '_clockwise_'],
+          ["逆时针", '_counterclockwise_']
+      ]); // 默认0 顺时针
+      
+      var powerField = new Blockly.FieldNumberDialog(item.power);//new Blockly.FieldBellSpeedDialog(item.power, 0, 180);
+      var secondsField = new Blockly.FieldNumberDialog(item.seconds); //new Blockly.Input(Blockly.INPUT_VALUE, '')
       this.appendDummyInput()
         .appendField('驱动球')
         .appendField(seqField,'MOTOR' + i)
@@ -242,7 +246,7 @@ Blockly.Blocks['motion_movesteps'] = {
   init: function () {
     this.jsonInit({
       "message0": Blockly.Msg.MOTION_MOVESTEPS,
-      // "message0": '驱动球 %1, %2 旋转, 功率 %3, 持续 %4 秒, %5 %6',
+      // "message0": '驱动球 %1, %2 旋转, 功率 %3, 持续 %4 秒, %5%6',
       "args0": [
         {
           "type": "input_value",
@@ -270,48 +274,8 @@ Blockly.Blocks['motion_movesteps'] = {
       //     "defaultValue": "1",
       //     "module": "motor",
       //     "multiMode": true,
-      //   },
+      //     },
       ],
-    /*   "args0": [
-        {
-          "type": "field_dialog",
-          "name": "MOTOR",
-          "defaultValue": "1",
-          "module": "motor",
-          "multiMode": true,
-        },
-        {
-          "type": "field_dropdown",
-          "name": "rotate_direction",
-          "options": [
-            ["顺时针", '_clockwise_'],
-            ["逆时针", '_counterclockwise_']
-          ]
-        },
-        {
-          "type": "field_speedBellDialog",
-          "name": "POWER",
-          "value": "30",
-          "min": '0',
-          "max": '180',
-          "check": ['Number', 'Boolean', 'String', 'Array']
-        },
-        {
-          "type": "input_value",
-          "name": "SECONDS"
-        },
-        {
-          "type": "field_clockwise",
-          "name": "BLOCK",
-          "value": "0",
-          "src": Blockly.utils.getRuntimeImagePath('blk_ic_blocked.png'),
-          "width": 24,
-          "height": 24,
-        },
-        {
-          "type": "input_dummy",
-        }
-      ], */
       "category": Blockly.Categories.motion,
       "extensions": ["colours_motion", "shape_statement"],
       // "mutator": "bell_motion_motor_power_mutator",

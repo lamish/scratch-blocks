@@ -307,7 +307,7 @@ Blockly.Dialogs.generateBackGroundColor = function(width, height){
   dom.style.left = (window.innerWidth - width) / 2 + 'px';
   dom.style.top = (window.innerHeight - height) / 2 + 'px';
   dom.style.borderRadius = Math.min(window.innerWidth, window.innerHeight) / 50 + 'px';
-  dom.style.padding = Math.min(window.innerWidth, window.innerHeight) / 40 + 'px';
+  dom.style.padding = Math.min(window.innerWidth, window.innerHeight) / 25 + 'px';
   return dom;
 }
 /**
@@ -327,9 +327,9 @@ Blockly.Dialogs.generateForEachItems = function(width, height, arrs, current){
     listItem.style.padding = Math.min(window.innerWidth, window.innerHeight) / 20 + 'px';
     listItem.style.width = '48%';
     listItem.style.height = height + 'px';
-    listItem.style.border = '2px solid #f2fdff';
+    listItem.style.border = '2px solid #576390';
     listItem.style.borderRadius = Math.min(window.innerWidth, window.innerHeight) / 50 + 'px';
-    listItem.style.backgroundColor = '#f2fdff';
+    listItem.style.backgroundColor = '#576390';
     listItem.style.display = 'flex';
     listItem.style.alignItems = 'center';
     listItem.style.justifyContent = 'center';
@@ -344,12 +344,14 @@ Blockly.Dialogs.generateForEachItems = function(width, height, arrs, current){
     var itemTxt = document.createElement('div');
     itemTxt.style.marginTop = '2rem';
     itemTxt.innerHTML = arrs[i].txt;
+    itemTxt.style.color = '#fff';
+    itemTxt.style.fontSize = '1.2rem';
 
     listItem.appendChild(itemImg);
     listItem.appendChild(itemTxt);
     listBox.appendChild(listItem);
   }
-  (current == null) ? null : listBox.childNodes[current].style.border = '2px solid #f60';
+  (current == null) ? null : listBox.childNodes[current].style.boxShadow = '0 0 5px yellow';
   return listBox;
 }
 
@@ -790,15 +792,15 @@ Blockly.Dialogs.generateModuleBlockDialog = function (src, onChange, defaultCurr
   var current = defaultCurrent;
   // TODO:
   var WIDTH = window.innerWidth * 0.5;
-  var HEIGHT = window.innerHeight * 0.5;
+  var HEIGHT = window.innerHeight * 0.3;
   var dateArrs = [
     {
-      'imgUrl': 'blk_ic_blocked.png',
-      'txt': Blockly.Msg.BELL_BLOCKING_TYPES,
+      'imgUrl': '/dialogs/clockwise/onebyone.png',
+      'txt': `执行完当前语句块再执行下一个语句块`,
     },
     {
-      'imgUrl': 'blk_ic_nonblocked.png',
-      'txt': Blockly.Msg.BELL_NON_BLOCKING_TYPES,
+      'imgUrl': '/dialogs/clockwise/simultaneously.png',
+      'txt': `当前语句块与下一个语句块同时执行`,
     },
   ];
 
@@ -815,9 +817,9 @@ Blockly.Dialogs.generateModuleBlockDialog = function (src, onChange, defaultCurr
         return;
       } else {
         if (e.target === listBox.childNodes[0] || e.target === listBox.childNodes[0].firstElementChild) {
-          onChange(Blockly.utils.getRuntimeImagePath('blk_ic_blocked.png'), 0);
+          onChange(Blockly.utils.getRuntimeImagePath('/dialogs/clockwise/onebyone.png'), 0);
         } else {
-          onChange(Blockly.utils.getRuntimeImagePath('blk_ic_nonblocked.png'), 1);
+          onChange(Blockly.utils.getRuntimeImagePath('/dialogs/clockwise/simultaneously.png'), 1);
         }
       }
     })
@@ -835,11 +837,11 @@ Blockly.Dialogs.generateModuleClockwiseDialog = function(defaultValue, onChange)
   var HEIGHT = window.innerHeight * 0.5;
   var dateArrs = [
     {
-      'imgUrl': 'blk_ic_blocked.png',
+      'imgUrl': '/dialogs/clockwise/onebyone.png',
       'txt': Blockly.Msg.BELL_OPTIONS_CW,
     },
     {
-      'imgUrl': 'blk_ic_nonblocked.png',
+      'imgUrl': '/dialogs/clockwise/simultaneously.png',
       'txt': Blockly.Msg.BELL_OPTIONS_CCW,
     },
   ];

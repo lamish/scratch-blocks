@@ -1521,6 +1521,117 @@ Blockly.Css.CONTENT = [
   .select-color {
     color: white;
   }
+  `,
   `
-
+  .bell-field-number-dialog {
+    width: 318px;
+    background-color: #32374b;
+    z-index: 1000;
+    position: absolute;
+    border-radius: 20px;
+    padding-bottom: 50px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+  }
+  
+  .bell-field-number-dialog-bg {
+    left: 0;
+    position: fixed;
+    background: black;
+    top: 0;
+    z-index: 999;
+  }
+  
+  .bell-field-number-input {
+    background-color: #576390;
+    width: 100%;
+    height: 69px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    -webkit-align-items: center;
+    -webkit-justify-content: space-between;
+  }
+  
+  .bell-field-number-input > span {
+    font-size: 30px;
+    margin-right: 20px;
+    margin-left: 20px;
+    color: white;
+    line-height: 36px;
+    height: 36px;
+    overflow: hidden;
+  }
+  
+  .bell-field-number-input > img {
+    color: white;
+    margin-right: 24px;
+    width: 39px;
+  }
+  
+  .bell-field-number-numpad {
+    width: 100%;
+  }
+  
+  .bell-field-number-numpad::after {
+    clear: left;
+    content: '';
+    display: block;
+  }
+  
+  .bell-field-number-grid-item {
+    float: left;
+    width: 33.333333%;
+    height: 62px;
+  }
+  
+  .bell-field-number-num {
+    width: calc(100% - 1px);
+    height: calc(100% - 1px);
+    border: 1px solid #242838;
+    border-top: none;
+    border-left: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    background-color:  #32374b;
+    display: -webkit-box;
+    -webkit-align-items: center;
+    -webkit-justify-content: center;
+  }
+  
+  .bell-field-number-num.right-edge {
+    border-right: none;
+  }
+  
+  .bell-field-number-num > span {
+    font-size: 26px;
+    color: #576390;
+  }
+  
+  .bell-field-number-num:active {
+    background-color: #ffd024;
+  }
+  
+  .bell-field-number-num:active > span {
+    color: white;
+    transform: scale(1.2);
+  }
+  
+  .bell-field-number-del {
+    width: 50px;
+    height: 25px;
+    margin-right: 24px;
+    background-image: url('../media/bell/dialogs/back.png');
+    background-size: 100% 100%;
+  }
+  .bell-field-number-del:active {
+    transform: scale(1.2);
+  }
+  
+  `
 ];

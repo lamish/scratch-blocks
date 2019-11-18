@@ -41,6 +41,8 @@ goog.require('Blockly.DialogDiv');
 goog.require('Blockly.FieldModuleDialog');
 goog.require('Blockly.Dialogs');
 goog.require('Blockly.utilsBell');
+goog.require('Blockly.FieldImageDialog');
+goog.require('Blockly.FieldNumberDialog');
 goog.require('Blockly.FieldBellSpeedDialog');
 goog.require('Blockly.FieldBellClockwiseDialog');
 goog.require('Blockly.FieldBellColorPickerDialog');
