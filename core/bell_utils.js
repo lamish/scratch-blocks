@@ -15,19 +15,21 @@ Blockly.utils.isMabotStarDev_ = function() {
 };
 
 Blockly.utils.getRuntimeImagePath = function(relativePath) {
-  if (Blockly.utils.isCordova() || Blockly.utils.isMabotStarDev_()) {
+  /* if (Blockly.utils.isCordova() || Blockly.utils.isMabotStarDev_()) {
     return Blockly.utils.IMAGE_PATH_IN_MABOT_STAR + relativePath;
   } else {
     return Blockly.utils.IMAGE_PATH_DEV + relativePath;
-  }
+  } */
+  return `${Blockly.mainWorkspace.options.pathToMedia}/bell/${relativePath}`
 };
 
 Blockly.utils.getRuntimeMediaPath = function() {
-  if (Blockly.utils.isCordova() || Blockly.utils.isMabotStarDev_()) {
+  /* if (Blockly.utils.isCordova() || Blockly.utils.isMabotStarDev_()) {
     return Blockly.utils.MEDIA_PATH_IN_MABOT_STAR;
   } else {
     return Blockly.utils.MEDIA_PATH_DEV;
-  }
+  } */
+  return Blockly.mainWorkspace.options.pathToMedia;
 };
 
 Blockly.utils.isCordova = function() {
