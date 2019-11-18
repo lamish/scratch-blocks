@@ -17,10 +17,17 @@ const path = require('path');
 const os = require('os');
 const FileUtils = require('./file_utils.js');
 // copy images source
-FileUtils.cp(
-    path.join('./media/bell'),
-    path.join('./../bell-scratch-gui/www/media')
-);
+if(os.platform() == 'darwin'){
+    FileUtils.cp(
+        path.join('./media/bell'),
+        path.join('./../bell-scratch3.0/www/media')
+    );
+}else{
+    FileUtils.cp(
+        path.join('./media/bell'),
+        path.join('./../bell-scratch-gui/www/media')
+    );
+}
 /**
  * 因为某些原因prepublish在window无法完成带包？？？
  * 这里对Mac系统做了一个copy处理，每次prepublish后把打包的文件替换到windowsIssueFix
