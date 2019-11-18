@@ -19,7 +19,7 @@ const FileUtils = require('./file_utils.js');
 // copy images source
 FileUtils.cp(
     path.join('./media/bell'),
-    path.join('./../bell-scratch3.0/www/media')
+    path.join('./../bell-scratch-gui/www/media')
 );
 /**
  * 因为某些原因prepublish在window无法完成带包？？？

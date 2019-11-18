@@ -65,6 +65,7 @@ Blockly.Mutator.prototype.workspaceHeight_ = 0;
  * @private
  */
 Blockly.Mutator.prototype.drawIcon_ = function(group) {
+  return;
   // Square with rounded corners.
   Blockly.utils.createSvgElement('rect',
       {
