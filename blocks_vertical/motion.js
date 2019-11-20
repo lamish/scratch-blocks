@@ -60,9 +60,9 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
   },
   onchange: function(e) {
     for (var i = 0, data; data = this.mixinMultiLinesData[i]; i++) {
-      data.clockwise = this.getFieldValue('CLOCKWISE' + (i + 1));
-      data.power = this.getFieldValue('POWER' + (i + 1));
-      data.seconds = this.getFieldValue('SECONDS' + (i + 1));
+      data.clockwise = this.getFieldValue('rotate_direction' + (i + 1));
+      data.power = this.getFieldValue('power' + (i + 1));
+      data.seconds = this.getFieldValue('rotate_for_seconds' + (i + 1));
     }
   },
   mutationToDom: function() {
@@ -70,7 +70,8 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
       !this.shouldCreateMultiRow) {
       return null;
     }
-    return null; // FIXME: mutation保留导致一系列问题，能否解决?
+    console.log(`this.mixinMultiLinesData`, this.mixinMultiLinesData)
+    // return null; // FIXME: mutation保留导致一系列问题，能否解决?
 
     var container = document.createElement('mutation');
     for (var i = 0, data; data = this.mixinMultiLinesData[i]; i++) {
@@ -78,11 +79,11 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
       // 驱动球球号1-15
       item.setAttribute('seq', data.seq);
       // 顺时针 or 逆时针
-      item.setAttribute('clockwise', data.clockwise);
+      item.setAttribute('rotate_direction', data.clockwise);
       // 功率
       item.setAttribute('power', data.power);
       // 持续时间(s)
-      item.setAttribute('seconds', data.seconds);
+      item.setAttribute('rotate_for_seconds', data.seconds);
       container.appendChild(item);
     }
     return container;
@@ -92,10 +93,10 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
     this.mixinMultiLinesData.length = 0;
     // 首行数据
     var firstLineData = {
-      seq: this.getFieldValue('MOTOR'),
-      clockwise: this.getFieldValue('CLOCKWISE'),
-      power: this.getFieldValue('POWER'),
-      seconds: this.getFieldValue('SECONDS'),
+      seq: this.getFieldValue('mabot_motor_ball_index'),
+      clockwise: this.getFieldValue('rotate_direction'),
+      power: this.getFieldValue('power'),
+      seconds: this.getFieldValue('rotate_for_seconds'),
     };
     this.mixinMultiLinesData.push(firstLineData);
 
@@ -105,11 +106,11 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
       // 驱动球球号
       item.seq = parseInt(child.getAttribute('seq'));
       // 顺时针 or 逆时针
-      item.clockwise = parseInt(child.getAttribute('clockwise'));
+      item.clockwise = parseInt(child.getAttribute('rotate_direction'));
       // 功率
       item.power = parseInt(child.getAttribute('power'));
       // 持续时间(s)
-      item.seconds = parseFloat(child.getAttribute('seconds'));
+      item.seconds = parseFloat(child.getAttribute('rotate_for_seconds'));
 
       this.mixinMultiLinesData.push(item);
     }
@@ -119,10 +120,10 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
   updateShape_: function() {
     var data = this.mixinMultiLinesData;
     // 首行单独更新field值
-    this.getField('MOTOR').setValue(data[0].seq);
-    this.getField('CLOCKWISE').setValue(data[0].clockwise);
-    this.getField('POWER').setValue(data[0].power);
-    this.getField('SECONDS').setValue(data[0].seconds);
+    this.getField('mabot_motor_ball_index').setValue(data[0].seq);
+    this.getField('rotate_direction').setValue(data[0].clockwise);
+    this.getField('power').setValue(data[0].power);
+    this.getField('rotate_for_seconds').setValue(data[0].seconds);
     // 其他行直接先干掉
     for (var i = this.inputList.length - 1, input; input = this.inputList[i]; i--) {
       if (input.type === Blockly.DUMMY_INPUT && input.fieldRow.length > 0 && i > 0) {
@@ -154,13 +155,13 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
       var secondsField = new Blockly.FieldNumberDialog(item.seconds); //new Blockly.Input(Blockly.INPUT_VALUE, '')
       this.appendDummyInput()
         .appendField('驱动球')
-        .appendField(seqField,'MOTOR' + i)
+        .appendField(seqField,'mabot_motor_ball_index' + i)
         .appendField(',')
-        .appendField(clockwiseField, 'CLOCKWISE' + i)
+        .appendField(clockwiseField, 'rotate_direction' + i)
         .appendField('旋转, 功率')
-        .appendField(powerField, 'POWER' + i)
+        .appendField(powerField, 'power' + i)
         .appendField(', 持续')
-        .appendField(secondsField, 'SECONDS' + i)
+        .appendField(secondsField, 'rotate_for_seconds' + i)
         .appendField('秒');
     }
     // fix issue: 需要把compose传过来的第一个data删除
@@ -172,10 +173,10 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
     if (!this.shouldCreateMultiRow) return;
     // 首行数据
     var firstLineData = {
-      seq: this.getFieldValue('MOTOR'),
-      clockwise: this.getFieldValue('CLOCKWISE'),
-      power: this.getFieldValue('POWER'),
-      seconds: this.getFieldValue('SECONDS'),
+      seq: this.getFieldValue('mabot_motor_ball_index'),
+      clockwise: this.getFieldValue('rotate_direction'),
+      power: this.getFieldValue('power'),
+      seconds: this.getFieldValue('rotate_for_seconds'),
     };
     // 其余数据
     var otherLineData = this.mixinMultiLinesData;
@@ -230,7 +231,7 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
   decompose: function() {
     if (!this.shouldCreateMultiRow) return;
     var data = this.mixinMultiLinesDataModuleList();
-    data.unshift(this.getFieldValue('MOTOR'));
+    data.unshift(this.getFieldValue('mabot_motor_ball_index'));
     return data;
   },
 };
@@ -245,13 +246,13 @@ Blockly.Blocks['motion_movesteps'] = {
   shouldCreateMultiRow: true,
   init: function () {
     this.jsonInit({
-      "message0": Blockly.Msg.MOTION_MOVESTEPS,
-      // "message0": '驱动球 %1, %2 旋转, 功率 %3, 持续 %4 秒, %5%6',
-      "args0": [
-        {
-          "type": "input_value",
-          "name": "STEPS"
-        }
+      // "message0": Blockly.Msg.MOTION_MOVESTEPS,
+      "message0": '驱动球 %1, %2 旋转, 功率 %3, 持续 %4 秒, %5%6',
+      // "args0": [
+      //   {
+      //     "type": "input_value",
+      //     "name": "STEPS"
+      //   }
         // {
         //   "type": "field_clockwise",
         //   "name": "STEPS",
@@ -270,20 +271,59 @@ Blockly.Blocks['motion_movesteps'] = {
         // }
       //   {
       //     "type": "field_dialog",
-      //     "name": "MOTOR",
+      //     "name": "mabot_motor_ball_index",
       //     "defaultValue": "1",
       //     "module": "motor",
       //     "multiMode": true,
       //     },
+      // ],
+      "args0": [
+        {
+          "type": "field_dialog",
+          "name": "mabot_motor_ball_index",
+          "defaultValue": "1",
+          "module": "motor",
+          "multiMode": true,
+        },
+        {
+          "type": "field_dropdown",
+          "name": "rotate_direction",
+          "options": [
+            ["顺时针", '_clockwise_'],
+            ["逆时针", '_counterclockwise_']
+          ]
+        },
+        {
+          "type": "field_numberDialog",
+          "name": "power",
+          "defaultValue": "1",
+          "check": ['Number', 'Boolean', 'String', 'Array']
+        },
+        {
+          "type": "field_numberDialog",
+          "name": "rotate_for_seconds",
+          "defaultValue": "1",
+          "check": ['Number', 'Boolean', 'String', 'Array']
+        },
+        {
+          "type": "field_clockwise_image",
+          "name": "BLOCK",
+          "src": Blockly.utils.getRuntimeImagePath('/dialogs/clockwise/onebyone.png'),
+          "width": 24,
+          "height": 24,
+        },
+        {
+          "type": "input_dummy",
+        }
       ],
       "category": Blockly.Categories.motion,
       "extensions": ["colours_motion", "shape_statement"],
-      // "mutator": "bell_motion_motor_power_mutator",
+      "mutator": "bell_motion_motor_power_mutator",
     });
   }
 };
 
-Blockly.Extensions.registerMutator('bell_motion_motor_power_mutator', Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK, null, []);
+
 
 Blockly.Blocks['motion_turnright'] = {
   /**
@@ -302,7 +342,7 @@ Blockly.Blocks['motion_turnright'] = {
         },
         {
           "type": "input_value",
-          "name": "DEGREES"
+          "name": "DEGREES",
         }
       ],
       "category": Blockly.Categories.motion,
@@ -347,8 +387,13 @@ Blockly.Blocks['motion_pointindirection'] = {
       "message0": Blockly.Msg.MOTION_POINTINDIRECTION,
       "args0": [
         {
-          "type": "input_value",
-          "name": "DIRECTION"
+          // "type": "input_value",
+          // "name": "DIRECTION"
+          "type": "field_speedBellDialog",
+          "name": "DIRECTION",
+          "value": "0",
+          "min": "-75",
+          "max": "75"
         }
       ],
       "category": Blockly.Categories.motion,
@@ -823,15 +868,23 @@ Blockly.Blocks['motion_yscroll'] = {
 
 
 Blockly.Blocks['motion_motorBall_rotate_on_power_for_seconds'] = {
+  shouldCreateMultiRow: true,
   init: function () {
 
     this.jsonInit({
       //"message0":'motor ball %1,rotate %2 on %3 power,for %4 seconds',
-      "message0": '驱动球 %1,%2 旋转，功率 %3,持续 %4 秒',
+      "message0": '驱动球 %1,%2 旋转，功率 %3,持续 %4 秒, %5%6',
       "args0": [
+        // {
+        //   "type": "input_value",
+        //   "name": "mabot_motor_ball_index",
+        // },
         {
-          "type": "input_value",
+          "type": "field_dialog",
           "name": "mabot_motor_ball_index",
+          "defaultValue": "1",
+          "module": "motor",
+          "multiMode": true,
         },
         {
           "type": "field_dropdown",
@@ -844,19 +897,40 @@ Blockly.Blocks['motion_motorBall_rotate_on_power_for_seconds'] = {
           ]
         },
         {
-          "type": "input_value",
+          // "type": "input_value",
+          // "name": "power",
+          "type": "field_numberDialog",
           "name": "power",
+          "defaultValue": "1",
+          "check": ['Number', 'Boolean', 'String', 'Array']
         },
         {
-          "type": "input_value",
+          // "type": "input_value",
+          // "name": "rotate_for_seconds",
+          "type": "field_numberDialog",
           "name": "rotate_for_seconds",
+          "defaultValue": "1",
+          "check": ['Number', 'Boolean', 'String', 'Array']
         },
+        {
+          "type": "field_clockwise_image",
+          "name": "BLOCK",
+          "src": Blockly.utils.getRuntimeImagePath('/dialogs/clockwise/onebyone.png'),
+          "width": 24,
+          "height": 24,
+        },
+        {
+          "type": "input_dummy",
+        }
       ],
       "category": Blockly.Categories.motion,
-      "extensions": ["colours_motion", "shape_statement"]
+      "extensions": ["colours_motion", "shape_statement"],
+      "mutator": "bell_motion_motor_power_mutator",
     });
   }
 };
+
+
 
 Blockly.Blocks['motion_motorBall_rotate_on_power'] = {
   init: function () {
@@ -1107,4 +1181,6 @@ Blockly.Blocks['motion_swingJoint_get_angle'] = {
     });
   }
 };
+
+Blockly.Extensions.registerMutator('bell_motion_motor_power_mutator', Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK, null, []);
 

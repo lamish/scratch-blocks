@@ -3,24 +3,9 @@
 goog.provide('Blockly.utilsBell');
 goog.require('Blockly.utils');
 
-Blockly.utils.IMAGE_PATH_DEV = '../media/bell/';
-Blockly.utils.IMAGE_PATH_IN_MABOT_STAR = '../media/bell/';
-
-Blockly.utils.MEDIA_PATH_DEV = './dist/mabot_star/bell/media/';
-Blockly.utils.MEDIA_PATH_IN_MABOT_STAR = './blockly/media/';
-
-Blockly.utils.isMabotStarDev_ = function() {
-  // FIXME: more intelligent way?
-  return /\:[0-9]{4}\//.test(window.location.href);
-};
-
 Blockly.utils.getRuntimeImagePath = function(relativePath) {
-  /* if (Blockly.utils.isCordova() || Blockly.utils.isMabotStarDev_()) {
-    return Blockly.utils.IMAGE_PATH_IN_MABOT_STAR + relativePath;
-  } else {
-    return Blockly.utils.IMAGE_PATH_DEV + relativePath;
-  } */
-  return `${Blockly.mainWorkspace.options.pathToMedia}/bell/${relativePath}`
+  // media + /bell/dialog/ok.png
+  return Blockly.mainWorkspace.options.pathToMedia + '/bell/' + relativePath;
 };
 
 Blockly.utils.getRuntimeMediaPath = function() {

@@ -57,6 +57,7 @@ Blockly.FieldModuleDialog.prototype.showEditor_ = function () {
   }
 
   var sourceBlock = this.sourceBlock_;
+  console.log(`sourceBlock`, sourceBlock)
   var value; // 2,4,5
   var moreValue; // decompose
   var oldMutationDom;
