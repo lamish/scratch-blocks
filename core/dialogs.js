@@ -306,6 +306,7 @@ Blockly.Dialogs.generateBackGroundColor = function(width, height){
   dom.style.position = 'absolute';
   dom.style.left = (window.innerWidth - width) / 2 + 'px';
   dom.style.top = (window.innerHeight - height) / 2 + 'px';
+  dom.style.boxSizing = `content-box`;
   dom.style.borderRadius = Math.min(window.innerWidth, window.innerHeight) / 50 + 'px';
   dom.style.padding = Math.min(window.innerWidth, window.innerHeight) / 25 + 'px';
   return dom;

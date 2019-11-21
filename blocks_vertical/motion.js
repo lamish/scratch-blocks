@@ -151,7 +151,7 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
           ["逆时针", '_counterclockwise_']
       ]); // 默认0 顺时针
       
-      var powerField = new Blockly.FieldNumberDialog(item.power);//new Blockly.FieldBellSpeedDialog(item.power, 0, 180);
+      var powerField = new Blockly.FieldBellSpeedDialog(item.power, 0, 180); //new Blockly.FieldNumberDialog(item.power);//
       var secondsField = new Blockly.FieldNumberDialog(item.seconds); //new Blockly.Input(Blockly.INPUT_VALUE, '')
       this.appendDummyInput()
         .appendField('驱动球')
@@ -246,79 +246,15 @@ Blockly.Blocks['motion_movesteps'] = {
   shouldCreateMultiRow: true,
   init: function () {
     this.jsonInit({
-      // "message0": Blockly.Msg.MOTION_MOVESTEPS,
-      "message0": '驱动球 %1, %2 旋转, 功率 %3, 持续 %4 秒, %5%6',
-      // "args0": [
-      //   {
-      //     "type": "input_value",
-      //     "name": "STEPS"
-      //   }
-        // {
-        //   "type": "field_clockwise",
-        //   "name": "STEPS",
-        //   "value": "0"
-        // }
-        /* {
-          "type": "field_speedBellDialog",
-          "name": "STEPS",
-          "value": "0",
-          "min": "-75",
-          "max": "75"
-        } */
-        // {
-        //   "type": 'field_colorpicker',
-        //   "name": "STEPS"
-        // }
-      //   {
-      //     "type": "field_dialog",
-      //     "name": "mabot_motor_ball_index",
-      //     "defaultValue": "1",
-      //     "module": "motor",
-      //     "multiMode": true,
-      //     },
-      // ],
+      "message0": Blockly.Msg.MOTION_MOVESTEPS,
       "args0": [
         {
-          "type": "field_dialog",
-          "name": "mabot_motor_ball_index",
-          "defaultValue": "1",
-          "module": "motor",
-          "multiMode": true,
-        },
-        {
-          "type": "field_dropdown",
-          "name": "rotate_direction",
-          "options": [
-            ["顺时针", '_clockwise_'],
-            ["逆时针", '_counterclockwise_']
-          ]
-        },
-        {
-          "type": "field_numberDialog",
-          "name": "power",
-          "defaultValue": "1",
-          "check": ['Number', 'Boolean', 'String', 'Array']
-        },
-        {
-          "type": "field_numberDialog",
-          "name": "rotate_for_seconds",
-          "defaultValue": "1",
-          "check": ['Number', 'Boolean', 'String', 'Array']
-        },
-        {
-          "type": "field_clockwise_image",
-          "name": "BLOCK",
-          "src": Blockly.utils.getRuntimeImagePath('/dialogs/clockwise/onebyone.png'),
-          "width": 24,
-          "height": 24,
-        },
-        {
-          "type": "input_dummy",
+          "type": "input_value",
+          "name": "STEPS"
         }
       ],
       "category": Blockly.Categories.motion,
-      "extensions": ["colours_motion", "shape_statement"],
-      "mutator": "bell_motion_motor_power_mutator",
+      "extensions": ["colours_motion", "shape_statement"]
     });
   }
 };
@@ -897,12 +833,11 @@ Blockly.Blocks['motion_motorBall_rotate_on_power_for_seconds'] = {
           ]
         },
         {
-          // "type": "input_value",
-          // "name": "power",
-          "type": "field_numberDialog",
+          "type": "field_speedBellDialog",
           "name": "power",
-          "defaultValue": "1",
-          "check": ['Number', 'Boolean', 'String', 'Array']
+          "value": "0",
+          "min": "0",
+          "max": "180"
         },
         {
           // "type": "input_value",
