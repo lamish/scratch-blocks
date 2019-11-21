@@ -30,7 +30,12 @@ Blockly.FieldImageDialog.prototype._defaultCurrent = 0; // 当前选中模式 0�
 Blockly.FieldImageDialog.prototype.init = function () {
     Blockly.FieldImageDialog.superClass_.init.call(this);
     Blockly.bindEvent_(this.imageElement_, 'mouseup', this, function (e) {
+        e.stopPropagation();    
         this.showEditor_();
+    });
+
+    Blockly.bindEvent_(this.imageElement_, 'touchstart', this, function (e) {
+        e.stopPropagation();
     });
 };
 
