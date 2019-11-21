@@ -90,7 +90,7 @@ Blockly.FieldNumberDialog.prototype.showEditor_ = function () {
     // 确认按钮
     var saveBtn = document.createElement('div');
     saveBtn.className = 'bell-field-dialog-btn';
-    saveBtn.style.backgroundImage = `url('${Blockly.mainWorkspace.options.pathToMedia}/bell/dialogs/determine.png')`
+    saveBtn.style.backgroundImage = `url('${Blockly.mainWorkspace.options.pathToMedia}bell/dialogs/determine.png')`
     dom.appendChild(saveBtn);
 
     var okEventType = this.isTouch ? 'touchstart' : 'mousedown';

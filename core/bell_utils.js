@@ -5,7 +5,10 @@ goog.require('Blockly.utils');
 
 Blockly.utils.getRuntimeImagePath = function(relativePath) {
   // media + /bell/dialog/ok.png
-  return Blockly.mainWorkspace.options.pathToMedia + '/bell/' + relativePath;
+  if(relativePath[0] !== '/') {
+    relativePath = '/' + relativePath;
+  }
+  return Blockly.mainWorkspace.options.pathToMedia + 'bell' + relativePath;
 };
 
 Blockly.utils.getRuntimeMediaPath = function() {

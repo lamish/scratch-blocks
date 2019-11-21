@@ -166,7 +166,7 @@ Blockly.FieldBellSpeedDialog.prototype.showEditor_ = function () {
     // 保存按钮
     var saveBtn = document.createElement('div');
     saveBtn.className = 'bell-field-dialog-btn';
-    saveBtn.style.backgroundImage = `url('${Blockly.mainWorkspace.options.pathToMedia}/bell/dialogs/determine.png')`
+    saveBtn.style.backgroundImage = `url('${Blockly.mainWorkspace.options.pathToMedia}bell/dialogs/determine.png')`
     div.appendChild(saveBtn);
     const handleMouseDown = (e) => {
         // 删除语句块时， 如果结果是int 会提示不是node类型， 需要将结果转换为string
