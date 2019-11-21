@@ -46,6 +46,7 @@ Blockly.FieldImageDialog.prototype.dispose = function () {
 
 Blockly.FieldImageDialog.prototype.showEditor_ = function () {
     var value = this.getValue();
+    var me = this;
     var dialogData = Blockly.Dialogs.generateModuleBlockDialog(value,
         function (value, current) {
             me.setValue(value);
@@ -53,7 +54,6 @@ Blockly.FieldImageDialog.prototype.showEditor_ = function () {
         },
         this._defaultCurrent
     );
-    var me = this;
     Blockly.DialogDiv.show(dialogData.dom, function () {
         if (dialogData.eventWrappers && dialogData.eventWrappers.length) {
             for (var i = 0, eventWrapper; eventWrapper = dialogData.eventWrappers[i]; i++) {
@@ -64,5 +64,6 @@ Blockly.FieldImageDialog.prototype.showEditor_ = function () {
         //   me.onHide();
     });
 };
+
 
 Blockly.Field.register('field_clockwise_image', Blockly.FieldImageDialog);

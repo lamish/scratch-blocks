@@ -100,7 +100,6 @@ Blockly.FieldModuleDialog.prototype.showEditor_ = function () {
         if (me.isMultiMode_) {
           me.setValue(newBallList.join(', '));
         } else {
-
           me.setValue(newBallList[0]);
         }
       }
