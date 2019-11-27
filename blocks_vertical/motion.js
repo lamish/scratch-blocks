@@ -150,7 +150,7 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
           ["顺时针", '_clockwise_'],
           ["逆时针", '_counterclockwise_']
       ]); // 默认0 顺时针
-      
+
       var powerField = new Blockly.FieldBellSpeedDialog(item.power, 0, 180); //new Blockly.FieldNumberDialog(item.power);//
       var secondsField = new Blockly.FieldNumberDialog(item.seconds); //new Blockly.Input(Blockly.INPUT_VALUE, '')
       this.appendDummyInput()
@@ -809,7 +809,7 @@ Blockly.Blocks['motion_motorBall_rotate_on_power_for_seconds'] = {
 
     this.jsonInit({
       //"message0":'motor ball %1,rotate %2 on %3 power,for %4 seconds',
-      "message0": '驱动球 %1,%2 旋转，功率 %3,持续 %4 秒, %5%6',
+      "message0": '驱动球 %1,%2 旋转，功率 %3,持续 %4 秒, %5%6%7',
       "args0": [
         // {
         //   "type": "input_value",
@@ -848,6 +848,10 @@ Blockly.Blocks['motion_motorBall_rotate_on_power_for_seconds'] = {
           "check": ['Number', 'Boolean', 'String', 'Array']
         },
         {
+          "type": "field_label",
+          "text":" "
+        },
+        {
           "type": "field_clockwise_image",
           "name": "BLOCK",
           "src": Blockly.utils.getRuntimeImagePath('/dialogs/clockwise/onebyone.png'),
@@ -855,7 +859,8 @@ Blockly.Blocks['motion_motorBall_rotate_on_power_for_seconds'] = {
           "height": 24,
         },
         {
-          "type": "input_dummy",
+          "type": "field_label",
+          "text":" "
         }
       ],
       "category": Blockly.Categories.motion,
