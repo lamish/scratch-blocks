@@ -599,7 +599,7 @@ Blockly.Field.prototype.getScaledBBox_ = function() {
  * @private
  */
 Blockly.Field.prototype.getDisplayText_ = function() {
-  var text = this.text_;
+  var text = this.text_ + "";
   if (!text) {
     // Prevent the field from disappearing if empty.
     return Blockly.Field.NBSP;
@@ -673,7 +673,7 @@ Blockly.Field.prototype.updateTextNode_ = function() {
     // Not rendered yet.
     return;
   }
-  var text = this.text_;
+  var text = this.text_ + "";
   if (text.length > this.maxDisplayLength) {
     // Truncate displayed string and add an ellipsis ('...').
     text = text.substring(0, this.maxDisplayLength - 2) + '\u2026';
@@ -700,7 +700,6 @@ Blockly.Field.prototype.updateTextNode_ = function() {
   }
   var textNode = document.createTextNode(text);
   this.textElement_.appendChild(textNode);
-
   // Cached width is obsolete.  Clear it.
   this.size_.width = 0;
 };

@@ -45,7 +45,7 @@ Blockly.FieldNumberDialog.prototype.showEditor_ = function () {
     // 删除
     var del = document.createElement("div");
     del.className = 'bell-field-number-del';
-    del.style.backgroundImage = `url('${Blockly.mainWorkspace.options.pathToMedia}/bell/dialogs/back.png')`
+    del.style.backgroundImage = `url('${Blockly.mainWorkspace.options.pathToMedia}bell/dialogs/back.png')`
     input.appendChild(del);
 
    /*  goog.events.listen(del, goog.events.EventType.CLICK, function () {

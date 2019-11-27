@@ -50,13 +50,14 @@ goog.require('goog.userAgent');
  * @extends {Blockly.Field}
  * @constructor
  */
-Blockly.FieldDropdown = function(menuGenerator, opt_validator) {
+Blockly.FieldDropdown = function(menuGenerator, opt_validator, oldValue) {
   this.menuGenerator_ = menuGenerator;
   this.trimOptions_();
   var firstTuple = this.getOptions()[0];
 
   // Call parent's constructor.
-  Blockly.FieldDropdown.superClass_.constructor.call(this, firstTuple[1],
+  var firstTupleValue = oldValue || firstTuple[1];
+  Blockly.FieldDropdown.superClass_.constructor.call(this, firstTupleValue,
       opt_validator);
   this.addArgType('dropdown');
 };
@@ -176,6 +177,7 @@ Blockly.FieldDropdown.prototype.showEditor_ = function() {
   var thisField = this;
 
   function callback(e) {
+    console.log(`dropDownEvent`, e)
     var menu = this;
     var menuItem = e.target;
     if (menuItem) {

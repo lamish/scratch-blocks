@@ -59,18 +59,45 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
     return data;
   },
   onchange: function(e) {
+    // console.log(`onchange`, e);
     for (var i = 0, data; data = this.mixinMultiLinesData[i]; i++) {
       data.clockwise = this.getFieldValue('rotate_direction' + (i + 1));
       data.power = this.getFieldValue('power' + (i + 1));
       data.seconds = this.getFieldValue('rotate_for_seconds' + (i + 1));
     }
+
+    if(e.element === 'field') {
+      // mutation被vm缓存，触发更新vm才能取到最新值
+      var newMutationDom = this.mutationToDom();
+      var newMutation = newMutationDom && Blockly.Xml.domToText(newMutationDom);
+      Blockly.Events.fire(new Blockly.Events.BlockChange(this, 'mutation', null, null, newMutation));
+    }
+
+    if(e instanceof Blockly.Events.Create) {
+      // 新拉出来的块， 要清除mutation 解决mutation保留导致的问题
+      /* this.mixinMultiLinesData.length = 0;
+      var newMutationDom = this.mutationToDom();
+      var newMutation = newMutationDom && Blockly.Xml.domToText(newMutationDom); */
+      console.log(`onchange create`)
+      Blockly.Events.fire(new Blockly.Events.BlockChange(this, 'mutation', null, null, null));
+      this.mutationToDom();
+    }
+
+    if(e instanceof Blockly.Events.Ui && e.newValue && e.newValue.indexOf('motion_motorBall') > -1) {
+      console.log(`!!!!!!!!!!!!!!!!!!!!`)
+      // this.domToMutation([]);
+      // this.domToMutation(document.createElement('mutation'))
+    } 
+  
   },
-  mutationToDom: function() {
-    if (!this.mixinMultiLinesData || !this.mixinMultiLinesData.length ||
-      !this.shouldCreateMultiRow) {
+  mutationToDom: function(isCreate) {
+    if (isCreate || !this.mixinMultiLinesData || !this.mixinMultiLinesData.length  || !this.mixinMultiLinesData[0].clockwise || !this.shouldCreateMultiRow) {
+      // 解决mutation保留导致的问题
+      console.log(`isCreate: ${isCreate}`)
+      this.mixinMultiLinesData = [];
       return null;
     }
-    console.log(`this.mixinMultiLinesData`, this.mixinMultiLinesData)
+    console.log(`this.mixinMultiLinesData`, JSON.parse(JSON.stringify(this.mixinMultiLinesData)))
     // return null; // FIXME: mutation保留导致一系列问题，能否解决?
 
     var container = document.createElement('mutation');
@@ -86,9 +113,11 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
       item.setAttribute('rotate_for_seconds', data.seconds);
       container.appendChild(item);
     }
+    console.log(`mutationToDom`, container)
     return container;
   },
   domToMutation: function(element) {
+    console.log(`domToMutation`, element)
     if (!this.shouldCreateMultiRow) return;
     this.mixinMultiLinesData.length = 0;
     // 首行数据
@@ -97,6 +126,7 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
       clockwise: this.getFieldValue('rotate_direction'),
       power: this.getFieldValue('power'),
       seconds: this.getFieldValue('rotate_for_seconds'),
+      // block: this.getFieldValue('BLOCK'),
     };
     this.mixinMultiLinesData.push(firstLineData);
 
@@ -104,26 +134,28 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
       var item = {};
 
       // 驱动球球号
-      item.seq = parseInt(child.getAttribute('seq'));
+      item.seq = child.getAttribute('seq');
       // 顺时针 or 逆时针
-      item.clockwise = parseInt(child.getAttribute('rotate_direction'));
+      item.clockwise = child.getAttribute('rotate_direction');
       // 功率
-      item.power = parseInt(child.getAttribute('power'));
+      item.power = child.getAttribute('power');
       // 持续时间(s)
-      item.seconds = parseFloat(child.getAttribute('rotate_for_seconds'));
+      item.seconds = child.getAttribute('rotate_for_seconds');
 
       this.mixinMultiLinesData.push(item);
     }
     // re-render the block
-    this.updateShape_();
+    this.updateShape_(true);
   },
-  updateShape_: function() {
+  updateShape_: function(isDomToMutation) {
+    console.log(`updateShape_`, JSON.parse(JSON.stringify(this.mixinMultiLinesData)))
     var data = this.mixinMultiLinesData;
     // 首行单独更新field值
     this.getField('mabot_motor_ball_index').setValue(data[0].seq);
     this.getField('rotate_direction').setValue(data[0].clockwise);
     this.getField('power').setValue(data[0].power);
     this.getField('rotate_for_seconds').setValue(data[0].seconds);
+    // this.getField('BLOCK').setValue(data[0].block);
     // 其他行直接先干掉
     for (var i = this.inputList.length - 1, input; input = this.inputList[i]; i--) {
       if (input.type === Blockly.DUMMY_INPUT && input.fieldRow.length > 0 && i > 0) {
@@ -142,14 +174,34 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
         this.inputList.splice(i, 1);
       }
     }
+    // if(isDomToMutation) {
+      data.forEach(item => {
+        for(const key in item) {
+          if(key === 'clockwise') {
+            if(item[key] == 1) {
+              item[key] = '_clockwise_';
+            }else if(item[key] == 0){
+              item[key] = '_counterclockwise_';
+            }
+          }else{
+            item[key] = item[key] + ""; // 转成字符串
+          }
+        }
+      })
+    // }
+    console.log(`aaaa`, JSON.parse(JSON.stringify(data)))
     // 添加行
     for (var i = 1, item; item = data[i]; i++) {
       var seqField = new Blockly.FieldModuleDialog(item.seq, Blockly.FieldModuleDialog.MODULE_MOTOR, true);
       // var clockwiseField = new Blockly.FieldClockwiseDialog(item.clockwise);
-      var clockwiseField = new Blockly.FieldDropdown([
+      var clockwiseField = new Blockly.FieldDropdown(
+        [
           ["顺时针", '_clockwise_'],
           ["逆时针", '_counterclockwise_']
-      ]); // 默认0 顺时针
+        ], 
+        undefined, 
+        item.clockwise
+      ); // 默认0 顺时针
       
       var powerField = new Blockly.FieldBellSpeedDialog(item.power, 0, 180); //new Blockly.FieldNumberDialog(item.power);//
       var secondsField = new Blockly.FieldNumberDialog(item.seconds); //new Blockly.Input(Blockly.INPUT_VALUE, '')
@@ -170,6 +222,7 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
     this.render();
   },
   compose: function(newData) {
+    console.log(`compose`, newData)
     if (!this.shouldCreateMultiRow) return;
     // 首行数据
     var firstLineData = {
@@ -231,6 +284,7 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
   decompose: function() {
     if (!this.shouldCreateMultiRow) return;
     var data = this.mixinMultiLinesDataModuleList();
+    console.log(`decompose`, data);
     data.unshift(this.getFieldValue('mabot_motor_ball_index'));
     return data;
   },

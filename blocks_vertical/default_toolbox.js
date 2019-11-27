@@ -30,6 +30,30 @@ goog.require('Blockly.Blocks');
 
 Blockly.Blocks.defaultToolbox = '<xml id="toolbox-categories" style="display: none">' +
   '<category name="%{BKY_CATEGORY_MOTION}" id="motion" colour="#4C97FF" secondaryColour="#3373CC">' +
+    `
+      <block type="motion_motorBall_rotate_on_power_for_seconds">
+            <value name="mabot_motor_ball_index">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                </shadow>
+            </value>
+            <value name="rotate_direction">
+                <shadow type="math_number">
+                </shadow>
+            </value>
+            <value name="power">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+            </value>
+            <value name="rotate_for_seconds">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+            </value>
+        </block>
+    `+
+
     '<block type="motion_movesteps" id="motion_movesteps">' +
       '<value name="STEPS">' +
         '<shadow type="math_number">' +

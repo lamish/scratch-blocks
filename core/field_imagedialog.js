@@ -17,7 +17,7 @@ Blockly.FieldImageDialog = function (src, width, height) {
 goog.inherits(Blockly.FieldImageDialog, Blockly.FieldImage); // 继承image
 
 Blockly.FieldImageDialog.fromJson = function (element) {
-    return new Blockly.FieldImageDialog(element.src, element.width, element.height);
+    return new Blockly.FieldImageDialog(element.src, element.width, element.height, element.alt);
 };
 
 // 保存变量
@@ -61,9 +61,15 @@ Blockly.FieldImageDialog.prototype.showEditor_ = function () {
             }
         }
         if (dialogData.onHide) dialogData.onHide();
-        //   me.onHide();
     });
 };
 
+Blockly.FieldImageDialog.prototype.setValue = function (newValue) {
+    // 要触发更新vm才能拿到最新值
+    Blockly.FieldImage.prototype.setValue.call(this, newValue);
+    if(this.sourceBlock_ && this.sourceBlock_.workspace) {
+        Blockly.Events.fire(new Blockly.Events.BlockChange(this.sourceBlock_, 'field', this.name, null, newValue));
+    } 
+}
 
 Blockly.Field.register('field_clockwise_image', Blockly.FieldImageDialog);
