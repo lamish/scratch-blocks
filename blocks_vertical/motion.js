@@ -59,9 +59,9 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
     return data;
   },
   onchange: function(e) {
-    // console.log(`onchange`, e);
+    console.log(`onchange`, e);
     for (var i = 0, data; data = this.mixinMultiLinesData[i]; i++) {
-      data.clockwise = this.getFieldValue('rotate_direction' + (i + 1));
+      data.rotate_direction = this.getFieldValue('rotate_direction' + (i + 1));
       data.power = this.getFieldValue('power' + (i + 1));
       data.seconds = this.getFieldValue('rotate_for_seconds' + (i + 1));
     }
@@ -78,23 +78,23 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
       /* this.mixinMultiLinesData.length = 0;
       var newMutationDom = this.mutationToDom();
       var newMutation = newMutationDom && Blockly.Xml.domToText(newMutationDom); */
+      // Blockly.Events.fire(new Blockly.Events.BlockChange(this, 'mutation', null, new Date().getTime() + "", null));
       console.log(`onchange create`)
-      Blockly.Events.fire(new Blockly.Events.BlockChange(this, 'mutation', null, null, null));
       this.mutationToDom();
     }
 
-    if(e instanceof Blockly.Events.Ui && e.newValue && e.newValue.indexOf('motion_motorBall') > -1) {
-      console.log(`!!!!!!!!!!!!!!!!!!!!`)
-      // this.domToMutation([]);
-      // this.domToMutation(document.createElement('mutation'))
-    } 
+    // if(e instanceof Blockly.Events.Ui && e.newValue && e.newValue.indexOf('motion_motorBall') > -1) {
+      // console.log(`!!!!!!!!!!!!!!!!!!!`)
+      // Blockly.Events.fire(new Blockly.Events.BlockChange(this, 'mutation', null, new Date().getTime() + "", null));
+    // } 
   
   },
   mutationToDom: function(isCreate) {
-    if (isCreate || !this.mixinMultiLinesData || !this.mixinMultiLinesData.length  || !this.mixinMultiLinesData[0].clockwise || !this.shouldCreateMultiRow) {
+    if (isCreate || !this.mixinMultiLinesData || !this.mixinMultiLinesData.length  || !this.mixinMultiLinesData[0].rotate_direction || !this.shouldCreateMultiRow) {
       // 解决mutation保留导致的问题
       console.log(`isCreate: ${isCreate}`)
       this.mixinMultiLinesData = [];
+      Blockly.Events.fire(new Blockly.Events.BlockChange(this, 'mutation', null, new Date().getTime() + "", null));
       return null;
     }
     console.log(`this.mixinMultiLinesData`, JSON.parse(JSON.stringify(this.mixinMultiLinesData)))
@@ -106,11 +106,11 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
       // 驱动球球号1-15
       item.setAttribute('seq', data.seq);
       // 顺时针 or 逆时针
-      item.setAttribute('rotate_direction', data.clockwise);
+      item.setAttribute('rotate_direction', data.rotate_direction);
       // 功率
       item.setAttribute('power', data.power);
       // 持续时间(s)
-      item.setAttribute('rotate_for_seconds', data.seconds);
+      item.setAttribute('rotate_for_seconds', data.rotate_for_seconds);
       container.appendChild(item);
     }
     console.log(`mutationToDom`, container)
@@ -123,9 +123,9 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
     // 首行数据
     var firstLineData = {
       seq: this.getFieldValue('mabot_motor_ball_index'),
-      clockwise: this.getFieldValue('rotate_direction'),
+      rotate_direction: this.getFieldValue('rotate_direction'),
       power: this.getFieldValue('power'),
-      seconds: this.getFieldValue('rotate_for_seconds'),
+      rotate_for_seconds: this.getFieldValue('rotate_for_seconds'),
       // block: this.getFieldValue('BLOCK'),
     };
     this.mixinMultiLinesData.push(firstLineData);
@@ -136,11 +136,11 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
       // 驱动球球号
       item.seq = child.getAttribute('seq');
       // 顺时针 or 逆时针
-      item.clockwise = child.getAttribute('rotate_direction');
+      item.rotate_direction = child.getAttribute('rotate_direction');
       // 功率
       item.power = child.getAttribute('power');
       // 持续时间(s)
-      item.seconds = child.getAttribute('rotate_for_seconds');
+      item.rotate_for_seconds = child.getAttribute('rotate_for_seconds');
 
       this.mixinMultiLinesData.push(item);
     }
@@ -152,9 +152,9 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
     var data = this.mixinMultiLinesData;
     // 首行单独更新field值
     this.getField('mabot_motor_ball_index').setValue(data[0].seq);
-    this.getField('rotate_direction').setValue(data[0].clockwise);
+    this.getField('rotate_direction').setValue(data[0].rotate_direction);
     this.getField('power').setValue(data[0].power);
-    this.getField('rotate_for_seconds').setValue(data[0].seconds);
+    this.getField('rotate_for_seconds').setValue(data[0].rotate_for_seconds);
     // this.getField('BLOCK').setValue(data[0].block);
     // 其他行直接先干掉
     for (var i = this.inputList.length - 1, input; input = this.inputList[i]; i--) {
@@ -174,45 +174,46 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
         this.inputList.splice(i, 1);
       }
     }
-    // if(isDomToMutation) {
-      data.forEach(item => {
-        for(const key in item) {
-          if(key === 'clockwise') {
-            if(item[key] == 1) {
-              item[key] = '_clockwise_';
-            }else if(item[key] == 0){
-              item[key] = '_counterclockwise_';
-            }
-          }else{
-            item[key] = item[key] + ""; // 转成字符串
+   
+    data.forEach(item => {
+      for(const key in item) {
+        if(key === 'rotate_direction') {
+          if(item[key] == 1) {
+            item[key] = '_clockwise_';
+          }else if(item[key] == 0){
+            item[key] = '_counterclockwise_';
           }
+        }else{
+          item[key] = item[key] + ""; // 转成字符串
         }
-      })
-    // }
+      }
+    })
+ 
     console.log(`aaaa`, JSON.parse(JSON.stringify(data)))
+   
     // 添加行
     for (var i = 1, item; item = data[i]; i++) {
       var seqField = new Blockly.FieldModuleDialog(item.seq, Blockly.FieldModuleDialog.MODULE_MOTOR, true);
-      // var clockwiseField = new Blockly.FieldClockwiseDialog(item.clockwise);
+      // var clockwiseField = new Blockly.FieldClockwiseDialog(item.rotate_direction);
       var clockwiseField = new Blockly.FieldDropdown(
         [
           ["顺时针", '_clockwise_'],
           ["逆时针", '_counterclockwise_']
         ], 
         undefined, 
-        item.clockwise
+        item.rotate_direction
       ); // 默认0 顺时针
       
       var powerField = new Blockly.FieldBellSpeedDialog(item.power, 0, 180); //new Blockly.FieldNumberDialog(item.power);//
-      var secondsField = new Blockly.FieldNumberDialog(item.seconds); //new Blockly.Input(Blockly.INPUT_VALUE, '')
+      var secondsField = new Blockly.FieldNumberDialog(item.rotate_for_seconds); //new Blockly.Input(Blockly.INPUT_VALUE, '')
       this.appendDummyInput()
         .appendField('驱动球')
         .appendField(seqField,'mabot_motor_ball_index' + i)
-        .appendField(',')
+        .appendField('，')
         .appendField(clockwiseField, 'rotate_direction' + i)
-        .appendField('旋转, 功率')
+        .appendField('旋转，功率')
         .appendField(powerField, 'power' + i)
-        .appendField(', 持续')
+        .appendField('，持续')
         .appendField(secondsField, 'rotate_for_seconds' + i)
         .appendField('秒');
     }
@@ -220,6 +221,15 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
     this.mixinMultiLinesData.splice(0, 1);
     // fix issue: 需要强制渲染一次block，防止出现空行
     this.render();
+
+    /* var newMutationDom = this.mutationToDom();
+    console.log(`newMutationDom`, newMutationDom)
+    if(!newMutationDom) {
+      newMutationDom = document.createElement('mutation');
+    }
+    var newMutation = newMutationDom && Blockly.Xml.domToText(newMutationDom);
+    console.log(`newMutation`, newMutation, new Blockly.Events.BlockChange(this, 'mutation', null, null, newMutation))
+    Blockly.Events.fire(new Blockly.Events.BlockChange(this, 'mutation', null, null, newMutation)); */
   },
   compose: function(newData) {
     console.log(`compose`, newData)
@@ -227,9 +237,9 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
     // 首行数据
     var firstLineData = {
       seq: this.getFieldValue('mabot_motor_ball_index'),
-      clockwise: this.getFieldValue('rotate_direction'),
+      rotate_direction: this.getFieldValue('rotate_direction'),
       power: this.getFieldValue('power'),
-      seconds: this.getFieldValue('rotate_for_seconds'),
+      rotate_for_seconds: this.getFieldValue('rotate_for_seconds'),
     };
     // 其余数据
     var otherLineData = this.mixinMultiLinesData;
@@ -237,16 +247,16 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
     var oldData = [];
     oldData.push({
       seq: firstLineData.seq,
-      clockwise: firstLineData.clockwise,
+      rotate_direction: firstLineData.rotate_direction,
       power: firstLineData.power,
-      seconds: firstLineData.seconds,
+      rotate_for_seconds: firstLineData.rotate_for_seconds,
     });
     for (var i = 0, otherLine; otherLine = otherLineData[i]; i++) {
       oldData.push({
         seq: otherLine.seq,
-        clockwise: otherLine.clockwise,
+        rotate_direction: otherLine.rotate_direction,
         power: otherLine.power,
-        seconds: otherLine.seconds,
+        rotate_for_seconds: otherLine.rotate_for_seconds,
       });
     }
     function findInOldDataBySeq(seq, oldData) {
@@ -264,21 +274,22 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
       if (!!find) {
         mergeData.push({
           seq: newLine,
-          clockwise: find.clockwise,
+          rotate_direction: find.rotate_direction,
           power: find.power,
-          seconds: find.seconds,
+          rotate_for_seconds: find.rotate_for_seconds,
         });
       } else {
         // 没有，给默认值
         mergeData.push({
           seq: newLine,
-          clockwise: '1',
+          rotate_direction: '1',
           power: 30,
-          seconds: 3,
+          rotate_for_seconds: 3,
         });
       }
     }
     this.mixinMultiLinesData = mergeData;
+ 
     this.updateShape_();
   },
   decompose: function() {
@@ -286,8 +297,670 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
     var data = this.mixinMultiLinesDataModuleList();
     console.log(`decompose`, data);
     data.unshift(this.getFieldValue('mabot_motor_ball_index'));
+
     return data;
   },
+
+};
+
+
+
+Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK_2 = {
+  mixinMultiLinesData: [],
+  // 弹窗显示时，需要获取mixin data中ball list
+  // fix issue: 如果field内值被认为修改，需要在此处去获取最新数据
+  mixinMultiLinesDataModuleList: function() {
+    var data = [];
+    for (var i = 0; i < this.mixinMultiLinesData.length; i++) {
+      data.push(this.mixinMultiLinesData[i].seq);
+    }
+    return data;
+  },
+  onchange: function(e) {
+    for (var i = 0, data; data = this.mixinMultiLinesData[i]; i++) {
+      data.rotate_direction = this.getFieldValue('rotate_direction' + (i + 1));
+      data.power = this.getFieldValue('power' + (i + 1));
+    }
+
+    if(e.element === 'field') {
+      // mutation被vm缓存，触发更新vm才能取到最新值
+      var newMutationDom = this.mutationToDom();
+      var newMutation = newMutationDom && Blockly.Xml.domToText(newMutationDom);
+      Blockly.Events.fire(new Blockly.Events.BlockChange(this, 'mutation', null, null, newMutation));
+    }
+
+    if(e instanceof Blockly.Events.Create) {
+      // 新拉出来的块， 要清除mutation 解决mutation保留导致的问题
+      this.mutationToDom();
+    }
+  
+  },
+  mutationToDom: function(isCreate) {
+    if (isCreate || !this.mixinMultiLinesData || !this.mixinMultiLinesData.length  || !this.mixinMultiLinesData[0].rotate_direction || !this.shouldCreateMultiRow) {
+      // 解决mutation保留导致的问题
+      this.mixinMultiLinesData = [];
+      Blockly.Events.fire(new Blockly.Events.BlockChange(this, 'mutation', null, new Date().getTime() + "", null));
+      return null;
+    }
+    // return null; // FIXME: mutation保留导致一系列问题，能否解决?
+
+    var container = document.createElement('mutation');
+    for (var i = 0, data; data = this.mixinMultiLinesData[i]; i++) {
+      var item = document.createElement('item');
+      // 驱动球球号1-15
+      item.setAttribute('seq', data.seq);
+      // 顺时针 or 逆时针
+      item.setAttribute('rotate_direction', data.rotate_direction);
+      // 功率
+      item.setAttribute('power', data.power);
+     
+      container.appendChild(item);
+    }
+    return container;
+  },
+  domToMutation: function(element) {
+    if (!this.shouldCreateMultiRow) return;
+    this.mixinMultiLinesData.length = 0;
+    // 首行数据
+    var firstLineData = {
+      seq: this.getFieldValue('mabot_motor_ball_index'),
+      rotate_direction: this.getFieldValue('rotate_direction'),
+      power: this.getFieldValue('power')
+    };
+    this.mixinMultiLinesData.push(firstLineData);
+
+    for (var i = 0, child; child = element.childNodes[i]; i++) {
+      var item = {};
+
+      // 驱动球球号
+      item.seq = child.getAttribute('seq');
+      // 顺时针 or 逆时针
+      item.rotate_direction = child.getAttribute('rotate_direction');
+      // 功率
+      item.power = child.getAttribute('power');
+
+      this.mixinMultiLinesData.push(item);
+    }
+    // re-render the block
+    this.updateShape_(true);
+  },
+  updateShape_: function(isDomToMutation) {
+    var data = this.mixinMultiLinesData;
+    // 首行单独更新field值
+    this.getField('mabot_motor_ball_index').setValue(data[0].seq);
+    this.getField('rotate_direction').setValue(data[0].rotate_direction);
+    this.getField('power').setValue(data[0].power);
+
+    // this.getField('BLOCK').setValue(data[0].block);
+    // 其他行直接先干掉
+    for (var i = this.inputList.length - 1, input; input = this.inputList[i]; i--) {
+      if (input.type === Blockly.DUMMY_INPUT && input.fieldRow.length > 0 && i > 0) {
+        if (input.connection && input.connection.isConnected()) {
+          input.connection.setShadowDom(null);
+          var block = input.connection.targetBlock();
+          if (block.isShadow()) {
+            // Destroy any attached shadow block.
+            block.dispose();
+          } else {
+            // Disconnect any attached normal block.
+            block.unplug();
+          }
+        }
+        input.dispose();
+        this.inputList.splice(i, 1);
+      }
+    }
+   
+    data.forEach(item => {
+      for(const key in item) {
+        if(key === 'rotate_direction') {
+          if(item[key] == 1) {
+            item[key] = '_clockwise_';
+          }else if(item[key] == 0){
+            item[key] = '_counterclockwise_';
+          }
+        }else{
+          item[key] = item[key] + ""; // 转成字符串
+        }
+      }
+    })
+ 
+   
+    // 添加行
+    for (var i = 1, item; item = data[i]; i++) {
+      var seqField = new Blockly.FieldModuleDialog(item.seq, Blockly.FieldModuleDialog.MODULE_MOTOR, true);
+      // var clockwiseField = new Blockly.FieldClockwiseDialog(item.rotate_direction);
+      var clockwiseField = new Blockly.FieldDropdown(
+        [
+          ["顺时针", '_clockwise_'],
+          ["逆时针", '_counterclockwise_']
+        ], 
+        undefined, 
+        item.rotate_direction
+      ); // 默认0 顺时针
+      
+      var powerField = new Blockly.FieldBellSpeedDialog(item.power, 0, 180); //new Blockly.FieldNumberDialog(item.power);//
+    
+      this.appendDummyInput()
+        .appendField('驱动球')
+        .appendField(seqField,'mabot_motor_ball_index' + i)
+        .appendField('，')
+        .appendField(clockwiseField, 'rotate_direction' + i)
+        .appendField('旋转，功率')
+        .appendField(powerField, 'power' + i);
+    }
+    // fix issue: 需要把compose传过来的第一个data删除
+    this.mixinMultiLinesData.splice(0, 1);
+    // fix issue: 需要强制渲染一次block，防止出现空行
+    this.render();
+  },
+  compose: function(newData) {
+    if (!this.shouldCreateMultiRow) return;
+    // 首行数据
+    var firstLineData = {
+      seq: this.getFieldValue('mabot_motor_ball_index'),
+      rotate_direction: this.getFieldValue('rotate_direction'),
+      power: this.getFieldValue('power'),
+    };
+    // 其余数据
+    var otherLineData = this.mixinMultiLinesData;
+    // 拼接起来
+    var oldData = [];
+    oldData.push({
+      seq: firstLineData.seq,
+      rotate_direction: firstLineData.rotate_direction,
+      power: firstLineData.power
+    });
+    for (var i = 0, otherLine; otherLine = otherLineData[i]; i++) {
+      oldData.push({
+        seq: otherLine.seq,
+        rotate_direction: otherLine.rotate_direction,
+        power: otherLine.power
+      });
+    }
+    function findInOldDataBySeq(seq, oldData) {
+      for (var i = 0, oldLine; oldLine = oldData[i]; i++) {
+        if (oldLine.seq == seq) {
+          return oldLine;
+        }
+      }
+      return null;
+    }
+    // 更新数据集
+    var mergeData = [];
+    for (var i = 0, newLine; newLine = newData[i]; i++) {
+      var find = findInOldDataBySeq(newLine, oldData);
+      if (!!find) {
+        mergeData.push({
+          seq: newLine,
+          rotate_direction: find.rotate_direction,
+          power: find.power
+        });
+      } else {
+        // 没有，给默认值
+        mergeData.push({
+          seq: newLine,
+          rotate_direction: '_clockwise_',
+          power: 30
+        });
+      }
+    }
+    this.mixinMultiLinesData = mergeData;
+ 
+    this.updateShape_();
+  },
+  decompose: function() {
+    if (!this.shouldCreateMultiRow) return;
+    var data = this.mixinMultiLinesDataModuleList();
+    data.unshift(this.getFieldValue('mabot_motor_ball_index'));
+    return data;
+  },
+
+};
+
+
+Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK_3 = {
+  mixinMultiLinesData: [],
+  // 弹窗显示时，需要获取mixin data中ball list
+  // fix issue: 如果field内值被认为修改，需要在此处去获取最新数据
+  mixinMultiLinesDataModuleList: function() {
+    var data = [];
+    for (var i = 0; i < this.mixinMultiLinesData.length; i++) {
+      data.push(this.mixinMultiLinesData[i].seq);
+    }
+    return data;
+  },
+  onchange: function(e) {
+    for (var i = 0, data; data = this.mixinMultiLinesData[i]; i++) {
+      data.rotate_direction = this.getFieldValue('rotate_direction' + (i + 1));
+      data.speed = this.getFieldValue('speed' + (i + 1));
+      data.seconds = this.getFieldValue('rotate_for_seconds' + (i + 1));
+    }
+
+    if(e.element === 'field') {
+      // mutation被vm缓存，触发更新vm才能取到最新值
+      var newMutationDom = this.mutationToDom();
+      var newMutation = newMutationDom && Blockly.Xml.domToText(newMutationDom);
+      Blockly.Events.fire(new Blockly.Events.BlockChange(this, 'mutation', null, null, newMutation));
+    }
+
+    if(e instanceof Blockly.Events.Create) {
+      // 新拉出来的块， 要清除mutation 解决mutation保留导致的问题
+      /* this.mixinMultiLinesData.length = 0;
+      var newMutationDom = this.mutationToDom();
+      var newMutation = newMutationDom && Blockly.Xml.domToText(newMutationDom); */
+      // Blockly.Events.fire(new Blockly.Events.BlockChange(this, 'mutation', null, new Date().getTime() + "", null));
+      this.mutationToDom();
+    }
+  
+  },
+  mutationToDom: function(isCreate) {
+    if (isCreate || !this.mixinMultiLinesData || !this.mixinMultiLinesData.length  || !this.mixinMultiLinesData[0].rotate_direction || !this.shouldCreateMultiRow) {
+      // 解决mutation保留导致的问题
+      this.mixinMultiLinesData = [];
+      Blockly.Events.fire(new Blockly.Events.BlockChange(this, 'mutation', null, new Date().getTime() + "", null));
+      return null;
+    }
+    console.log(`this.mixinMultiLinesData`, JSON.parse(JSON.stringify(this.mixinMultiLinesData)))
+    // return null; // FIXME: mutation保留导致一系列问题，能否解决?
+
+    var container = document.createElement('mutation');
+    for (var i = 0, data; data = this.mixinMultiLinesData[i]; i++) {
+      var item = document.createElement('item');
+      // 驱动球球号1-15
+      item.setAttribute('seq', data.seq);
+      // 顺时针 or 逆时针
+      item.setAttribute('rotate_direction', data.rotate_direction);
+      // 功率
+      item.setAttribute('speed', data.speed);
+      // 持续时间(s)
+      item.setAttribute('rotate_for_seconds', data.rotate_for_seconds);
+      container.appendChild(item);
+    }
+    return container;
+  },
+  domToMutation: function(element) {
+    if (!this.shouldCreateMultiRow) return;
+    this.mixinMultiLinesData.length = 0;
+    // 首行数据
+    var firstLineData = {
+      seq: this.getFieldValue('mabot_motor_ball_index'),
+      rotate_direction: this.getFieldValue('rotate_direction'),
+      speed: this.getFieldValue('speed'),
+      rotate_for_seconds: this.getFieldValue('rotate_for_seconds'),
+      // block: this.getFieldValue('BLOCK'),
+    };
+    this.mixinMultiLinesData.push(firstLineData);
+
+    for (var i = 0, child; child = element.childNodes[i]; i++) {
+      var item = {};
+
+      // 驱动球球号
+      item.seq = child.getAttribute('seq');
+      // 顺时针 or 逆时针
+      item.rotate_direction = child.getAttribute('rotate_direction');
+      // 功率
+      item.speed = child.getAttribute('speed');
+      // 持续时间(s)
+      item.rotate_for_seconds = child.getAttribute('rotate_for_seconds');
+
+      this.mixinMultiLinesData.push(item);
+    }
+    // re-render the block
+    this.updateShape_(true);
+  },
+  updateShape_: function(isDomToMutation) {
+    var data = this.mixinMultiLinesData;
+    // 首行单独更新field值
+    this.getField('mabot_motor_ball_index').setValue(data[0].seq);
+    this.getField('rotate_direction').setValue(data[0].rotate_direction);
+    this.getField('speed').setValue(data[0].speed);
+    this.getField('rotate_for_seconds').setValue(data[0].rotate_for_seconds);
+    // this.getField('BLOCK').setValue(data[0].block);
+    // 其他行直接先干掉
+    for (var i = this.inputList.length - 1, input; input = this.inputList[i]; i--) {
+      if (input.type === Blockly.DUMMY_INPUT && input.fieldRow.length > 0 && i > 0) {
+        if (input.connection && input.connection.isConnected()) {
+          input.connection.setShadowDom(null);
+          var block = input.connection.targetBlock();
+          if (block.isShadow()) {
+            // Destroy any attached shadow block.
+            block.dispose();
+          } else {
+            // Disconnect any attached normal block.
+            block.unplug();
+          }
+        }
+        input.dispose();
+        this.inputList.splice(i, 1);
+      }
+    }
+   
+    data.forEach(item => {
+      for(const key in item) {
+        if(key === 'rotate_direction') {
+          if(item[key] == 1) {
+            item[key] = '_clockwise_';
+          }else if(item[key] == 0){
+            item[key] = '_counterclockwise_';
+          }
+        }else{
+          item[key] = item[key] + ""; // 转成字符串
+        }
+      }
+    })
+    // 添加行
+    for (var i = 1, item; item = data[i]; i++) {
+      var seqField = new Blockly.FieldModuleDialog(item.seq, Blockly.FieldModuleDialog.MODULE_MOTOR, true);
+      // var clockwiseField = new Blockly.FieldClockwiseDialog(item.rotate_direction);
+      var clockwiseField = new Blockly.FieldDropdown(
+        [
+          ["顺时针", '_clockwise_'],
+          ["逆时针", '_counterclockwise_']
+        ], 
+        undefined, 
+        item.rotate_direction
+      ); // 默认0 顺时针
+      
+      var speedField = new Blockly.FieldBellSpeedDialog(item.speed, 0, 100); //new Blockly.FieldNumberDialog(item.power);//
+      var secondsField = new Blockly.FieldNumberDialog(item.rotate_for_seconds); //new Blockly.Input(Blockly.INPUT_VALUE, '')
+      this.appendDummyInput()
+        .appendField('驱动球')
+        .appendField(seqField,'mabot_motor_ball_index' + i)
+        .appendField('，')
+        .appendField(clockwiseField, 'rotate_direction' + i)
+        .appendField('旋转，速度')
+        .appendField(speedField, 'speed' + i)
+        .appendField('分/秒，持续')
+        .appendField(secondsField, 'rotate_for_seconds' + i)
+        .appendField('秒');
+    }
+    // fix issue: 需要把compose传过来的第一个data删除
+    this.mixinMultiLinesData.splice(0, 1);
+    // fix issue: 需要强制渲染一次block，防止出现空行
+    this.render();
+  },
+  compose: function(newData) {
+    console.log(`compose`, newData)
+    if (!this.shouldCreateMultiRow) return;
+    // 首行数据
+    var firstLineData = {
+      seq: this.getFieldValue('mabot_motor_ball_index'),
+      rotate_direction: this.getFieldValue('rotate_direction'),
+      speed: this.getFieldValue('speed'),
+      rotate_for_seconds: this.getFieldValue('rotate_for_seconds'),
+    };
+    // 其余数据
+    var otherLineData = this.mixinMultiLinesData;
+    // 拼接起来
+    var oldData = [];
+    oldData.push({
+      seq: firstLineData.seq,
+      rotate_direction: firstLineData.rotate_direction,
+      speed: firstLineData.speed,
+      rotate_for_seconds: firstLineData.rotate_for_seconds,
+    });
+    for (var i = 0, otherLine; otherLine = otherLineData[i]; i++) {
+      oldData.push({
+        seq: otherLine.seq,
+        rotate_direction: otherLine.rotate_direction,
+        speed: otherLine.speed,
+        rotate_for_seconds: otherLine.rotate_for_seconds,
+      });
+    }
+    function findInOldDataBySeq(seq, oldData) {
+      for (var i = 0, oldLine; oldLine = oldData[i]; i++) {
+        if (oldLine.seq == seq) {
+          return oldLine;
+        }
+      }
+      return null;
+    }
+    // 更新数据集
+    var mergeData = [];
+    for (var i = 0, newLine; newLine = newData[i]; i++) {
+      var find = findInOldDataBySeq(newLine, oldData);
+      if (!!find) {
+        mergeData.push({
+          seq: newLine,
+          rotate_direction: find.rotate_direction,
+          speed: find.speed,
+          rotate_for_seconds: find.rotate_for_seconds,
+        });
+      } else {
+        // 没有，给默认值
+        mergeData.push({
+          seq: newLine,
+          rotate_direction: '1',
+          speed: 30,
+          rotate_for_seconds: 3,
+        });
+      }
+    }
+    this.mixinMultiLinesData = mergeData;
+ 
+    this.updateShape_();
+  },
+  decompose: function() {
+    if (!this.shouldCreateMultiRow) return;
+    var data = this.mixinMultiLinesDataModuleList();
+    data.unshift(this.getFieldValue('mabot_motor_ball_index'));
+
+    return data;
+  },
+
+};
+
+Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK_4 = {
+  mixinMultiLinesData: [],
+  // 弹窗显示时，需要获取mixin data中ball list
+  // fix issue: 如果field内值被认为修改，需要在此处去获取最新数据
+  mixinMultiLinesDataModuleList: function() {
+    var data = [];
+    for (var i = 0; i < this.mixinMultiLinesData.length; i++) {
+      data.push(this.mixinMultiLinesData[i].seq);
+    }
+    return data;
+  },
+  onchange: function(e) {
+    for (var i = 0, data; data = this.mixinMultiLinesData[i]; i++) {
+      data.rotate_direction = this.getFieldValue('rotate_direction' + (i + 1));
+      data.speed = this.getFieldValue('speed' + (i + 1));
+    }
+
+    if(e.element === 'field') {
+      // mutation被vm缓存，触发更新vm才能取到最新值
+      var newMutationDom = this.mutationToDom();
+      var newMutation = newMutationDom && Blockly.Xml.domToText(newMutationDom);
+      Blockly.Events.fire(new Blockly.Events.BlockChange(this, 'mutation', null, null, newMutation));
+    }
+
+    if(e instanceof Blockly.Events.Create) {
+      // 新拉出来的块， 要清除mutation 解决mutation保留导致的问题
+      this.mutationToDom();
+    }
+  
+  },
+  mutationToDom: function(isCreate) {
+    if (isCreate || !this.mixinMultiLinesData || !this.mixinMultiLinesData.length  || !this.mixinMultiLinesData[0].rotate_direction || !this.shouldCreateMultiRow) {
+      // 解决mutation保留导致的问题
+      this.mixinMultiLinesData = [];
+      Blockly.Events.fire(new Blockly.Events.BlockChange(this, 'mutation', null, new Date().getTime() + "", null));
+      return null;
+    }
+    console.log(`this.mixinMultiLinesData`, JSON.parse(JSON.stringify(this.mixinMultiLinesData)))
+    // return null; // FIXME: mutation保留导致一系列问题，能否解决?
+
+    var container = document.createElement('mutation');
+    for (var i = 0, data; data = this.mixinMultiLinesData[i]; i++) {
+      var item = document.createElement('item');
+      // 驱动球球号1-15
+      item.setAttribute('seq', data.seq);
+      // 顺时针 or 逆时针
+      item.setAttribute('rotate_direction', data.rotate_direction);
+      // 功率
+      item.setAttribute('speed', data.speed);
+      container.appendChild(item);
+    }
+    return container;
+  },
+  domToMutation: function(element) {
+    if (!this.shouldCreateMultiRow) return;
+    this.mixinMultiLinesData.length = 0;
+    // 首行数据
+    var firstLineData = {
+      seq: this.getFieldValue('mabot_motor_ball_index'),
+      rotate_direction: this.getFieldValue('rotate_direction'),
+      speed: this.getFieldValue('speed'),
+    };
+    this.mixinMultiLinesData.push(firstLineData);
+
+    for (var i = 0, child; child = element.childNodes[i]; i++) {
+      var item = {};
+
+      // 驱动球球号
+      item.seq = child.getAttribute('seq');
+      // 顺时针 or 逆时针
+      item.rotate_direction = child.getAttribute('rotate_direction');
+      // 功率
+      item.speed = child.getAttribute('speed');
+     
+      this.mixinMultiLinesData.push(item);
+    }
+    // re-render the block
+    this.updateShape_(true);
+  },
+  updateShape_: function(isDomToMutation) {
+    var data = this.mixinMultiLinesData;
+    // 首行单独更新field值
+    this.getField('mabot_motor_ball_index').setValue(data[0].seq);
+    this.getField('rotate_direction').setValue(data[0].rotate_direction);
+    this.getField('speed').setValue(data[0].speed);
+  
+    // 其他行直接先干掉
+    for (var i = this.inputList.length - 1, input; input = this.inputList[i]; i--) {
+      if (input.type === Blockly.DUMMY_INPUT && input.fieldRow.length > 0 && i > 0) {
+        if (input.connection && input.connection.isConnected()) {
+          input.connection.setShadowDom(null);
+          var block = input.connection.targetBlock();
+          if (block.isShadow()) {
+            // Destroy any attached shadow block.
+            block.dispose();
+          } else {
+            // Disconnect any attached normal block.
+            block.unplug();
+          }
+        }
+        input.dispose();
+        this.inputList.splice(i, 1);
+      }
+    }
+   
+    data.forEach(item => {
+      for(const key in item) {
+        if(key === 'rotate_direction') {
+          if(item[key] == 1) {
+            item[key] = '_clockwise_';
+          }else if(item[key] == 0){
+            item[key] = '_counterclockwise_';
+          }
+        }else{
+          item[key] = item[key] + ""; // 转成字符串
+        }
+      }
+    })
+    // 添加行
+    for (var i = 1, item; item = data[i]; i++) {
+      var seqField = new Blockly.FieldModuleDialog(item.seq, Blockly.FieldModuleDialog.MODULE_MOTOR, true);
+      // var clockwiseField = new Blockly.FieldClockwiseDialog(item.rotate_direction);
+      var clockwiseField = new Blockly.FieldDropdown(
+        [
+          ["顺时针", '_clockwise_'],
+          ["逆时针", '_counterclockwise_']
+        ], 
+        undefined, 
+        item.rotate_direction
+      ); // 默认0 顺时针
+      
+      var speedField = new Blockly.FieldBellSpeedDialog(item.speed, 0, 100); //new Blockly.FieldNumberDialog(item.power);//
+
+      this.appendDummyInput()
+        .appendField('驱动球')
+        .appendField(seqField,'mabot_motor_ball_index' + i)
+        .appendField('，')
+        .appendField(clockwiseField, 'rotate_direction' + i)
+        .appendField('旋转，速度')
+        .appendField(speedField, 'speed' + i)
+        .appendField('分/秒');
+    }
+    // fix issue: 需要把compose传过来的第一个data删除
+    this.mixinMultiLinesData.splice(0, 1);
+    // fix issue: 需要强制渲染一次block，防止出现空行
+    this.render();
+  },
+  compose: function(newData) {
+    console.log(`compose`, newData)
+    if (!this.shouldCreateMultiRow) return;
+    // 首行数据
+    var firstLineData = {
+      seq: this.getFieldValue('mabot_motor_ball_index'),
+      rotate_direction: this.getFieldValue('rotate_direction'),
+      speed: this.getFieldValue('speed')
+    };
+    // 其余数据
+    var otherLineData = this.mixinMultiLinesData;
+    // 拼接起来
+    var oldData = [];
+    oldData.push({
+      seq: firstLineData.seq,
+      rotate_direction: firstLineData.rotate_direction,
+      speed: firstLineData.speed
+    });
+    for (var i = 0, otherLine; otherLine = otherLineData[i]; i++) {
+      oldData.push({
+        seq: otherLine.seq,
+        rotate_direction: otherLine.rotate_direction,
+        speed: otherLine.speed
+      });
+    }
+    function findInOldDataBySeq(seq, oldData) {
+      for (var i = 0, oldLine; oldLine = oldData[i]; i++) {
+        if (oldLine.seq == seq) {
+          return oldLine;
+        }
+      }
+      return null;
+    }
+    // 更新数据集
+    var mergeData = [];
+    for (var i = 0, newLine; newLine = newData[i]; i++) {
+      var find = findInOldDataBySeq(newLine, oldData);
+      if (!!find) {
+        mergeData.push({
+          seq: newLine,
+          rotate_direction: find.rotate_direction,
+          speed: find.speed
+        });
+      } else {
+        // 没有，给默认值
+        mergeData.push({
+          seq: newLine,
+          rotate_direction: '1',
+          speed: 30
+        });
+      }
+    }
+    this.mixinMultiLinesData = mergeData;
+ 
+    this.updateShape_();
+  },
+  decompose: function() {
+    if (!this.shouldCreateMultiRow) return;
+    var data = this.mixinMultiLinesDataModuleList();
+    data.unshift(this.getFieldValue('mabot_motor_ball_index'));
+    return data;
+  },
+
 };
 
 
@@ -862,8 +1535,7 @@ Blockly.Blocks['motion_motorBall_rotate_on_power_for_seconds'] = {
   init: function () {
 
     this.jsonInit({
-      //"message0":'motor ball %1,rotate %2 on %3 power,for %4 seconds',
-      "message0": '驱动球 %1,%2 旋转，功率 %3,持续 %4 秒, %5%6%7',
+      "message0": '驱动球 %1，%2 旋转，功率 %3，持续 %4 秒， %5%6%7',
       "args0": [
         // {
         //   "type": "input_value",
@@ -919,7 +1591,7 @@ Blockly.Blocks['motion_motorBall_rotate_on_power_for_seconds'] = {
       ],
       "category": Blockly.Categories.motion,
       "extensions": ["colours_motion", "shape_statement"],
-      "mutator": "bell_motion_motor_power_mutator",
+      "mutator": "bell_motion_motor_power_for_seconds_mutator",
     });
   }
 };
@@ -927,12 +1599,12 @@ Blockly.Blocks['motion_motorBall_rotate_on_power_for_seconds'] = {
 
 
 Blockly.Blocks['motion_motorBall_rotate_on_power'] = {
+  shouldCreateMultiRow: true,
   init: function () {
     this.jsonInit({
-      //"message0":'motor ball %1,rotate %2 on %3 power',
-      "message0": '驱动球 %1，%2 旋转，功率 %3',
+      "message0": '驱动球 %1，%2 旋转，功率 %3%4',
       "args0": [
-        {
+        /* {
           "type": "input_value",
           "name": "mabot_motor_ball_index",
         },
@@ -947,21 +1619,48 @@ Blockly.Blocks['motion_motorBall_rotate_on_power'] = {
         {
           "type": "input_value",
           "name": "power",
+        }, */
+        {
+          "type": "field_dialog",
+          "name": "mabot_motor_ball_index",
+          "defaultValue": "1",
+          "module": "motor",
+          "multiMode": true,
+        },
+        {
+          "type": "field_dropdown",
+          "name": "rotate_direction",
+          "options": [
+            ["顺时针", '_clockwise_'],
+            ["逆时针", '_counterclockwise_']
+          ]
+        },
+        {
+          "type": "field_speedBellDialog",
+          "name": "power",
+          "value": "0",
+          "min": "0",
+          "max": "180"
+        },
+        {
+          "type": "field_label",
+          "text":" "
         },
       ],
       "category": Blockly.Categories.motion,
-      "extensions": ["colours_motion", "shape_statement"]
+      "extensions": ["colours_motion", "shape_statement"],
+      "mutator": "bell_motion_motor_power_mutator"
     });
   }
 };
 
 Blockly.Blocks['motion_motorBall_rotate_on_speed_for_seconds'] = {
+  shouldCreateMultiRow: true,
   init: function () {
     this.jsonInit({
-      //"message0":'motor ball %1,rotate %2 on %3 power',
-      "message0": '驱动球 %1，%2 旋转，速度 %3 转/分，持续 %4 秒',
+      "message0": '驱动球 %1，%2 旋转，速度 %3 转/分，持续 %4 秒，%5%6%7',
       "args0": [
-        {
+        /* {
           "type": "input_value",
           "name": "mabot_motor_ball_index",
         },
@@ -976,31 +1675,73 @@ Blockly.Blocks['motion_motorBall_rotate_on_speed_for_seconds'] = {
         {
           "type": "input_value",
           "name": "speed",
-
-          // "type": "field_speedBellDialog",
-          // "name": "speed",
-          // "value": "0",
-          // "min": "0",
-          // "max": "255"
         },
         {
           "type": "input_value",
           "name": "rotate_for_seconds",
+        } */
+        // {
+        //   "type": "input_value",
+        //   "name": "mabot_motor_ball_index",
+        // },
+        {
+          "type": "field_dialog",
+          "name": "mabot_motor_ball_index",
+          "defaultValue": "1",
+          "module": "motor",
+          "multiMode": true,
+        },
+        {
+          "type": "field_dropdown",
+          "name": "rotate_direction",
+          "options": [
+            ["顺时针", '_clockwise_'],
+            ["逆时针", '_counterclockwise_']
+          ]
+        },
+        {
+          "type": "field_speedBellDialog",
+          "name": "speed",
+          "value": "0",
+          "min": "0",
+          "max": "100"
+        },
+        {
+          "type": "field_numberDialog",
+          "name": "rotate_for_seconds",
+          "defaultValue": "1",
+          "check": ['Number', 'Boolean', 'String', 'Array']
+        },
+        {
+          "type": "field_label",
+          "text":" "
+        },
+        {
+          "type": "field_clockwise_image",
+          "name": "BLOCK",
+          "src": Blockly.utils.getRuntimeImagePath('/dialogs/clockwise/onebyone.png'),
+          "width": 24,
+          "height": 24,
+        },
+        {
+          "type": "field_label",
+          "text":" "
         }
       ],
       "category": Blockly.Categories.motion,
-      "extensions": ["colours_motion", "shape_statement"]
+      "extensions": ["colours_motion", "shape_statement"],
+      "mutator": "bell_motion_motor_speed_for_seconds_mutator"
     });
   }
 };
 
 Blockly.Blocks['motion_motorBall_rotate_on_speed'] = {
+  shouldCreateMultiRow: true,
   init: function () {
     this.jsonInit({
-      //"message0":'motor ball %1,rotate %2 on %3 power',
-      "message0": '驱动球 %1，%2 旋转，速度 %3 转/分',
+      "message0": '驱动球 %1，%2 旋转，速度 %3 转/分 %4',
       "args0": [
-        {
+        /* {
           "type": "input_value",
           "name": "mabot_motor_ball_index",
         },
@@ -1015,16 +1756,37 @@ Blockly.Blocks['motion_motorBall_rotate_on_speed'] = {
         {
           "type": "input_value",
           "name": "speed",
-
-          // "type": "field_speedBellDialog",
-          // "name": "speed",
-          // "value": "0",
-          // "min": "0",
-          // "max": "255"
-        }
+        } */
+        {
+          "type": "field_dialog",
+          "name": "mabot_motor_ball_index",
+          "defaultValue": "1",
+          "module": "motor",
+          "multiMode": true,
+        },
+        {
+          "type": "field_dropdown",
+          "name": "rotate_direction",
+          "options": [
+            ["顺时针", '_clockwise_'],
+            ["逆时针", '_counterclockwise_']
+          ]
+        },
+        {
+          "type": "field_speedBellDialog",
+          "name": "speed",
+          "value": "0",
+          "min": "0",
+          "max": "100"
+        },
+        {
+          "type": "field_label",
+          "text":" "
+        },
       ],
       "category": Blockly.Categories.motion,
-      "extensions": ["colours_motion", "shape_statement"]
+      "extensions": ["colours_motion", "shape_statement"],
+      "mutator": "bell_motion_motor_speed_mutator"
     });
   }
 };
@@ -1176,5 +1938,10 @@ Blockly.Blocks['motion_swingJoint_get_angle'] = {
   }
 };
 
-Blockly.Extensions.registerMutator('bell_motion_motor_power_mutator', Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK, null, []);
+Blockly.Extensions.registerMutator('bell_motion_motor_power_for_seconds_mutator', Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK, null, []);
 
+Blockly.Extensions.registerMutator('bell_motion_motor_power_mutator', Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK_2, null, []);
+
+Blockly.Extensions.registerMutator('bell_motion_motor_speed_for_seconds_mutator', Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK_3, null, []);
+
+Blockly.Extensions.registerMutator('bell_motion_motor_speed_mutator', Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK_4, null, []);

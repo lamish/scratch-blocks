@@ -623,8 +623,9 @@ Blockly.Blocks['bell_detect_color_equal_value'] = {
           ]
         },
         {
-          "type": "field_dropdown",
+          "type": "field_colorpicker",
           "name": "COLOR",
+          "value": "1",
           "options": [
             ['黑色', '1'],
             ['蓝色', '2'],

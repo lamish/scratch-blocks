@@ -282,9 +282,9 @@ Blockly.Dialogs.generateBottomPane = function (ballList, multiMode, focusSeq, on
   eventWrappers.push(
     Blockly.bindEvent_(okButton, 'mouseup', null, function (e) {
       Blockly.DialogDiv.hide();
-      if (!Blockly.utils.arrayEqualsIgnoreOrder(ballList, originBallList)) {
+      // if (!Blockly.utils.arrayEqualsIgnoreOrder(ballList, originBallList)) {
         onChange(ballList);
-      }
+      // }
     })
   );
 

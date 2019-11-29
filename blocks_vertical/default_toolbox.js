@@ -52,6 +52,21 @@ Blockly.Blocks.defaultToolbox = '<xml id="toolbox-categories" style="display: no
                 </shadow>
             </value>
         </block>
+
+        <block type="sound_mabot_set_all_lights_to_one_mode">
+            <value name="target_light">
+                <shadow type="sound_sounds_menu">
+                </shadow>
+            </value>
+            <value name="light_color">
+                <shadow type="sound_sounds_menu">
+                </shadow>
+            </value>
+            <value name="light_mode">
+                <shadow type="sound_sounds_menu">
+                </shadow>
+            </value>
+        </block>
     `+
 
     '<block type="motion_movesteps" id="motion_movesteps">' +

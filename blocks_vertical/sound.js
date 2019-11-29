@@ -273,8 +273,9 @@ Blockly.Blocks['bell_light_color_mode_concurrence'] = {
                     ]
                 },
                 {
-                    "type": "field_dropdown",
+                    "type": "field_colorpicker",
                     "name": "COLOR",
+                    "value": '1',
                     "options": [
                         ['红色', '1'],
                         ['绿色', '2'],
@@ -336,8 +337,9 @@ Blockly.Blocks['sound_mabot_set_all_lights_to_one_mode'] = {
                     ]
                 },
                 {
-                    "type": "field_dropdown",
+                    "type": "field_colorpicker",
                     "name": "COLOR",
+                    "value": '1',
                     "options": [
                         ['红色', '1'],
                         ['绿色', '2'],

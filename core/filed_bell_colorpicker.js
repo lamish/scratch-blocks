@@ -11,8 +11,9 @@ const colorsMap = {
     "红色": "#f45d5d",
     "白色": "#fff",
     "紫色": "#d451f8",
-    "橘黄色": "#f29450",
-    "青色": "#07edfb"
+    "橙色": "#f29450",
+    "青色": "#07edfb",
+    "橘黄色": "#f29450"
 }
 
 const defaultColorsList = [
@@ -26,7 +27,9 @@ const defaultColorsList = [
     ['橘黄色', '8'],
 ]
 
-Blockly.FieldColorPickerDialog = function(value = '1', options = defaultColorsList){
+Blockly.FieldColorPickerDialog = function(value, options){
+    options = options || defaultColorsList
+    console.log(value, options)
     // FieldDropdown 的 <menuGenerator> 是要传的 option （数组和函数） 
     Blockly.FieldColorPickerDialog.superClass_.constructor.call(this, options);
     this.setValue(value);
@@ -36,7 +39,7 @@ Blockly.FieldColorPickerDialog = function(value = '1', options = defaultColorsLi
 goog.inherits(Blockly.FieldColorPickerDialog, Blockly.FieldDropdown);
 
 Blockly.FieldColorPickerDialog.fromJson = function(element) {
-    return new Blockly.FieldColorPickerDialog(element.value);
+    return new Blockly.FieldColorPickerDialog(element.value, element.options);
 };
 
 Blockly.FieldColorPickerDialog.prototype.showEditor_ = async function() {
