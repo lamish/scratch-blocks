@@ -177,7 +177,7 @@ Blockly.FieldDropdown.prototype.showEditor_ = function() {
   var thisField = this;
 
   function callback(e) {
-    console.log(`dropDownEvent`, e)
+    // console.log(`dropDownEvent`, e)
     var menu = this;
     var menuItem = e.target;
     if (menuItem) {
@@ -214,6 +214,7 @@ Blockly.FieldDropdown.prototype.showEditor_ = function() {
   goog.events.listen(menu, goog.ui.Component.EventType.ACTION, callback);
 
   // Record windowSize and scrollOffset before adding menu.
+  debugger
   menu.render(contentDiv);
   var menuDom = menu.getElement();
   Blockly.utils.addClass(menuDom, 'blocklyDropdownMenu');
@@ -248,6 +249,20 @@ Blockly.FieldDropdown.prototype.showEditor_ = function() {
 
   menu.setAllowAutoFocus(true);
   menuDom.focus();
+
+  var menuDomTouch = function(e) {
+
+    const target = e.target;
+    const menuDomChildren = menuDom.children;
+    const targetParent = target.parentNode;
+    const menuDomChildArray = Array.prototype.slice.call(menuDomChildren);
+    const index = menuDomChildArray.indexOf(targetParent);
+    const menuItem = menu.children_[index];
+
+    goog.events.dispatchEvent(menuItem, goog.ui.Component.EventType.ACTION);
+  }
+
+  menuDom.addEventListener('touchstart', menuDomTouch, false)
 
   // Update colour to look selected.
   if (!this.disableColourChange_) {

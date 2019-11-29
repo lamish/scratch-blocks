@@ -27,9 +27,7 @@ const defaultColorsList = [
     ['橘黄色', '8'],
 ]
 
-Blockly.FieldColorPickerDialog = function(value, options){
-    options = options || defaultColorsList
-    console.log(value, options)
+Blockly.FieldColorPickerDialog = function(value = 1, options = defaultColorsList){
     // FieldDropdown 的 <menuGenerator> 是要传的 option （数组和函数） 
     Blockly.FieldColorPickerDialog.superClass_.constructor.call(this, options);
     this.setValue(value);

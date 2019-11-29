@@ -59,7 +59,7 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
     return data;
   },
   onchange: function(e) {
-    console.log(`onchange`, e);
+    // console.log(`onchange`, e);
     for (var i = 0, data; data = this.mixinMultiLinesData[i]; i++) {
       data.rotate_direction = this.getFieldValue('rotate_direction' + (i + 1));
       data.power = this.getFieldValue('power' + (i + 1));
@@ -79,12 +79,12 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
       var newMutationDom = this.mutationToDom();
       var newMutation = newMutationDom && Blockly.Xml.domToText(newMutationDom); */
       // Blockly.Events.fire(new Blockly.Events.BlockChange(this, 'mutation', null, new Date().getTime() + "", null));
-      console.log(`onchange create`)
+      // console.log(`onchange create`)
       this.mutationToDom();
     }
 
     // if(e instanceof Blockly.Events.Ui && e.newValue && e.newValue.indexOf('motion_motorBall') > -1) {
-      // console.log(`!!!!!!!!!!!!!!!!!!!`)
+      // // console.log(`!!!!!!!!!!!!!!!!!!!`)
       // Blockly.Events.fire(new Blockly.Events.BlockChange(this, 'mutation', null, new Date().getTime() + "", null));
     // } 
   
@@ -92,12 +92,12 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
   mutationToDom: function(isCreate) {
     if (isCreate || !this.mixinMultiLinesData || !this.mixinMultiLinesData.length  || !this.mixinMultiLinesData[0].rotate_direction || !this.shouldCreateMultiRow) {
       // 解决mutation保留导致的问题
-      console.log(`isCreate: ${isCreate}`)
+      // console.log(`isCreate: ${isCreate}`)
       this.mixinMultiLinesData = [];
       Blockly.Events.fire(new Blockly.Events.BlockChange(this, 'mutation', null, new Date().getTime() + "", null));
       return null;
     }
-    console.log(`this.mixinMultiLinesData`, JSON.parse(JSON.stringify(this.mixinMultiLinesData)))
+    // console.log(`this.mixinMultiLinesData`, JSON.parse(JSON.stringify(this.mixinMultiLinesData)))
     // return null; // FIXME: mutation保留导致一系列问题，能否解决?
 
     var container = document.createElement('mutation');
@@ -113,11 +113,11 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
       item.setAttribute('rotate_for_seconds', data.rotate_for_seconds);
       container.appendChild(item);
     }
-    console.log(`mutationToDom`, container)
+    // console.log(`mutationToDom`, container)
     return container;
   },
   domToMutation: function(element) {
-    console.log(`domToMutation`, element)
+    // console.log(`domToMutation`, element)
     if (!this.shouldCreateMultiRow) return;
     this.mixinMultiLinesData.length = 0;
     // 首行数据
@@ -148,7 +148,7 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
     this.updateShape_(true);
   },
   updateShape_: function(isDomToMutation) {
-    console.log(`updateShape_`, JSON.parse(JSON.stringify(this.mixinMultiLinesData)))
+    // console.log(`updateShape_`, JSON.parse(JSON.stringify(this.mixinMultiLinesData)))
     var data = this.mixinMultiLinesData;
     // 首行单独更新field值
     this.getField('mabot_motor_ball_index').setValue(data[0].seq);
@@ -189,7 +189,7 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
       }
     })
  
-    console.log(`aaaa`, JSON.parse(JSON.stringify(data)))
+    // console.log(`aaaa`, JSON.parse(JSON.stringify(data)))
    
     // 添加行
     for (var i = 1, item; item = data[i]; i++) {
@@ -223,16 +223,16 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
     this.render();
 
     /* var newMutationDom = this.mutationToDom();
-    console.log(`newMutationDom`, newMutationDom)
+    // console.log(`newMutationDom`, newMutationDom)
     if(!newMutationDom) {
       newMutationDom = document.createElement('mutation');
     }
     var newMutation = newMutationDom && Blockly.Xml.domToText(newMutationDom);
-    console.log(`newMutation`, newMutation, new Blockly.Events.BlockChange(this, 'mutation', null, null, newMutation))
+    // console.log(`newMutation`, newMutation, new Blockly.Events.BlockChange(this, 'mutation', null, null, newMutation))
     Blockly.Events.fire(new Blockly.Events.BlockChange(this, 'mutation', null, null, newMutation)); */
   },
   compose: function(newData) {
-    console.log(`compose`, newData)
+    // console.log(`compose`, newData)
     if (!this.shouldCreateMultiRow) return;
     // 首行数据
     var firstLineData = {
@@ -295,15 +295,13 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK = {
   decompose: function() {
     if (!this.shouldCreateMultiRow) return;
     var data = this.mixinMultiLinesDataModuleList();
-    console.log(`decompose`, data);
+    // console.log(`decompose`, data);
     data.unshift(this.getFieldValue('mabot_motor_ball_index'));
 
     return data;
   },
 
 };
-
-
 
 Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK_2 = {
   mixinMultiLinesData: [],
@@ -518,7 +516,6 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK_2 = {
 
 };
 
-
 Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK_3 = {
   mixinMultiLinesData: [],
   // 弹窗显示时，需要获取mixin data中ball list
@@ -561,7 +558,7 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK_3 = {
       Blockly.Events.fire(new Blockly.Events.BlockChange(this, 'mutation', null, new Date().getTime() + "", null));
       return null;
     }
-    console.log(`this.mixinMultiLinesData`, JSON.parse(JSON.stringify(this.mixinMultiLinesData)))
+    // console.log(`this.mixinMultiLinesData`, JSON.parse(JSON.stringify(this.mixinMultiLinesData)))
     // return null; // FIXME: mutation保留导致一系列问题，能否解决?
 
     var container = document.createElement('mutation');
@@ -681,7 +678,7 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK_3 = {
     this.render();
   },
   compose: function(newData) {
-    console.log(`compose`, newData)
+    // console.log(`compose`, newData)
     if (!this.shouldCreateMultiRow) return;
     // 首行数据
     var firstLineData = {
@@ -788,7 +785,7 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK_4 = {
       Blockly.Events.fire(new Blockly.Events.BlockChange(this, 'mutation', null, new Date().getTime() + "", null));
       return null;
     }
-    console.log(`this.mixinMultiLinesData`, JSON.parse(JSON.stringify(this.mixinMultiLinesData)))
+    // console.log(`this.mixinMultiLinesData`, JSON.parse(JSON.stringify(this.mixinMultiLinesData)))
     // return null; // FIXME: mutation保留导致一系列问题，能否解决?
 
     var container = document.createElement('mutation');
@@ -899,7 +896,7 @@ Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK_4 = {
     this.render();
   },
   compose: function(newData) {
-    console.log(`compose`, newData)
+    // console.log(`compose`, newData)
     if (!this.shouldCreateMultiRow) return;
     // 首行数据
     var firstLineData = {
