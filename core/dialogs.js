@@ -378,7 +378,7 @@ Blockly.Dialogs.generateModuleMotorDialog = function (ballList, multiMode, focus
 
   // 背景
   var dom = Blockly.Dialogs.generateBackGroundColor(WIDTH, HEIGHT);
-  // var topPane = Blockly.Dialogs.generateTopPane('dialogs/module_motor.png');
+  var topPane = Blockly.Dialogs.generateTopPane('dialogs/module_motor.png');
   var bottomPane = Blockly.Dialogs.generateBottomPane(ballList, multiMode, focusSeq, onChange);
 
   // var bottomPane = document.createElement('div');
@@ -446,7 +446,7 @@ Blockly.Dialogs.generateModuleMotorDialog = function (ballList, multiMode, focus
   // okButton.setAttribute('src',
   // Blockly.utils.getRuntimeImagePath('dialogs/ok.png'));
 
-  // dom.appendChild(topPane);
+  dom.appendChild(topPane);
   dom.appendChild(bottomPane.bottomPane);
   dom.appendChild(bottomPane.okButton);
 
