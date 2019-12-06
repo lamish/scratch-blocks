@@ -691,7 +691,7 @@ horizontalJointSetAngle.prototype.doAppendField = function(data) {
   for (var i = 1, item; item = data[i]; i++) {
     var seqField = new Blockly.FieldModuleDialog(item.seq, Blockly.FieldModuleDialog.MODULE_WAIST_JOINT, true);
     
-    var angleField = new Blockly.FieldBellSpeedDialog(item.mabot_horizontalJoint_angle, 0, 180); //new Blockly.FieldNumberDialog(item.power);//
+    var angleField = new Blockly.FieldBellSpeedDialog(item.mabot_horizontalJoint_angle, -75, 75); //new Blockly.FieldNumberDialog(item.power);//
   
     this.appendDummyInput()
       .appendField('旋转关节球')
@@ -702,7 +702,7 @@ horizontalJointSetAngle.prototype.doAppendField = function(data) {
   }
 }
 
-Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK_5 = new horizontalJointSetAngle('mabot_horizontalJoint_index',{mabot_horizontalJoint_angle: 1});
+Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK_5 = new horizontalJointSetAngle('mabot_horizontalJoint_index',{mabot_horizontalJoint_angle: 0});
 
 /* **************************** 设置摇摆关节球角度 ********************************** */
 
@@ -715,7 +715,7 @@ swingJointSetAngle.prototype.doAppendField = function(data) {
   for (var i = 1, item; item = data[i]; i++) {
     var seqField = new Blockly.FieldModuleDialog(item.seq, Blockly.FieldModuleDialog.MODULE_WAIST_JOINT, true);
     
-    var angleField = new Blockly.FieldBellSpeedDialog(item.mabot_swingJoint_angle, 0, 180); //new Blockly.FieldNumberDialog(item.power);//
+    var angleField = new Blockly.FieldBellSpeedDialog(item.mabot_swingJoint_angle, -75, 75); //new Blockly.FieldNumberDialog(item.power);//
   
     this.appendDummyInput()
       .appendField('摇摆关节球')
@@ -725,7 +725,7 @@ swingJointSetAngle.prototype.doAppendField = function(data) {
       .appendField('°');
   }
 }
-Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK_6 = new swingJointSetAngle('mabot_swingJoint_index',{mabot_swingJoint_angle: 1});
+Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK_6 = new swingJointSetAngle('mabot_swingJoint_index',{mabot_swingJoint_angle: 0});
 
 /* ************************************************************** */
 
@@ -1670,8 +1670,8 @@ Blockly.Blocks['motion_horizontalJoint_set_angle'] = {
           "type": "field_speedBellDialog",
           "name": "mabot_horizontalJoint_angle",
           "value": "0",
-          "min": "0",
-          "max": "180"
+          "min": "-75",
+          "max": "75"
         },
         {
           "type": "field_clockwise_image",
@@ -1713,8 +1713,8 @@ Blockly.Blocks['motion_swingJoint_set_angle'] = {
           "type": "field_speedBellDialog",
           "name": "mabot_swingJoint_angle",
           "value": "0",
-          "min": "0",
-          "max": "180"
+          "min": "-75",
+          "max": "75"
         },
         {
           "type": "field_clockwise_image",
