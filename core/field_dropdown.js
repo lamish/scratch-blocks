@@ -214,7 +214,6 @@ Blockly.FieldDropdown.prototype.showEditor_ = function() {
   goog.events.listen(menu, goog.ui.Component.EventType.ACTION, callback);
 
   // Record windowSize and scrollOffset before adding menu.
-  debugger
   menu.render(contentDiv);
   var menuDom = menu.getElement();
   Blockly.utils.addClass(menuDom, 'blocklyDropdownMenu');

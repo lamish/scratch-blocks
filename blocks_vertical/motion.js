@@ -697,7 +697,8 @@ horizontalJointSetAngle.prototype.doAppendField = function(data) {
       .appendField('旋转关节球')
       .appendField(seqField,'mabot_horizontalJoint_index' + i)
       .appendField('摆到')
-      .appendField(angleField, 'mabot_horizontalJoint_angle' + i);
+      .appendField(angleField, 'mabot_horizontalJoint_angle' + i)
+      .appendField('°');
   }
 }
 
@@ -720,19 +721,14 @@ swingJointSetAngle.prototype.doAppendField = function(data) {
       .appendField('摇摆关节球')
       .appendField(seqField,'mabot_swingJoint_index' + i)
       .appendField('摆到')
-      .appendField(angleField, 'mabot_swingJoint_angle' + i);
+      .appendField(angleField, 'mabot_swingJoint_angle' + i)
+      .appendField('°');
   }
 }
 Blockly.Blocks.MIXIN_MULTI_LINES_BLOCK_6 = new swingJointSetAngle('mabot_swingJoint_index',{mabot_swingJoint_angle: 1});
 
 /* ************************************************************** */
 
-
-
-
-
-
-/* ************************************************************** */
 
 
 Blockly.Blocks['motion_movesteps'] = {

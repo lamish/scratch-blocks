@@ -66,7 +66,7 @@ Blockly.DialogDiv.show = function (contentDom, opt_onHide, opt_notCancelable) {
     }
 
     // 防止重复show
-    Blockly.DialogDiv.hide();
+    Blockly.DialogDiv.hide(true);
 
     // 将content注入到container
     Blockly.DialogDiv.dialogDiv_.appendChild(contentDom);
@@ -112,7 +112,7 @@ Blockly.DialogDiv.show = function (contentDom, opt_onHide, opt_notCancelable) {
     }
 };
 
-Blockly.DialogDiv.hide = function () {
+Blockly.DialogDiv.hide = function (callBeforeShow) {
     if (Blockly.DialogDiv.dialogDiv_) {
         Blockly.utils.removeClass(Blockly.DialogDiv.dialogDiv_,
             'neuronDialogPromptTransition');
@@ -147,6 +147,14 @@ Blockly.DialogDiv.hide = function () {
     Blockly.DialogDiv.contentWrapper_ = null;
 
     Blockly.DialogDiv.cancelable_ = true;
+
+    if(!callBeforeShow) {
+        let event = new CustomEvent('field_bell_dialog_hide', {
+            detail: {}
+        });
+        document.dispatchEvent(event);
+    }
+
 };
 
 Blockly.DialogDiv.clearContent = function () {

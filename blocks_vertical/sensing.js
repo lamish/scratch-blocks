@@ -608,12 +608,20 @@ Blockly.Blocks['bell_detect_color_equal_value'] = {
   init: function () {
     this.jsonInit({
       "message0": "颜色传感器 %1 %2 %3",
-      "args0": [{
+      "args0": [
+        /* {
         "type": "input_value",
         "name": "MOTOR",
         "defaultValue": "1",
         "module": "color",
-      },
+        }, */
+        {
+          "type": "field_dialog",
+          "name": "MOTOR",
+          "defaultValue": "1",
+          "module": "color",
+          "multiMode": false,
+        },
         {
           "type": "field_dropdown",
           "name": "TOUCHPRESS",
@@ -649,12 +657,20 @@ Blockly.Blocks['bell_detect_infrared_equal_cm'] = {
   init: function () {
     this.jsonInit({
       "message0": "红外传感器 %1 %2 %3 cm",
-      "args0": [{
-        "type": "input_value",
-        "name": "MOTOR",
-        "defaultValue": "1",
-        //"module": "infrared",
-      },
+      "args0": [
+        /* {
+          "type": "input_value",
+          "name": "MOTOR",
+          "defaultValue": "1",
+          //"module": "infrared",
+        }, */
+        {
+          "type": "field_dialog",
+          "name": "MOTOR",
+          "defaultValue": "1",
+          "module": "infrared",
+          "multiMode": false,
+        },
         {
           "type": "field_dropdown",
           "name": "TOUCHPRESS",
@@ -663,11 +679,18 @@ Blockly.Blocks['bell_detect_infrared_equal_cm'] = {
             ['≥', 'GREATER']
           ]
         },
-        {
+        /* {
           "type": "input_value",
           "name": "DISTANCE",
           "defaultValue": "1",
-        },
+        }, */
+        {
+          "type": "field_speedBellDialog",
+          "name": "DISTANCE",
+          "value": "5",
+          "min": "5",
+          "max": "15"
+        }
       ],
       "category": Blockly.Categories.sensing,
       "extensions": ["colours_sensing", "output_boolean"]
@@ -680,12 +703,20 @@ Blockly.Blocks['bell_detect_touch_press_state'] = {
   init: function () {
     this.jsonInit({
       "message0": "触碰球 %1 的状态为 %2",
-      "args0": [{
-        "type": "input_value",
-        "name": "MOTOR",
-        "defaultValue": "1",
-        "module": "touch",
-      },
+      "args0": [
+        /* {
+          "type": "input_value",
+          "name": "MOTOR",
+          "defaultValue": "1",
+          "module": "touch",
+        }, */
+        {
+          "type": "field_dialog",
+          "name": "MOTOR",
+          "defaultValue": "1",
+          "module": "touch",
+          "multiMode": false,
+        },
         {
           "type": "field_dropdown",
           "name": "TOUCHPRESS",
@@ -723,13 +754,20 @@ Blockly.Blocks['bell_detect_gyro_angle_value'] = {
             ['≥', 'GREATER']
           ]
         },
-        {
+        /* {
           "type": "input_value",
           "name": "ANGLE",
           "defaultValue": "0",
           "min": '0',
           "max": '255'
-        },
+        }, */
+        {
+          "type": "field_speedBellDialog",
+          "name": "ANGLE",
+          "value": "0",
+          "min": "-360",
+          "max": "360"
+        }
       ],
       "category": Blockly.Categories.sensing,
       "extensions": ["colours_sensing", "output_boolean"]

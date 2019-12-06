@@ -14,6 +14,8 @@ Blockly.Dialogs = {};
 // @param onChange(newBallList) Function 点击ok button之后的回调，回传新选中的newBallList
 Blockly.Dialogs.generateModuleDialog = function (module, ballList, multiMode, focusSeq, onChange) {
     console.log(`module`, module)
+    
+  Blockly.Dialogs.module = module;
   switch (module) {
     case Blockly.FieldModuleDialog.MODULE_MOTOR:
       return Blockly.Dialogs.generateModuleMotorDialog(ballList, multiMode, focusSeq, onChange);
@@ -31,6 +33,78 @@ Blockly.Dialogs.generateModuleDialog = function (module, ballList, multiMode, fo
       throw 'Unknown module: ' + this.module_;
   }
 };
+
+Blockly.Dialogs.flashCurBallLight = function(focusSeq) {
+  console.log(`flashCurBallLight`)
+  let event = new CustomEvent('mabot', {
+    detail: {
+        type: 'mabot_flash_light',
+        params: {
+          seq: focusSeq
+        }
+    }
+  });
+  document.dispatchEvent(event);
+}
+
+Blockly.Dialogs.closeCurBallLight = function(focusSeq) {
+  console.log(`closeCurBallLight`)
+  let event = new CustomEvent('mabot', {
+    detail: {
+        type: 'mabot_close_light',
+        params: {
+          seq: focusSeq
+        }
+    }
+  });
+  document.dispatchEvent(event);
+}
+
+// 反馈
+Blockly.Dialogs.feedBack = function(focusSeq, state) {
+   const module = Blockly.Dialogs.module;
+   let event = null;
+   switch (module) {
+    case Blockly.FieldModuleDialog.MODULE_MOTOR:
+        if(state) {
+          Blockly.Dialogs.flashCurBallLight(focusSeq);
+        } else {
+          Blockly.Dialogs.closeCurBallLight(focusSeq);
+        }
+        break;
+    case Blockly.FieldModuleDialog.MODULE_WAIST_JOINT:
+        if(state) {
+            console.log(`motion_horizontalJoint_feedback`)
+                event = new CustomEvent('mabot', {
+                detail: {
+                    type: 'motion_horizontalJoint_feedback',
+                    params: {
+                      seq: focusSeq
+                    }
+                }
+              });
+              document.dispatchEvent(event);
+        }
+        break;
+    case Blockly.FieldModuleDialog.MODULE_ARM_JOINT:
+        if(state) {
+            console.log(`motion_swingJoint_feedback`)
+            event = new CustomEvent('mabot', {
+            detail: {
+                type: 'motion_swingJoint_feedback',
+                params: {
+                  seq: focusSeq
+                }
+            }
+          });
+          document.dispatchEvent(event);
+        }
+        break;
+    default:
+      throw 'Unknown module: ' + this.module_;
+  }
+
+}
 
 // 选中球球的动画
 Blockly.Dialogs.addDashedCircleSvg_ = function (parent, isYellow) {
@@ -88,6 +162,8 @@ Blockly.Dialogs.generateTopPane = function (imgUrl) {
 }
 // 生成15个ball
 Blockly.Dialogs.generateBottomPane = function (ballList, multiMode, focusSeq, onChange) {
+  // 打开弹窗时开始闪
+  Blockly.Dialogs.feedBack(focusSeq, true);
   ballList = JSON.parse(JSON.stringify(ballList)); // simple deep clone
   ballList = ballList.sort(function (a, b) {
     return a - b;
@@ -205,8 +281,7 @@ Blockly.Dialogs.generateBottomPane = function (ballList, multiMode, focusSeq, on
       }
 
       // 当点击spinner svg或者dot元素时
-      if (target.parentNode.parentNode &&
-        target.parentNode.parentNode.parentNode === gridPane) {
+      if (target.parentNode.parentNode && target.parentNode.parentNode.parentNode === gridPane) {
         var itemIndex = indexOf(target.parentNode.parentNode, gridPane.childNodes);
         var dot = target.parentNode.childNodes[0];
         var spinner = target.parentNode.childNodes[1];
@@ -220,6 +295,8 @@ Blockly.Dialogs.generateBottomPane = function (ballList, multiMode, focusSeq, on
               if (focusSeq == itemIndex + 1) {
                 // 至少保证一项选中
                 if (ballList.length > 1) {
+                  // 灭灯
+                  Blockly.Dialogs.feedBack(focusSeq, false)
                   dot.style.backgroundColor = '#576390';
                   spinner.style.visibility = 'hidden';
                   Blockly.utils.arrayRemove(ballList, itemIndex + 1 + '');
@@ -232,9 +309,13 @@ Blockly.Dialogs.generateBottomPane = function (ballList, multiMode, focusSeq, on
                     nextDot.style.backgroundColor = '#01cf95';
                     nextSpinner.style.visibility = 'visible';
                     focusSeq = nextAutoIndex + '';
+                    // todo 闪灯
+                    Blockly.Dialogs.feedBack(focusSeq, true);
                   }
                 }
               } else {
+                // 灭灯
+                Blockly.Dialogs.feedBack(focusSeq, false)
                 var prevItem = gridPane.childNodes[focusSeq - 1];
                 var prevDot = prevItem.childNodes[0].childNodes[0];
                 var prevSpinner = prevItem.childNodes[0].childNodes[1];
@@ -242,12 +323,16 @@ Blockly.Dialogs.generateBottomPane = function (ballList, multiMode, focusSeq, on
 
                 focusSeq = itemIndex + 1 + '';
                 spinner.style.visibility = 'visible';
+                // todo 闪灯
+                Blockly.Dialogs.feedBack(focusSeq, true);
               }
             }
           } else { // 当前item还未加入ballList
             var prevItem = gridPane.childNodes[focusSeq - 1];
             var prevDot = prevItem.childNodes[0].childNodes[0];
             var prevSpinner = prevItem.childNodes[0].childNodes[1];
+            // 灭灯
+            Blockly.Dialogs.feedBack(focusSeq, false)
             if (!multiMode) {
               // 单选逻辑:
               // 1. 将之前item选中去掉
@@ -260,6 +345,8 @@ Blockly.Dialogs.generateBottomPane = function (ballList, multiMode, focusSeq, on
               dot.style.backgroundColor = '#01cf95';
               spinner.style.visibility = 'visible';
               focusSeq = itemIndex + 1 + '';
+              // todo 闪灯
+              Blockly.Dialogs.feedBack(focusSeq, true);
             } else {
               // 多选逻辑
               // 加入ballList, 并获取焦点
@@ -267,8 +354,9 @@ Blockly.Dialogs.generateBottomPane = function (ballList, multiMode, focusSeq, on
               dot.style.backgroundColor = '#01cf95';
               spinner.style.visibility = 'visible';
               focusSeq = itemIndex + 1 + '';
-
               prevSpinner.style.visibility = 'hidden';
+              // todo 闪灯
+              Blockly.Dialogs.feedBack(focusSeq, true);
             }
           }
         }
@@ -284,9 +372,16 @@ Blockly.Dialogs.generateBottomPane = function (ballList, multiMode, focusSeq, on
       Blockly.DialogDiv.hide();
       // if (!Blockly.utils.arrayEqualsIgnoreOrder(ballList, originBallList)) {
         onChange(ballList);
+        Blockly.Dialogs.feedBack(focusSeq, false)
       // }
     })
   );
+
+  // 窗口关闭时要关灯
+  document.addEventListener('field_bell_dialog_hide', function handleClose(e){
+    document.removeEventListener('field_bell_dialog_hide', handleClose);
+    Blockly.Dialogs.feedBack(focusSeq, false);
+  }, false);
 
   return {
     bottomPane,
@@ -355,6 +450,8 @@ Blockly.Dialogs.generateForEachItems = function(width, height, arrs, current){
   (current == null) ? null : listBox.childNodes[current].style.boxShadow = '0 0 5px yellow';
   return listBox;
 }
+
+
 
 // 驱动球
 Blockly.Dialogs.generateModuleMotorDialog = function (ballList, multiMode, focusSeq, onChange) {

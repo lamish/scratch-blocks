@@ -11,9 +11,9 @@ goog.require('goog.userAgent');
 
 Blockly.FieldBellSpeedDialog = function(value, min, max){
     // 效验参数
-    if(!isNaN(min) && !isNaN(max) && max > min) {
-        this.min = min;
-        this.max = max;
+    if(!isNaN(min) && !isNaN(max) && +max > +min) {
+        this.min = +min;
+        this.max = +max;
     }
     // 
     Blockly.FieldBellSpeedDialog.superClass_.constructor.call(this, value);
@@ -72,7 +72,7 @@ Blockly.FieldBellSpeedDialog.prototype.showEditor_ = function () {
     var labelCenter = document.createElement('label');
     labelCenter.className = 'bell-speed-label-center';
     label = labelCenter;
-    label.innerHTML = String(parseInt((this.max - Math.abs(this.min)) / 2));
+    label.innerHTML = String(parseInt((this.max + this.min) / 2));
     speedContainer.appendChild(label);
 
     var labelEnd = document.createElement('label');
