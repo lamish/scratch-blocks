@@ -101,7 +101,7 @@ Blockly.Dialogs.feedBack = function(focusSeq, state) {
         }
         break;
     default:
-      throw 'Unknown module: ' + this.module_;
+      return;
   }
 
 }
