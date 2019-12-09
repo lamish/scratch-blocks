@@ -47,3 +47,4 @@ python_compressed.js
 /chromedriver
 
 build.py
+/package-lock.json
