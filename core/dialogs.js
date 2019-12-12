@@ -429,8 +429,8 @@ Blockly.Dialogs.generateBackGroundColor = function(width, height){
   dom.style.backgroundColor = '#32374b';
   dom.style.position = 'absolute';
   dom.style.left = (window.innerWidth - width) / 2 + 'px';
-  dom.style.top = (window.innerHeight - height) / 2 + 'px';
-  dom.style.boxSizing = `content-box`;
+  dom.style.top = (window.innerHeight - height - 2 * Math.min(window.innerWidth, window.innerHeight) / 25) / 2 + 'px';
+  dom.style.boxSizing = 'content-box';
   dom.style.borderRadius = Math.min(window.innerWidth, window.innerHeight) / 50 + 'px';
   dom.style.padding = Math.min(window.innerWidth, window.innerHeight) / 25 + 'px';
   return dom;
@@ -740,7 +740,7 @@ Blockly.Dialogs.generateModuleArmJointDialog = function (ballList, multiMode, fo
 Blockly.Dialogs.generateModuleTouchDialog = function (ballList, multiMode, focusSeq, onChange) {
   // TODO:
   var WIDTH = window.innerWidth * 0.5;
-  var HEIGHT = window.innerHeight * 0.5;
+  var HEIGHT = window.innerHeight * 0.7;
   // 背景
   var dom = Blockly.Dialogs.generateBackGroundColor(WIDTH, HEIGHT);
   // anim
@@ -848,7 +848,7 @@ Blockly.Dialogs.generateModuleColorDialog = function (ballList, multiMode, focus
 Blockly.Dialogs.generateModuleInfraredDialog = function (ballList, multiMode, focusSeq, onChange) {
   // TODO:
   var WIDTH = window.innerWidth * 0.5;
-  var HEIGHT = window.innerHeight * 0.5;
+  var HEIGHT = window.innerHeight * 0.7;
 
   // 背景
   var dom = Blockly.Dialogs.generateBackGroundColor(WIDTH, HEIGHT);

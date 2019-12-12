@@ -1513,14 +1513,24 @@ Blockly.Css.CONTENT = [
   }
 
   .bell_color_picker_wrapper .bell_color_picker_item.active::after {
-    content: "√";
-    font-size: 50px;
-    font-weight: bold;
+    // content: "√";
+    // font-size: 50px;
+    // font-weight: bold;
+    content:" ";
+    display: inline-block;
+    width: 20px;
+    height: 50px;
+    transform: rotate(45deg);
+    border-radius： 10%;
+    border-right: 8px solid black;
+    border-bottom: 8px solid black;
   }
 
-  .select-color {
-    color: white;
+  .bell_color_picker_wrapper .bell_color_picker_item.select-color.active::after {
+    border-right: 8px solid white;
+    border-bottom: 8px solid white;
   }
+  
   `,
   `
   .bell-field-number-dialog {

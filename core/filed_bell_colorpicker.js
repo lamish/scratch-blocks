@@ -45,7 +45,7 @@ Blockly.FieldColorPickerDialog.prototype.showEditor_ = async function() {
   
     const container = document.createElement('ul');
 
-    container.className = "bell_color_picker_wrapper";
+    container.className = "bell_color_picker_wrapper bell-icon";
 
     const str = `
        <li class="bell_color_picker_item"></li>
