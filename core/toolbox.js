@@ -123,6 +123,7 @@ Blockly.Toolbox.prototype.init = function() {
         if (Blockly.utils.isRightButton(e) || e.target == this.HtmlDiv) {
           // Close flyout.
           Blockly.hideChaff(false);
+          console.log(2222 + "__" + Blockly.utils.isRightButton(e).toString());
         } else {
           // Just close popups.
           Blockly.hideChaff(true);
