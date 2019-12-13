@@ -740,7 +740,7 @@ Blockly.Dialogs.generateModuleArmJointDialog = function (ballList, multiMode, fo
 Blockly.Dialogs.generateModuleTouchDialog = function (ballList, multiMode, focusSeq, onChange) {
   // TODO:
   var WIDTH = window.innerWidth * 0.5;
-  var HEIGHT = window.innerHeight * 0.7;
+  var HEIGHT = window.innerHeight * 0.65;
   // 背景
   var dom = Blockly.Dialogs.generateBackGroundColor(WIDTH, HEIGHT);
   // anim
@@ -785,6 +785,8 @@ Blockly.Dialogs.generateModuleTouchDialog = function (ballList, multiMode, focus
   topPane.appendChild(indicatorLabel);
 
   var bottomPane = Blockly.Dialogs.generateBottomPane(ballList, multiMode, focusSeq, onChange);
+
+  bottomPane.bottomPane.style.height = '60%';
 
   dom.appendChild(topPane);
   dom.appendChild(bottomPane.bottomPane);
@@ -848,7 +850,7 @@ Blockly.Dialogs.generateModuleColorDialog = function (ballList, multiMode, focus
 Blockly.Dialogs.generateModuleInfraredDialog = function (ballList, multiMode, focusSeq, onChange) {
   // TODO:
   var WIDTH = window.innerWidth * 0.5;
-  var HEIGHT = window.innerHeight * 0.7;
+  var HEIGHT = window.innerHeight * 0.65;
 
   // 背景
   var dom = Blockly.Dialogs.generateBackGroundColor(WIDTH, HEIGHT);
@@ -900,6 +902,8 @@ Blockly.Dialogs.generateModuleInfraredDialog = function (ballList, multiMode, fo
   topPane.appendChild(indicatorLabel);
 
   var bottomPane = Blockly.Dialogs.generateBottomPane(ballList, multiMode, focusSeq, onChange);
+
+  bottomPane.bottomPane.style.height = '60%';
 
   dom.appendChild(topPane);
   dom.appendChild(bottomPane.bottomPane);
