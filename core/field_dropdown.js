@@ -252,18 +252,19 @@ Blockly.FieldDropdown.prototype.showEditor_ = function() {
   menuDom.focus();
 
   var menuDomTouch = function(e) {
-
     const target = e.target;
     const menuDomChildren = menuDom.children;
     const targetParent = target.parentNode;
     const menuDomChildArray = Array.prototype.slice.call(menuDomChildren);
     const index = menuDomChildArray.indexOf(targetParent);
     const menuItem = menu.children_[index];
-
+    if(!menuItem) {
+        return;
+    }
     goog.events.dispatchEvent(menuItem, goog.ui.Component.EventType.ACTION);
   }
 
-  menuDom.addEventListener('touchstart', menuDomTouch, false)
+  menuDom.addEventListener('touchstart', menuDomTouch, false);
 
   // Update colour to look selected.
   if (!this.disableColourChange_) {

@@ -66,23 +66,31 @@ Blockly.Blocks['bell_light_play_buzzer_concurrence'] = {
                         ['7', '7']
                     ]
                 },
-                {
+               /*  {
                     "type": "input_value",
                     "name": "SECONDS",
-                },
+                }, */
                 {
-                    // "type": "field_image",
-                    // "name": "BLOCK",
-                    // "src": Blockly.mainWorkspace.options.pathToMedia + "green-flag.svg",
-                    // "width": 24,
-                    // "height": 24,
+                    "type": "field_numberDialog",
+                    "name": "SECONDS",
+                    "defaultValue": "1",
+                    "check": ['Number', 'Boolean', 'String', 'Array']
+                },
+                /* {
                     "type": "field_dropdown",
                     "name": "BLOCK",
                     "options": [
                         ['阻塞', '0'],
                         ['非阻塞', '1'],
                     ]
-                }
+                } */
+                {
+                    "type": "field_clockwise_image",
+                    "name": "BLOCK",
+                    "src": Blockly.utils.getRuntimeImagePath('/dialogs/clockwise/onebyone.png'),
+                    "width": 24,
+                    "height": 24,
+                },
             ],
             "category": Blockly.Categories.sound,
             "extensions": ["colours_sounds", "shape_statement"],
@@ -131,14 +139,22 @@ Blockly.Blocks['bell_light_closed'] = {
         this.jsonInit({
             "message0": "%1 灯光关闭",
             "args0": [
-                {
+                /* {
                     "type": "field_dropdown",
                     "name": "CENTER",
                     "options": [
                         ['主控', '1'],
                         ['驱动球', '2']
                     ]
-                }
+                } */
+                {
+                    "type": "field_dialog",
+                    "name": "CENTER",
+                    "defaultValue": "1#",
+                    "module": "main_and_motor",
+                    "multiMode": true,
+                    'defaultText': '主控球1'
+                },
             ],
             "category": Blockly.Categories.sound,
             "extensions": ["colours_sounds", "shape_statement"],
@@ -263,7 +279,7 @@ Blockly.Blocks['bell_light_color_mode_concurrence'] = {
         this.jsonInit({
             "message0": "设置 %1 灯光颜色为 %2 , 模式为 %3, 持续%4 %5",
             "args0": [
-                {
+                /* {
                     "type": "field_dropdown",
                     "name": "CENTER",
                     "options": [
@@ -271,6 +287,14 @@ Blockly.Blocks['bell_light_color_mode_concurrence'] = {
                         ['驱动球', '2'],
                         ['主控和驱动球', '3'],
                     ]
+                }, */
+                {
+                    "type": "field_dialog",
+                    "name": "CENTER",
+                    "defaultValue": "1#",
+                    "module": "main_and_motor",
+                    "multiMode": true,
+                    'defaultText': '主控球1'
                 },
                 {
                     "type": "field_colorpicker",
@@ -291,29 +315,37 @@ Blockly.Blocks['bell_light_color_mode_concurrence'] = {
                     "type": "field_dropdown",
                     "name": "MODE",
                     "options": [
-                        ['熄灭', '1'],
+                        // ['熄灭', '1'],
                         ['常亮', '2'],
                         ['闪烁', '3'],
                         ['呼吸', '4'],
                     ]
                 },
-                {
+               /*  {
                     "type": "input_value",
                     "name": "SECONDS",
-                },
+                }, */
                 {
-                    // "type": "field_image",
-                    // "name": "BLOCK",
-                    // "src": Blockly.mainWorkspace.options.pathToMedia + "green-flag.svg",
-                    // "width": 24,
-                    // "height": 24,
+                    "type": "field_numberDialog",
+                    "name": "SECONDS",
+                    "defaultValue": "1",
+                    "check": ['Number', 'Boolean', 'String', 'Array']
+                },
+               /*  {
                     "type": "field_dropdown",
                     "name": "BLOCK",
                     "options": [
                         ['阻塞', '0'],
                         ['非阻塞', '1'],
                     ]
-                }
+                } */
+                {
+                    "type": "field_clockwise_image",
+                    "name": "BLOCK",
+                    "src": Blockly.utils.getRuntimeImagePath('/dialogs/clockwise/onebyone.png'),
+                    "width": 24,
+                    "height": 24,
+                },
             ],
             "category": Blockly.Categories.sound,
             "extensions": ["colours_sounds", "shape_statement"]
@@ -328,13 +360,12 @@ Blockly.Blocks['sound_mabot_set_all_lights_to_one_mode'] = {
             "message0": "设置 %1 灯光颜色为 %2 , 模式为 %3",
             "args0": [
                 {
-                    "type": "field_dropdown",
+                    "type": "field_dialog",
                     "name": "CENTER",
-                    "options": [
-                        ['主控', '1'],
-                        ['驱动球', '2'],
-                        ['主控和驱动球', '3'],
-                    ]
+                    "defaultValue": "1#",
+                    "module": "main_and_motor",
+                    "multiMode": true,
+                    'defaultText': '主控球1'
                 },
                 {
                     "type": "field_colorpicker",
@@ -355,7 +386,7 @@ Blockly.Blocks['sound_mabot_set_all_lights_to_one_mode'] = {
                     "type": "field_dropdown",
                     "name": "MODE",
                     "options": [
-                        ['熄灭', '1'],
+                        // ['熄灭', '1'],
                         ['常亮', '2'],
                         ['闪烁', '3'],
                         ['呼吸', '4'],

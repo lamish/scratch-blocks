@@ -5,10 +5,13 @@ goog.require('Blockly.Field');
 goog.require('Blockly.FieldDropdown');
 
 // 外形borrow自scratch-blocks中的field_dropdown
-Blockly.FieldModuleDialog = function (defaultValue, module, multiMode) {
+Blockly.FieldModuleDialog = function (defaultValue, module, multiMode, defaultText) {
   Blockly.FieldModuleDialog.superClass_.constructor.call(this, [['1', '1']],
     null);
   this.setValue(defaultValue || "1");
+  if(defaultText) {
+    this.setText(defaultText);
+  }
   this.module_ = module;
   this.isMultiMode_ = multiMode;
   if (Blockly.FieldModuleDialog.MODULE_LIST.indexOf(module) < 0) {
@@ -19,7 +22,7 @@ goog.inherits(Blockly.FieldModuleDialog, Blockly.FieldDropdown);
 
 Blockly.FieldModuleDialog.fromJson = function (element) {
   return new Blockly.FieldModuleDialog(element.defaultValue,
-    element.module, element.multiMode);
+    element.module, element.multiMode, element.defaultText);
 };
 
 Blockly.FieldModuleDialog.MODULE_MC = 'mc';
@@ -30,6 +33,7 @@ Blockly.FieldModuleDialog.MODULE_ARM_JOINT = 'arm_joint';
 Blockly.FieldModuleDialog.MODULE_TOUCH = 'touch';
 Blockly.FieldModuleDialog.MODULE_COLOR = 'color';
 Blockly.FieldModuleDialog.MODULE_INFRARED = 'infrared';
+Blockly.FieldModuleDialog.MODULE_MAIN_AND_MOTOR = 'main_and_motor';
 
 Blockly.FieldModuleDialog.MODULE_LIST = [
   // Blockly.FieldModuleDialog.MODULE_MC, // 主控
@@ -41,6 +45,8 @@ Blockly.FieldModuleDialog.MODULE_LIST = [
   Blockly.FieldModuleDialog.MODULE_TOUCH, // 触碰
   Blockly.FieldModuleDialog.MODULE_COLOR, // 颜色
   Blockly.FieldModuleDialog.MODULE_INFRARED, // 红外
+  //
+  Blockly.FieldModuleDialog.MODULE_MAIN_AND_MOTOR // 主控和驱动球
 ];
 
 Blockly.FieldModuleDialog.prototype.module_ = null;
@@ -72,8 +78,20 @@ Blockly.FieldModuleDialog.prototype.showEditor_ = function () {
     oldMutationDom = sourceBlock.mutationToDom();
     oldMutation = oldMutationDom && Blockly.Xml.domToText(oldMutationDom);
   } else if (this.isMultiMode_) { // 2.
-    moreValue = this.getValue().split(', ');
-    value = moreValue[moreValue.length - 1];
+
+    if(this.getValue().indexOf('#') > -1) {
+
+      moreValue = this.getValue(); // 直接传字符串
+      const temp = moreValue.split('#');
+      const tempArr1 = temp[0].replace(/\s/g, "").split(',');
+      const tempArr2 = temp[1].replace(/\s/g, "").split(',');
+      value = tempArr1[tempArr1.length - 1] +'#' + tempArr2[tempArr2.length - 1];
+      
+    } else {
+      moreValue = this.getValue().split(', ');
+      value = moreValue[moreValue.length - 1];
+    }
+    
   } else if (!this.isMultiMode_) { // 3.
     moreValue = [this.getValue()];
     value = this.getValue();
@@ -85,7 +103,7 @@ Blockly.FieldModuleDialog.prototype.showEditor_ = function () {
   // 此外，还需指定是否多选模式，当前焦点位置
   var dialogData = Blockly.Dialogs.generateModuleDialog(this.module_,
     moreValue, this.isMultiMode_, value,/*onChange*/
-    function (newBallList) { // [ '3' ]
+    function (newBallList, mBallList) { // [ '3' ]
       if (sourceBlock.compose) {
         // compose like mutators
         sourceBlock.compose(newBallList);
@@ -98,7 +116,26 @@ Blockly.FieldModuleDialog.prototype.showEditor_ = function () {
         }
       } else {
         if (me.isMultiMode_) {
-          me.setValue(newBallList.join(', '));
+          if(!mBallList) {
+            me.setValue(newBallList.join(', '));
+          }else{
+            // 有传入mBallList的情况
+            let text = '';
+
+            if(mBallList.length) {
+              text += `主控球${mBallList.join(', ')}`;
+            }
+
+            if(newBallList.length) {
+              text += ` 驱动球${newBallList.join(', ')}`;
+            }
+
+            let value = `${mBallList.join(', ')}#${newBallList.join(', ')}`;
+
+            me.setValue(value)
+            me.setText(text);
+            Blockly.Dialogs.canBallCancel = null;
+          }
         } else {
           me.setValue(newBallList[0]);
         }
