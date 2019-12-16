@@ -206,8 +206,10 @@ Blockly.FieldDropdown.prototype.showEditor_ = function() {
     menu.addChild(menuItem, true);
     var checked = (value == this.value_);
     menuItem.setChecked(checked);
-    if (checked) {
-      this.selectedItem = menuItem;
+    if (this.selectedItem){
+      if (checked) {
+        this.selectedItem = menuItem;
+      }
     }
   }
   // Listen for mouse/keyboard events.

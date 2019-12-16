@@ -28,6 +28,76 @@ goog.require('Blockly.constants');
 goog.require('Blockly.ScratchBlocks.VerticalExtensions');
 
 
+Blockly.Blocks.DETECT_GYRO_ANGLE_VAL_MINXIN = {
+  onchange(e) {
+    if(e.element === 'field') {
+      const name = e.name;
+      // 角度类型改变角度的范围也要改变
+      if(name === 'DIRECTION') {
+
+        const input = this.inputList[0];
+        const fieldRow = input.fieldRow;
+
+        const directionField = new Blockly.FieldDropdown(
+          [
+            ["俯仰角度", 'gyro_x'],
+            ["旋转角度", 'gyro_y'],
+            ["翻滚角度", 'gyro_z']
+          ],
+          undefined,
+          fieldRow[1].getValue()
+        );
+
+        const computeField = new Blockly.FieldDropdown(
+          [
+            ['≤', 'LESS'],
+            ['≥', 'GREATER']
+          ],
+          undefined,
+          fieldRow[2].getValue()
+        );
+
+        let angleField;
+        switch(fieldRow[1].getValue()) {
+          case "gyro_x":
+            angleField = new Blockly.FieldBellSpeedDialog(0, -90, 90);
+            break;
+          case "gyro_y":
+            angleField = new Blockly.FieldBellSpeedDialog(0, -360, 360);
+            break;
+          case "gyro_z":
+            angleField = new Blockly.FieldBellSpeedDialog(0, -180, 180);
+            break;
+        }
+
+        this.appendDummyInput()
+          .appendField('陀螺仪的')
+          .appendField(directionField, 'DIRECTION')
+          .appendField(computeField, 'COMPUTE')
+          .appendField(angleField, 'ANGLE');
+
+        Blockly.Events.fire(new Blockly.Events.BlockChange(this, 'field', 'ANGLE', fieldRow[3].getValue(), '0')); // 重置角度值
+        input.dispose(); // 删除原来的行
+        this.inputList.splice(0, 1);
+        this.render();
+      }
+    }
+  },
+
+  mutationToDom() {
+    return null;
+  },
+  domToMutation(element) {
+
+  },
+  decompose(workspace) {
+
+  },
+  compose() {
+
+  }
+}
+
 
 Blockly.Blocks['event_whentouchingobject'] = {
   /**
@@ -363,13 +433,35 @@ Blockly.Blocks['bell_event_color_type'] = {
     this.jsonInit({
       "message0": "当颜色传感器 %1 = %2",
       "args0": [
+        // {
+        //   "type": "input_value",
+        //   "name": "COLOR_NUM"
+        // },
         {
-          "type": "input_value",
-          "name": "COLOR_NUM"
+          "type": "field_dialog",
+          "name": "COLOR_NUM",
+          "defaultValue": "1",
+          "module": "color",
+          "multiMode": false,
         },
+        // {
+        //   "type": "field_dropdown",
+        //   "name": "COLOR",
+        //   "options": [
+        //     ['黑色', '1'],
+        //     ['蓝色', '2'],
+        //     ['绿色', '3'],
+        //     ['黄色', '4'],
+        //     ['红色', '5'],
+        //     ['白色', '6'],
+        //     ['紫色', '7'],
+        //     ['橘黄色', '8'],
+        //   ]
+        // },
         {
-          "type": "field_dropdown",
+          "type": "field_colorpicker",
           "name": "COLOR",
+          "value": "1",
           "options": [
             ['黑色', '1'],
             ['蓝色', '2'],
@@ -378,13 +470,83 @@ Blockly.Blocks['bell_event_color_type'] = {
             ['红色', '5'],
             ['白色', '6'],
             ['紫色', '7'],
-            ['橘黄色', '8'],
+            ['橘黄色', '8']
           ]
         },
       ],
       "category": Blockly.Categories.control,
       "extensions": ["colours_event", "shape_hat"]
     });
+  }
+}
+
+Blockly.Blocks.DETECT_GYRO_ANGLE_VAL_MINXIN = {
+  onchange(e) {
+    if(e.element === 'field') {
+      const name = e.name;
+      // 角度类型改变角度的范围也要改变
+      if(name === 'DIRECTION') {
+
+        const input = this.inputList[0];
+        const fieldRow = input.fieldRow;
+
+        const directionField = new Blockly.FieldDropdown(
+          [
+            ["俯仰角度", 'gyro_x'],
+            ["旋转角度", 'gyro_y'],
+            ["翻滚角度", 'gyro_z']
+          ],
+          undefined,
+          fieldRow[1].getValue()
+        );
+
+        const computeField = new Blockly.FieldDropdown(
+          [
+            ['≤', 'LESS'],
+            ['≥', 'GREATER']
+          ],
+          undefined,
+          fieldRow[2].getValue()
+        );
+
+        let angleField;
+        switch(fieldRow[1].getValue()) {
+          case "gyro_x":
+            angleField = new Blockly.FieldBellSpeedDialog(0, -90, 90);
+            break;
+          case "gyro_y":
+            angleField = new Blockly.FieldBellSpeedDialog(0, -360, 360);
+            break;
+          case "gyro_z":
+            angleField = new Blockly.FieldBellSpeedDialog(0, -180, 180);
+            break;
+        }
+
+        this.appendDummyInput()
+          .appendField('陀螺仪的')
+          .appendField(directionField, 'DIRECTION')
+          .appendField(computeField, 'COMPUTE')
+          .appendField(angleField, 'ANGLE');
+
+        Blockly.Events.fire(new Blockly.Events.BlockChange(this, 'field', 'ANGLE', fieldRow[3].getValue(), '0')); // 重置角度值
+        input.dispose(); // 删除原来的行
+        this.inputList.splice(0, 1);
+        this.render();
+      }
+    }
+  },
+
+  mutationToDom() {
+    return null;
+  },
+  domToMutation(element) {
+
+  },
+  decompose(workspace) {
+
+  },
+  compose() {
+
   }
 }
 
@@ -411,29 +573,46 @@ Blockly.Blocks['bell_event_gyro_angle'] = {
             ['≥', 'GREATER']
           ]
         },
+        // {
+        //   "type": "input_value",
+        //   "name": "ANGLE",
+        //   "defaultValue": "0",
+        //   "min": '0',
+        //   "max": '255'
+        // },
         {
-          "type": "input_value",
+          "type": "field_speedBellDialog",
           "name": "ANGLE",
-          "defaultValue": "0",
-          "min": '0',
-          "max": '255'
-        },
+          "value": "0",
+          "min": "-90",
+          "max": "90"
+        }
       ],
       "category": Blockly.Categories.event,
-      "extensions": ["colours_event", "shape_hat"]
+      "extensions": ["colours_event", "shape_hat"],
+      "mutator": "bell_event_gyro_angle_mutator"
     });
   }
-}
+};
+
+Blockly.Extensions.registerMutator('bell_event_gyro_angle_mutator', Blockly.Blocks.DETECT_GYRO_ANGLE_VAL_MINXIN, null, []);
 
 // 当红外传感器（1） [=>,=,<=] 距离 [0,0,20]
 Blockly.Blocks['bell_event_infrared_cm'] = {
   init: function () {
     this.jsonInit({
-      "message0": "当红外传感器 %1 %2 距离 %3",
+      "message0": "当红外传感器 %1 %2 距离 %3 cm",
       "args0": [
+        // {
+        //   "type": "input_value",
+        //   "name": "INFRARED"
+        // },
         {
-          "type": "input_value",
-          "name": "INFRARED"
+          "type": "field_dialog",
+          "name": "INFRARED",
+          "defaultValue": "1",
+          "module": "infrared",
+          "multiMode": false,
         },
         {
           "type": "field_dropdown",
@@ -443,10 +622,17 @@ Blockly.Blocks['bell_event_infrared_cm'] = {
             ['≥', 'GREATER']
           ]
         },
+        // {
+        //   "type": "input_value",
+        //   "name": "DISTANCE",
+        // },
         {
-          "type": "input_value",
+          "type": "field_speedBellDialog",
           "name": "DISTANCE",
-        },
+          "value": "5",
+          "min": "5",
+          "max": "15"
+        }
       ],
       "category": Blockly.Categories.event,
       "extensions": ["colours_event", "shape_hat"]
@@ -460,9 +646,16 @@ Blockly.Blocks['bell_event_touch_press'] = {
     this.jsonInit({
       "message0": "当触碰球 %1 的状态为 %2",
       "args0": [
+        // {
+        //   "type": "input_value",
+        //   "name": "TOUCH"
+        // },
         {
-          "type": "input_value",
-          "name": "TOUCH"
+          "type": "field_dialog",
+          "name": "TOUCH",
+          "defaultValue": "1",
+          "module": "touch",
+          "multiMode": false,
         },
         {
           "type": "field_dropdown",
