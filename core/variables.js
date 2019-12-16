@@ -282,8 +282,8 @@ Blockly.Variables.createVariable = function(workspace, opt_callback, opt_type) {
     newMsg = Blockly.Msg.NEW_BROADCAST_MESSAGE_TITLE;
     modalTitle = Blockly.Msg.BROADCAST_MODAL_TITLE;
   } else if (opt_type == Blockly.LIST_VARIABLE_TYPE) {
-    newMsg = Blockly.Msg.NEW_LIST_TITLE;
-    modalTitle = Blockly.Msg.LIST_MODAL_TITLE;
+    newMsg = `新的列表名：`;//Blockly.Msg.NEW_LIST_TITLE;
+    modalTitle = `新建列表`; //Blockly.Msg.LIST_MODAL_TITLE;
   } else {
     // Note: this case covers 1) scalar variables, 2) any new type of
     // variable not explicitly checked for above, and 3) a null or undefined
@@ -291,8 +291,8 @@ Blockly.Variables.createVariable = function(workspace, opt_callback, opt_type) {
     // TODO (#1251) Warn developers that they didn't provide an opt_type/provided
     // a falsey opt_type
     opt_type = opt_type ? opt_type : '';
-    newMsg = Blockly.Msg.NEW_VARIABLE_TITLE;
-    modalTitle = Blockly.Msg.VARIABLE_MODAL_TITLE;
+    newMsg = `新变量名：`;//Blockly.Msg.NEW_VARIABLE_TITLE;
+    modalTitle = `新建变量`;//Blockly.Msg.VARIABLE_MODAL_TITLE;
   }
   var validate = Blockly.Variables.nameValidator_.bind(null, opt_type);
 
