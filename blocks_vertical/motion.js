@@ -1329,7 +1329,7 @@ Blockly.Blocks['motion_motorBall_rotate_on_power_for_seconds'] = {
           "name": "power",
           "value": "30",
           "min": "0",
-          "max": "180"
+          "max": "100"
         },
         {
           // "type": "input_value",
@@ -1406,7 +1406,7 @@ Blockly.Blocks['motion_motorBall_rotate_on_power'] = {
           "name": "power",
           "value": "30",
           "min": "0",
-          "max": "180"
+          "max": "100"
         },
         {
           "type": "field_label",
