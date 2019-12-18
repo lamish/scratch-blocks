@@ -274,6 +274,8 @@ Blockly.Flyout.prototype.scrollAnimationFraction = 0.3;
  */
 Blockly.Flyout.prototype.recyclingEnabled_ = true;
 
+Blockly.Flyout.prototype.ratioOfWidth = 0.245;
+
 /**
  * Creates the flyout's DOM.  Only needs to be called once. The flyout can
  * either exist as its own svg element or be a g element nested inside a
@@ -368,7 +370,9 @@ Blockly.Flyout.prototype.setParentToolbox = function(toolbox) {
  * @return {number} The width of the flyout.
  */
 Blockly.Flyout.prototype.getWidth = function() {
-  return Math.max(document.body.scrollWidth,document.documentElement.clientWidth) * 0.245;
+  let width = Math.max(document.body.scrollWidth,document.documentElement.clientWidth) * this.ratioOfWidth;
+  // console.log("width of flyout : " , width, "ratio: ", this.ratioOfWidth);
+  return width;
   // return this.DEFAULT_WIDTH;
 };
 

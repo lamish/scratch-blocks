@@ -23,7 +23,7 @@ class FileUtils {
         if (fs.lstatSync(src).isDirectory()) {
             let exists = fs.existsSync(target);
             // 没有则创建
-            if (!exists) fs.mkdirSync(target);
+            if (!exists) fs.mkdirSync(target, {recursive: true}, err => {});
             // 获取目录
             let files = fs.readdirSync(src);
             files.forEach((file) => {
