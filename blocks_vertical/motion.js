@@ -552,7 +552,7 @@ motorPowerForSecMutator.prototype.doAppendField = function(data) {
       item.rotate_direction
     ); // 默认0 顺时针
     
-    var powerField = new Blockly.FieldBellSpeedDialog(item.power, 0, 180); //new Blockly.FieldNumberDialog(item.power);//
+    var powerField = new Blockly.FieldBellSpeedDialog(item.power, 0, 100); //new Blockly.FieldNumberDialog(item.power);//
     var secondsField = new Blockly.FieldNumberDialog(item.rotate_for_seconds); //new Blockly.Input(Blockly.INPUT_VALUE, '')
     this.appendDummyInput()
       .appendField('驱动球')
@@ -592,7 +592,7 @@ motorPowerMutator.prototype.doAppendField = function(data) {
       item.rotate_direction
     ); // 默认0 顺时针
     
-    var powerField = new Blockly.FieldBellSpeedDialog(item.power, 0, 180); //new Blockly.FieldNumberDialog(item.power);//
+    var powerField = new Blockly.FieldBellSpeedDialog(item.power, 0, 100); //new Blockly.FieldNumberDialog(item.power);//
   
     this.appendDummyInput()
       .appendField('驱动球')
