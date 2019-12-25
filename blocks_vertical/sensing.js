@@ -791,8 +791,8 @@ Blockly.Blocks['bell_detect_touch_press_state'] = {
           "type": "field_dropdown",
           "name": "TOUCHPRESS",
           "options": [
-            ['按下', 'LOUDNESS'],
-            ['没按下', 'TIMER']
+            ['按下', 'PRESS'],
+            ['没按下', 'UNPRESS']
           ]
         }
       ],
