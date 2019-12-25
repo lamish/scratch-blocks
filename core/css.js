@@ -849,7 +849,7 @@ Blockly.Css.CONTENT = [
 
   /* Category tree in Toolbox. */
   '.blocklyToolboxDiv {',
-    'background-color: $colour_toolbox;',
+    //'background-color: $colour_toolbox;',
     'color: $colour_toolboxText;',
     'width: 6%;',
     'overflow-x: visible;',
