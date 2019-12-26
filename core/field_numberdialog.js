@@ -11,12 +11,9 @@ Blockly.FieldNumberDialog = function (defaultValue) {
     defaultValue = (defaultValue && !isNaN(defaultValue)) ? String(defaultValue) : '0';
 
     Blockly.FieldNumberDialog.superClass_.constructor.call(this, defaultValue);
-
     // this.setText(defaultValue);
     this.innerData_ = defaultValue;
     // this.setValue(defaultValue)
-    // this.eventType = ("ontouchstart" in window) ? 'touchstart' : 'click';
-
     this.isTouch = ("ontouchstart" in window) ? true : false;
 }
 
