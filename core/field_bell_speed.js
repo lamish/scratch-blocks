@@ -18,7 +18,7 @@ Blockly.FieldBellSpeedDialog = function(value, min, max){
     // 
     Blockly.FieldBellSpeedDialog.superClass_.constructor.call(this, value);
     //设置默认值
-    this.setValue(value);
+    // this.setValue(value);
     //设置
     this.innerData_ = value;
 }
@@ -43,6 +43,7 @@ Blockly.FieldBellSpeedDialog.prototype.min = Blockly.FieldBellSpeedDialog.MIN_VA
 Blockly.FieldBellSpeedDialog.prototype.max = Blockly.FieldBellSpeedDialog.MAX_VAL; // default
 // 原型链
 Blockly.FieldBellSpeedDialog.prototype.showEditor_ = function () {
+    this.innerData_ = this.text_;
     // 弹框
     var container_box = document.createElement('div');
     var div = document.createElement('div');

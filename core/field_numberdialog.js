@@ -11,9 +11,10 @@ Blockly.FieldNumberDialog = function (defaultValue) {
     defaultValue = (defaultValue && !isNaN(defaultValue)) ? String(defaultValue) : '0';
 
     Blockly.FieldNumberDialog.superClass_.constructor.call(this, defaultValue);
-    this.setText(defaultValue);
-    this.innerData_ = defaultValue;
 
+    // this.setText(defaultValue);
+    this.innerData_ = defaultValue;
+    // this.setValue(defaultValue)
     // this.eventType = ("ontouchstart" in window) ? 'touchstart' : 'click';
 
     this.isTouch = ("ontouchstart" in window) ? true : false;
@@ -32,6 +33,8 @@ Blockly.FieldNumberDialog.fromJson = function (element) {
 
 
 Blockly.FieldNumberDialog.prototype.showEditor_ = function () {
+    this.innerData_ = this.text_;
+
     var dom = document.createElement("div");
     dom.className = 'bell-field-number-dialog';
     // 输入框
@@ -183,9 +186,10 @@ Blockly.FieldNumberDialog.prototype.getValue = function () {
 
 /** 需要转换成字符串类型
  */
-Blockly.FieldNumberDialog.prototype.setValue = function (val) {
+/* Blockly.FieldNumberDialog.prototype.setValue = function (val) {
     this.innerData_ = String(val);
-};
+    Blockly.FieldTextInput.prototype.setValue.call(this, val);
+}; */
 
 Blockly.FieldNumberDialog.prototype.dispose = function () {
     this.labelNode = null;
