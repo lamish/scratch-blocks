@@ -21,6 +21,7 @@ Blockly.FieldModuleDialog = function (defaultValue, module, multiMode, defaultTe
 goog.inherits(Blockly.FieldModuleDialog, Blockly.FieldDropdown);
 
 Blockly.FieldModuleDialog.fromJson = function (element) {
+  console.log(`element`, element)
   return new Blockly.FieldModuleDialog(element.defaultValue,
     element.module, element.multiMode, element.defaultText);
 };
@@ -51,6 +52,57 @@ Blockly.FieldModuleDialog.MODULE_LIST = [
 
 Blockly.FieldModuleDialog.prototype.module_ = null;
 Blockly.FieldModuleDialog.prototype.isMultiMode_ = false;
+
+Blockly.FieldModuleDialog.prototype.setValue = function(newValue) {
+  if (newValue === null || newValue === this.value_) {
+    return;  // No change if null.
+  }
+  if (this.sourceBlock_ && Blockly.Events.isEnabled()) {
+    Blockly.Events.fire(new Blockly.Events.BlockChange(
+        this.sourceBlock_, 'field', this.name, this.value_, newValue));
+  }
+  // Clear menu item for old value.
+  if (this.selectedItem) {
+    this.selectedItem.setChecked(false);
+    this.selectedItem = null;
+  }
+  this.value_ = newValue;
+  // Look up and display the human-readable text.
+  var options = this.getOptions();
+  for (var i = 0; i < options.length; i++) {
+    // Options are tuples of human-readable text and language-neutral values.
+    if (options[i][1] == newValue) {
+      var content = options[i][0];
+      if (typeof content == 'object') {
+        this.imageJson_ = content;
+        this.text_ = content.alt;
+      } else {
+        this.imageJson_ = null;
+        this.text_ = content;
+      }
+      // Always rerender if either the value or the text has changed.
+      this.forceRerender();
+      return;
+    }
+  }
+  // Value not found.  Add it, maybe it will become valid once set
+  // (like variable names).
+  if(newValue.indexOf('#') > -1) {
+    let text = '';
+    const textArr = newValue.split('#');
+    if(textArr[0]) {
+      text += `主控球${textArr[0]}`;
+    }
+    if(textArr[1]) {
+      text += ` 驱动球${textArr[1]}`;
+    }
+    this.text_ = text;
+  } else {
+    this.text_ = newValue;
+  }
+  
+  this.forceRerender();
+}
 
 Blockly.FieldModuleDialog.prototype.showEditor_ = function () {
   // Update colour to look selected.
