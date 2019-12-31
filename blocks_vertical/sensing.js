@@ -77,14 +77,14 @@ Blockly.Blocks.DETECT_GYRO_ANGLE_VAL_MINXIN = {
 
             const input = this.inputList[0];
             const fieldRow = input.fieldRow;
-            
+
             const directionField = new Blockly.FieldDropdown(
                 [
                   ["俯仰角度", 'gyro_x'],
                   ["旋转角度", 'gyro_y'],
                   ["翻滚角度", 'gyro_z']
-                ], 
-                undefined, 
+                ],
+                undefined,
                 fieldRow[1].getValue()
             );
 
@@ -92,8 +92,8 @@ Blockly.Blocks.DETECT_GYRO_ANGLE_VAL_MINXIN = {
               [
                 ['≤', 'LESS'],
                 ['≥', 'GREATER']
-              ], 
-              undefined, 
+              ],
+              undefined,
               fieldRow[2].getValue()
             );
 
@@ -120,7 +120,7 @@ Blockly.Blocks.DETECT_GYRO_ANGLE_VAL_MINXIN = {
             input.dispose(); // 删除原来的行
             this.inputList.splice(0, 1);
             this.render();
-        }      
+        }
     }
   },
 
@@ -128,10 +128,10 @@ Blockly.Blocks.DETECT_GYRO_ANGLE_VAL_MINXIN = {
       return null;
   },
   domToMutation(element) {
-   
+
   },
   decompose(workspace) {
-    
+
   },
   compose() {
 
@@ -791,8 +791,8 @@ Blockly.Blocks['bell_detect_touch_press_state'] = {
           "type": "field_dropdown",
           "name": "TOUCHPRESS",
           "options": [
-            ['按下', 'LOUDNESS'],
-            ['没按下', 'TIMER']
+            ['按下', 'PRESS'],
+            ['没按下', 'UNPRESS']
           ]
         }
       ],
@@ -849,18 +849,29 @@ Blockly.Blocks['bell_detect_gyro_angle_value'] = {
 Blockly.Extensions.registerMutator('bell_detect_gyro_angle_value_mutator', Blockly.Blocks.DETECT_GYRO_ANGLE_VAL_MINXIN, null, []);
 
 
-// 获取颜色传感器（1）的值
+// 获取颜色传感器（1）（模式）的值
 Blockly.Blocks['bell_detect_get_color_value'] = {
   shouldCreateMultiRow: true,
   init: function () {
     this.jsonInit({
-      "message0": "获取颜色传感器 %1 的值",
-      "args0": [{
-        "type": "input_value",
-        "name": "MOTOR",
-        "defaultValue": "1",
-        "module": "color",
-      }],
+      "message0": "获取颜色传感器 %1 %2 的值",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "MOTOR",
+          "defaultValue": "1",
+          "module": "color",
+        },
+        {
+          "type": "field_dropdown",
+          "name": "colorMode",
+          "options": [
+            ["环境光", '1'],
+            ["反射光", '2'],
+            ["颜色识别", '3'],
+          ]
+        }
+      ],
       "category": Blockly.Categories.sensing,
       "extensions": ["colours_sensing", "output_number"],
     });
@@ -919,7 +930,7 @@ Blockly.Blocks['bell_detect_reset_gyro'] = {
   }
 };
 
-// 设置颜色传感器的检测模式
+// 设置颜色传感器的检测模式（已删除）
 Blockly.Blocks['bell_detect_set_color_mode'] = {
   shouldCreateMultiRow: true,
   init: function () {

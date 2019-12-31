@@ -552,7 +552,7 @@ motorPowerForSecMutator.prototype.doAppendField = function(data) {
       item.rotate_direction
     ); // 默认0 顺时针
     
-    var powerField = new Blockly.FieldBellSpeedDialog(item.power, 0, 180); //new Blockly.FieldNumberDialog(item.power);//
+    var powerField = new Blockly.FieldBellSpeedDialog(item.power, 0, 100); //new Blockly.FieldNumberDialog(item.power);//
     var secondsField = new Blockly.FieldNumberDialog(item.rotate_for_seconds); //new Blockly.Input(Blockly.INPUT_VALUE, '')
     this.appendDummyInput()
       .appendField('驱动球')
@@ -592,7 +592,7 @@ motorPowerMutator.prototype.doAppendField = function(data) {
       item.rotate_direction
     ); // 默认0 顺时针
     
-    var powerField = new Blockly.FieldBellSpeedDialog(item.power, 0, 180); //new Blockly.FieldNumberDialog(item.power);//
+    var powerField = new Blockly.FieldBellSpeedDialog(item.power, 0, 100); //new Blockly.FieldNumberDialog(item.power);//
   
     this.appendDummyInput()
       .appendField('驱动球')
@@ -1617,10 +1617,17 @@ Blockly.Blocks['motion_motorBall_get_angle'] = {
     this.jsonInit({
       "message0": "获取驱动球 %1 的旋转度数",
       "args0": [
-        {
+       /*  {
           "type": "input_value",
           "name": "mabot_motor_ball_index",
-        },
+        }, */
+        {
+          "type": "field_dialog",
+          "name": "mabot_motor_ball_index",
+          "defaultValue": "1",
+          "module": "motor",
+          "multiMode": false,
+        }
       ],
       "category": Blockly.Categories.motion,
       "extensions": ["colours_motion", "output_number"]
@@ -1633,10 +1640,17 @@ Blockly.Blocks['motion_motorBall_get_speed'] = {
     this.jsonInit({
       "message0": "获取驱动球 %1 的旋转速度",
       "args0": [
-        {
+        /* {
           "type": "input_value",
           "name": "mabot_motor_ball_index",
-        },
+        }, */
+        {
+          "type": "field_dialog",
+          "name": "mabot_motor_ball_index",
+          "defaultValue": "1",
+          "module": "motor",
+          "multiMode": false,
+        }
       ],
       "category": Blockly.Categories.motion,
       "extensions": ["colours_motion", "output_number"]
@@ -1737,9 +1751,16 @@ Blockly.Blocks['motion_horizontalJoint_get_angle'] = {
     this.jsonInit({
       "message0": "获取旋转关节球 %1 的角度",
       "args0": [
-        {
+        /* {
           "type": "input_value",
           "name": "mabot_horizontalJoint_index",
+        }, */
+        {
+          "type": "field_dialog",
+          "name": "mabot_horizontalJoint_index",
+          "defaultValue": "1",
+          "module": "waist_joint",
+          "multiMode": false,
         },
       ],
       "category": Blockly.Categories.motion,
@@ -1753,9 +1774,16 @@ Blockly.Blocks['motion_swingJoint_get_angle'] = {
     this.jsonInit({
       "message0": "获取摇摆关节球 %1 的角度",
       "args0": [
-        {
+        /* {
           "type": "input_value",
           "name": "mabot_swingJoint_index",
+        }, */
+        {
+          "type": "field_dialog",
+          "name": "mabot_swingJoint_index",
+          "defaultValue": "1",
+          "module": "arm_joint",
+          "multiMode": false,
         },
       ],
       "category": Blockly.Categories.motion,
