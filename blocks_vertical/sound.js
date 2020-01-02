@@ -277,7 +277,7 @@ Blockly.Blocks['bell_light_closed'] = {
 Blockly.Blocks['bell_light_color_mode_concurrence'] = {
     init: function () {
         this.jsonInit({
-            "message0": "设置 %1 灯光颜色为 %2 , 模式为 %3, 持续%4 %5秒",
+            "message0": "设置 %1 灯光颜色为 %2 , 模式为 %3, 持续%4秒, %5",
             "args0": [
                 /* {
                     "type": "field_dropdown",
