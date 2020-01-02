@@ -213,10 +213,10 @@ Blockly.Grid.createDom = function(rnd, gridOptions, defs) {
       }, defs);
   if (gridOptions['length'] > 0 && gridOptions['spacing'] > 0) {
     Blockly.utils.createSvgElement('line',
-        {'stroke': gridOptions['colour']}, gridPattern);
+        {'stroke': gridOptions['colour'], 'stroke-opacity': '0.3'}, gridPattern);
     if (gridOptions['length'] > 1) {
       Blockly.utils.createSvgElement('line',
-          {'stroke': gridOptions['colour']}, gridPattern);
+          {'stroke': gridOptions['colour'], 'stroke-opacity': '0.3'}, gridPattern);
     }
     // x1, y1, x1, x2 properties will be set later in update.
   } else {
