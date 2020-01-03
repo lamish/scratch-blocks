@@ -637,7 +637,7 @@ motorSpeedForSecMutator.prototype.doAppendField = function(data) {
       .appendField(clockwiseField, 'rotate_direction' + i)
       .appendField('旋转，速度')
       .appendField(speedField, 'speed' + i)
-      .appendField('分/秒，持续')
+      .appendField('转/分，持续')
       .appendField(secondsField, 'rotate_for_seconds' + i)
       .appendField('秒');
   }
@@ -673,7 +673,7 @@ motorSpeedMutator.prototype.doAppendField = function(data) {
       .appendField(clockwiseField, 'rotate_direction' + i)
       .appendField('旋转，速度')
       .appendField(speedField, 'speed' + i)
-      .appendField('分/秒');
+      .appendField('转/分');
   }
 }
 
