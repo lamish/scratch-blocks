@@ -389,7 +389,7 @@ MinxinObj.prototype = {
       item.seq = child.getAttribute('seq');
       // 顺时针 or 逆时针
       this.options.forEach(key => {
-        item[key] = child.getAttribute(key);
+        item[key] = child.getAttribute(key.toLowerCase());
       });
 
       this.mixinMultiLinesData.push(item);
@@ -665,7 +665,6 @@ motorSpeedMutator.prototype.doAppendField = function(data) {
     ); // 默认0 顺时针
     
     var speedField = new Blockly.FieldBellSpeedDialog(item.speed, 0, 100); //new Blockly.FieldNumberDialog(item.power);//
-
     this.appendDummyInput()
       .appendField('驱动球')
       .appendField(seqField,'mabot_motor_ball_index' + i)
@@ -690,7 +689,6 @@ horizontalJointSetAngle.prototype.doAppendField = function(data) {
   // 添加行
   for (var i = 1, item; item = data[i]; i++) {
     var seqField = new Blockly.FieldModuleDialog(item.seq, Blockly.FieldModuleDialog.MODULE_WAIST_JOINT, true);
-    
     var angleField = new Blockly.FieldBellSpeedDialog(item.mabot_horizontalJoint_angle, -75, 75); //new Blockly.FieldNumberDialog(item.power);//
   
     this.appendDummyInput()
