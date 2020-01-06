@@ -185,6 +185,10 @@ Blockly.BlockDragger.prototype.startBlockDrag = function(currentDragDeltaXY) {
         'blocklyToolboxGrab';
     toolbox.addStyle(style);
   }
+  let event = new CustomEvent('block_dragger_start', {
+    detail: {}
+  });
+  document.dispatchEvent(event);
 };
 
 /**
@@ -292,6 +296,11 @@ Blockly.BlockDragger.prototype.endBlockDrag = function(e, currentDragDeltaXY) {
       ws.refreshToolboxSelection_();
     });
   }
+
+  let event = new CustomEvent('block_dragger_end', {
+    detail: {}
+  });
+  document.dispatchEvent(event);
 };
 
 /**
@@ -357,6 +366,18 @@ Blockly.BlockDragger.prototype.maybeDeleteBlock_ = function() {
  */
 Blockly.BlockDragger.prototype.updateCursorDuringBlockDrag_ = function(isOutside) {
   this.wouldDeleteBlock_ = this.draggedConnectionManager_.wouldDeleteBlock();
+  let event = null;
+  if (this.wouldDeleteBlock_){
+    event = new CustomEvent('block_dragger_will_delete', {
+      detail: {}
+    });
+  }
+  else {
+    event = new CustomEvent('block_dragger_wont_delete', {
+      detail: {}
+    });
+  }
+  document.dispatchEvent(event);
   var trashcan = this.workspace_.trashcan;
   if (this.wouldDeleteBlock_) {
     this.draggingBlock_.setDeleteStyle(true);
