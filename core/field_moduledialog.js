@@ -21,7 +21,6 @@ Blockly.FieldModuleDialog = function (defaultValue, module, multiMode, defaultTe
 goog.inherits(Blockly.FieldModuleDialog, Blockly.FieldDropdown);
 
 Blockly.FieldModuleDialog.fromJson = function (element) {
-  console.log(`element`, element)
   return new Blockly.FieldModuleDialog(element.defaultValue,
     element.module, element.multiMode, element.defaultText);
 };

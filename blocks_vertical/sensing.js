@@ -69,14 +69,24 @@ BellMsg.SENSING_DISTANCETO = "到 %1 的距离";
 BellMsg.SENSING_TOUCHINGOBJECT = "碰到 %1";
 
 Blockly.Blocks.DETECT_GYRO_ANGLE_VAL_MINXIN = {
+  angleValue: 0,
   onchange(e) {
-    if(e.element === 'field') {
+    if(e.element === 'field' || e.element === 'reload') {
+        if(e.blockId !== this.id) {
+            // 解决语句块之间相互影响的问题
+            return;
+        }
         const name = e.name;
         // 角度类型改变角度的范围也要改变
         if(name === 'DIRECTION') {
-
             const input = this.inputList[0];
             const fieldRow = input.fieldRow;
+            let value = '';
+            if(e.element === 'field') {
+                value = '0';
+            } else {
+                value = this.angleValue;
+            }
 
             const directionField = new Blockly.FieldDropdown(
                 [
@@ -100,13 +110,13 @@ Blockly.Blocks.DETECT_GYRO_ANGLE_VAL_MINXIN = {
             let angleField;
             switch(fieldRow[1].getValue()) {
               case "gyro_x":
-                angleField = new Blockly.FieldBellSpeedDialog(0, -90, 90);
+                angleField = new Blockly.FieldBellSpeedDialog(value, -90, 90);
                 break;
               case "gyro_y":
-                angleField = new Blockly.FieldBellSpeedDialog(0, -360, 360);
+                angleField = new Blockly.FieldBellSpeedDialog(value, -360, 360);
                 break;
               case "gyro_z":
-                angleField = new Blockly.FieldBellSpeedDialog(0, -180, 180);
+                angleField = new Blockly.FieldBellSpeedDialog(value, -180, 180);
                 break;
             }
 
@@ -116,23 +126,42 @@ Blockly.Blocks.DETECT_GYRO_ANGLE_VAL_MINXIN = {
                 .appendField(computeField, 'COMPUTE')
                 .appendField(angleField, 'ANGLE');
 
-            Blockly.Events.fire(new Blockly.Events.BlockChange(this, 'field', 'ANGLE', fieldRow[3].getValue(), '0')); // 重置角度值
+            Blockly.Events.fire(new Blockly.Events.BlockChange(this, 'field', 'ANGLE', fieldRow[3].getValue(), value)); // 重置角度值
             input.dispose(); // 删除原来的行
             this.inputList.splice(0, 1);
+            // console.log(`this.inputList`, this.inputList)
             this.render();
         }
+
     }
+    
   },
 
   mutationToDom() {
-      return null;
+    const input = this.inputList[0] || {};
+    const fieldRow = input.fieldRow || [];
+    let direction = '';
+    fieldRow.forEach(item => {
+      if(item.name === 'ANGLE') {
+        this.angleValue = item.text_;
+      }
+      if(item.name === 'DIRECTION') {
+        direction = item.value_;
+      }
+    });
+    // console.log(`this.angleValue`, this.angleValue, direction)
+    Blockly.Events.fire(new Blockly.Events.BlockChange(this, 'reload', 'DIRECTION', '', direction)); // 路由返回时触发刷新角度控件的范围
+    return null
   },
-  domToMutation(element) {
 
+  domToMutation(element) {
+      
   },
+
   decompose(workspace) {
 
   },
+
   compose() {
 
   }
