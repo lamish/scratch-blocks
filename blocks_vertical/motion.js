@@ -452,7 +452,7 @@ swingJointSetAngle.prototype = Object.create(MinxinObj.prototype);
 swingJointSetAngle.prototype.doAppendField = function(data) {
   // 添加行
   for (var i = 1, item; item = data[i]; i++) {
-    var seqField = new Blockly.FieldModuleDialog(item.seq, Blockly.FieldModuleDialog.MODULE_WAIST_JOINT, true);
+    var seqField = new Blockly.FieldModuleDialog(item.seq, Blockly.FieldModuleDialog.MODULE_ARM_JOINT, true);
     
     var angleField = new Blockly.FieldBellSpeedDialog(item.mabot_swingJoint_angle, -75, 75); //new Blockly.FieldNumberDialog(item.power);//
   
