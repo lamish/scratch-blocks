@@ -219,6 +219,11 @@ Blockly.Toolbox.prototype.showAll_ = function () {
  * @return {number} The width of the toolbox.
  */
 Blockly.Toolbox.prototype.getWidth = function () {
+  if(this.flyout_){
+      let menuParents = document.getElementsByClassName("scratchCategoryMenu");
+      let toolboxWidth = this.flyout_.getWidth() + menuParents[0].offsetWidth;
+      return toolboxWidth;
+  }
   return this.width;
 };
 
