@@ -47,7 +47,7 @@ Blockly.Blocks.defaultToolbox = '<xml id="toolbox-categories" style="display: no
                 </shadow>
             </value>
             <value name="rotate_for_seconds">
-                <shadow type="math_number">
+               <shadow type="math_number">
                     <field name="NUM">0</field>
                 </shadow>
             </value>
@@ -67,6 +67,76 @@ Blockly.Blocks.defaultToolbox = '<xml id="toolbox-categories" style="display: no
                 </shadow>
             </value>
         </block>
+
+        <block type="motion_horizontalJoint_set_angle">
+            <value name="mabot_horizontalJoint_index">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                </shadow>
+            </value>
+            <value name="mabot_horizontalJoint_angle">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                </shadow>
+            </value>
+        </block>
+
+        <block type="motion_swingJoint_set_angle">
+          <value name="mabot_swingJoint_index">
+              <shadow type="math_number">
+                  <field name="NUM">1</field>
+              </shadow>
+          </value>
+          <value name="mabot_swingJoint_angle">
+              <shadow type="math_number">
+                  <field name="NUM">1</field>
+              </shadow>
+          </value>
+      </block>
+
+        <block type="bell_detect_color_equal_value">
+                <value name="MOTOR">
+                    <shadow type="math_number">
+                        <field name="NUM">1</field>
+                    </shadow>
+                </value>
+                <value name="TOUCHPRESS">
+                    <shadow type="field_dropdown"> </shadow>
+                </value>
+                <value name="COLOR">
+                    <shadow type="field_dropdown"> </shadow>
+                </value>
+            </block>          
+            <block type="bell_detect_infrared_equal_cm">
+                <value name="MOTOR">
+                    <shadow type="math_number">
+                        <field name="NUM">1</field>
+                    </shadow>
+                </value>
+                <value name="TOUCHPRESS">
+                    <shadow type="field_dropdown"> </shadow>
+                </value>
+                <value name="DISTANCE">
+                    <shadow type="math_number"> 
+                        <field name="NUM">1</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="bell_detect_touch_press_state">
+                <value name="MOTOR">
+                    <shadow type="math_number">
+                        <field name="NUM">1</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="bell_detect_gyro_angle_value">
+                <value name="ANGLE">
+                    <shadow type="math_number"> 
+                        <field name="NUM">0</field> 
+                    </shadow>
+                </value>
+            </block>
+
     `+
 
     '<block type="motion_movesteps" id="motion_movesteps">' +

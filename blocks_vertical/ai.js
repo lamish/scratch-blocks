@@ -74,6 +74,7 @@ Blockly.Blocks['ai_voice_synthesis_set_voice_type'] = {
                     "type": "field_dropdown",
                     "name": "TONE",
                     "options": [
+                        ["低音", '_lowPitch_'],
                         ["中音", '_middlePitch_'],
                         ["高音", '_highPitch_']
                     ]

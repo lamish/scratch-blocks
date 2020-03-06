@@ -68,7 +68,7 @@ dart_compressed.js \
 php_compressed.js \
 python_compressed.js \
 javascript_compressed.js \
-lua_compressed.js"
+
 
 for filename in $built_files
 do
