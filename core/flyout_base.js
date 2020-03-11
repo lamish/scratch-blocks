@@ -274,7 +274,8 @@ Blockly.Flyout.prototype.scrollAnimationFraction = 0.3;
  */
 Blockly.Flyout.prototype.recyclingEnabled_ = true;
 
-Blockly.Flyout.prototype.ratioOfWidth = 0.245;
+Blockly.Flyout.prototype.ratioOfWidth = 0.245;//ipad
+// Blockly.Flyout.prototype.ratioOfWidth = 0.15;//PC
 
 /**
  * Creates the flyout's DOM.  Only needs to be called once. The flyout can
@@ -365,11 +366,32 @@ Blockly.Flyout.prototype.setParentToolbox = function(toolbox) {
   this.parentToolbox_ = toolbox;
 };
 
+
+/**
+ * 判断PC或者移动端
+ * @returns {boolean}
+ */
+Blockly.Flyout.prototype.isPC = function() {
+  let userAgentInfo = navigator.userAgent;
+  const Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod");
+  let flag = true;
+  for (let v = 0; v < Agents.length; v++) {
+    if (userAgentInfo.indexOf(Agents[v]) > 0) {
+      flag = false;
+      break;
+    }
+  }
+  return flag;
+};
+
 /**
  * Get the width of the flyout.
  * @return {number} The width of the flyout.
  */
 Blockly.Flyout.prototype.getWidth = function() {
+  if(this.isPC()){
+    this.ratioOfWidth = 0.15;
+  }
   let width = Math.max(document.body.scrollWidth,document.documentElement.clientWidth) * this.ratioOfWidth;
   // console.log("width of flyout : " , width, "ratio: ", this.ratioOfWidth);
   return width;
