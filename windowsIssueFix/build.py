@@ -229,6 +229,7 @@ class Gen_compressed(threading.Thread):
     self.gen_blocks("horizontal")
     self.gen_blocks("vertical")
     self.gen_blocks("common")
+    self.gen_generator("lua")
 
   def gen_core(self, vertical):
     if vertical:
@@ -261,6 +262,30 @@ class Gen_compressed(threading.Thread):
       params.append(("js_file", filename))
 
     self.do_compile(params, target_filename, filenames, "")
+
+  def gen_generator(self, language):
+    target_filename = language + "_compressed.js"
+    # Define the parameters for the POST request.
+    params = [
+      ("compilation_level", "SIMPLE"),
+    ]
+
+    # Read in all the source files.
+    # Add Blockly.Generator to be compatible with the compiler.
+    params.append(("js_file", os.path.join("build", "gen_generator.js")))
+    filenames = glob.glob(
+      os.path.join("generators", language, "*.js"))
+    filenames.sort()  # Deterministic build.
+    filenames.insert(0, os.path.join("generators", language + ".js"))
+    for filename in filenames:
+      # Append filenames as false arguments the step before compiling will
+      # either transform them into arguments for local or remote compilation
+      params.append(("js_file", filename))
+    filenames.insert(0, "[goog.provide]")
+
+    # Remove Blockly.Generator to be compatible with Blockly.
+    remove = "var Blockly={Generator:{}};"
+    self.do_compile(params, target_filename, filenames, remove)
 
   def gen_blocks(self, block_type):
     if block_type == "horizontal":
@@ -328,7 +353,7 @@ class Gen_compressed(threading.Thread):
       for group in [["google-closure-compiler"], dash_args]:
         args.extend(filter(lambda item: item, group))
 
-      proc = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE, shell=True)
+      proc = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE,  shell=True)
       (stdout, stderr) = proc.communicate()
 
       # Build the JSON response.
@@ -571,7 +596,7 @@ if __name__ == "__main__":
 
     # Sanity check the local compiler
     test_args = [closure_compiler, os.path.join("build", "test_input.js")]
-    test_proc = subprocess.Popen(test_args, stdin=subprocess.PIPE, stdout=subprocess.PIPE, shell=True)
+    test_proc = subprocess.Popen(test_args, stdin=subprocess.PIPE, stdout=subprocess.PIPE,  shell=True)
     (stdout, _) = test_proc.communicate()
     assert stdout == read(os.path.join("build", "test_expect.js"))
 
